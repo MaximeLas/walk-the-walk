@@ -38,6 +38,8 @@ export function getSupabaseClient(): SupabaseClient {
  * Server-side Supabase client for API routes (Pages Router)
  * Properly handles cookies to maintain session across requests
  *
+ * Uses the latest @supabase/ssr pattern with getAll/setAll for cookie management
+ *
  * Usage in API routes:
  * ```
  * const supabase = createServerSupabaseClient(req, res);
@@ -53,14 +55,18 @@ export function createServerSupabaseClient(
     supabaseAnonKey!,
     {
       cookies: {
-        get(name: string) {
-          return req.cookies[name];
+        getAll() {
+          // Convert Next.js cookies object to array format
+          return Object.keys(req.cookies).map((name) => ({
+            name,
+            value: req.cookies[name] || '',
+          }));
         },
-        set(name: string, value: string, options: CookieOptions) {
-          res.appendHeader('Set-Cookie', serialize(name, value, options));
-        },
-        remove(name: string, options: CookieOptions) {
-          res.appendHeader('Set-Cookie', serialize(name, '', options));
+        setAll(cookiesToSet) {
+          // Set all cookies using the serialize function
+          cookiesToSet.forEach(({ name, value, options }) => {
+            res.appendHeader('Set-Cookie', serialize(name, value, options));
+          });
         },
       },
     }

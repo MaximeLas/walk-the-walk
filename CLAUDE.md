@@ -41,7 +41,7 @@ Copy `.env.example` to `.env.local` and populate:
 
 ## Architecture
 
-### Folder Structure (to be implemented)
+### Folder Structure
 
 ```
 /src
@@ -52,18 +52,12 @@ Copy `.env.example` to `.env.local` and populate:
     /dashboard              # Owner dashboard
     /backlog/[id].tsx       # Owner backlog view (auth required)
     /magic/[token].tsx      # Recipient view (token-verified)
-  /components
-    BacklogForm.tsx
-    PromiseEditor.tsx
-    PromiseList.tsx
-    MagicBacklogView.tsx
-    SendRecapButton.tsx
   /lib
     supabaseClient.ts       # Supabase client factory
     email.ts                # Email provider wrapper
     token.ts                # Token generation & hashing
-    apiService.ts           # High-level service functions
   /types.ts
+  middleware.ts             # CRITICAL: Session refresh middleware (mandatory for @supabase/ssr)
 ```
 
 ### Database Schema
@@ -98,7 +92,9 @@ Promise status enum: `'open' | 'done' | 'cancelled' | 'snoozed'`
 ### Supabase Client Usage
 
 - **Client-side**: Create Supabase client with anon key; RLS policies enforce access
-- **Server-side (API routes)**: Use service role key for operations that bypass RLS (e.g., token-based recipient actions)
+- **Server-side (API routes)**: Use `createServerSupabaseClient(req, res)` with proper cookie handling (getAll/setAll pattern)
+- **Service role**: Use `getSupabaseServiceClient()` for privileged operations that bypass RLS (e.g., token verification, magic link creation)
+- **Middleware (CRITICAL)**: `src/middleware.ts` is mandatory for session refresh. Without it, expired tokens won't refresh automatically and users may experience unexpected logouts.
 
 ### API Endpoints (to be implemented)
 
@@ -134,6 +130,7 @@ MVP scope: Minimal unit tests for critical logic (token generation, hashing). In
 
 ## Important Notes
 
+- **Always use Context7 MCP for documentation**: Automatically use Context7 MCP tools (`resolve-library-id` and `get-library-docs`) when code generation, setup/configuration steps, or library/API documentation is needed. This provides up-to-date, version-specific documentation and code examples directly from the source.
 - **Always use latest API documentation** for Next.js, Supabase, and Postmark
 - Contact email is optional; sendNudge must check for valid email before sending
 - Magic links can be revoked by owner (set `revoked = true`)
@@ -144,4 +141,6 @@ MVP scope: Minimal unit tests for critical logic (token generation, hashing). In
 
 - Project initialized with Next.js 15.5.4, React 19.1.1
 - Supabase project created with schema deployed
-- No source code implemented yet (ready for implementation)
+- Core MVP implemented: authentication, backlog management, magic links
+- Middleware configured for Supabase SSR session management
+- Email system configured (currently using SMTP, will migrate to Postmark API after account verification)
