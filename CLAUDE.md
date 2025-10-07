@@ -75,14 +75,14 @@ Promise status enum: `'open' | 'done' | 'cancelled' | 'snoozed'`
    - Never store plaintext tokens
 
 3. **Two-tier Access**:
-   - Client-side: Uses `NEXT_PUBLIC_SUPABASE_ANON_KEY` with RLS enforcement
+   - Client-side: Uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` with RLS enforcement
    - Server-side API routes: Use `SUPABASE_SERVICE_ROLE_KEY` for privileged operations (token verification, magic link creation)
 
 ## Key Implementation Patterns
 
 ### Supabase Client Usage
 
-- **Client-side**: Create Supabase client with anon key; RLS policies enforce access
+- **Client-side**: Create Supabase client with publishable key; RLS policies enforce access
 - **Server-side (API routes)**: Use `createServerSupabaseClient(req, res)` with proper cookie handling (getAll/setAll pattern)
 - **Service role**: Use `getSupabaseServiceClient()` for privileged operations that bypass RLS (e.g., token verification, magic link creation)
 - **Middleware (CRITICAL)**: `src/middleware.ts` is mandatory for session refresh. Without it, expired tokens won't refresh automatically and users may experience unexpected logouts.

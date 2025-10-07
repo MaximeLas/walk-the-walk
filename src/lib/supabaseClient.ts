@@ -2,7 +2,7 @@
  * Supabase client factory using @supabase/ssr
  *
  * Two-tier access model:
- * 1. Browser client: Uses NEXT_PUBLIC_SUPABASE_ANON_KEY with RLS enforcement
+ * 1. Browser client: Uses NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY with RLS enforcement
  * 2. Server client (API routes): Properly handles cookies for session persistence
  * 3. Service role client: Bypasses RLS for magic link operations
  *
@@ -14,24 +14,24 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl) {
   throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL environment variable');
 }
 
-if (!supabaseAnonKey) {
-  throw new Error('Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable');
+if (!supabasePublishableKey) {
+  throw new Error('Missing NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY environment variable');
 }
 
 /**
  * Client-side Supabase client (for browser)
- * Uses anonymous key with RLS policies enforced
+ * Uses publishable key with RLS policies enforced
  * Safe to use in browser components
  */
 export function getSupabaseClient(): SupabaseClient {
-  return createBrowserClient(supabaseUrl!, supabaseAnonKey!);
+  return createBrowserClient(supabaseUrl!, supabasePublishableKey!);
 }
 
 /**
@@ -52,7 +52,7 @@ export function createServerSupabaseClient(
 ): SupabaseClient {
   return createServerClient(
     supabaseUrl!,
-    supabaseAnonKey!,
+    supabasePublishableKey!,
     {
       cookies: {
         getAll() {
