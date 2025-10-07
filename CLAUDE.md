@@ -29,15 +29,6 @@ npm run build
 npm start
 ```
 
-## Environment Setup
-
-Copy `.env.example` to `.env.local` and populate:
-- `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (public client)
-- `SUPABASE_SERVICE_ROLE_KEY` (server-side only, never exposed to client)
-- `POSTMARK_API_TOKEN` (email sending)
-- `NEXTAUTH_SECRET` (session management)
-
-**Critical**: Never commit actual credentials or expose `SUPABASE_SERVICE_ROLE_KEY` to the browser.
 
 ## Architecture
 
