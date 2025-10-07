@@ -130,8 +130,47 @@ MVP scope: Minimal unit tests for critical logic (token generation, hashing). In
 
 ## Current State
 
-- Project initialized with Next.js 15.5.4, React 19.1.1
-- Supabase project created with schema deployed
-- Core MVP implemented: authentication, backlog management, magic links
-- Middleware configured for Supabase SSR session management
-- Email system configured with Postmark API for transactional emails
+**Phase 1 (v0 Foundation): ✅ COMPLETE**
+- Core MVP features implemented and tested
+- Demo completed successfully with co-founders Kevin & Michelle
+- Ready for Phase 2: Mobile-first MVP implementation
+
+**See PROJECT_SPEC.md for detailed implementation status and feature list.**
+
+## Development Workflow & Git Protocol
+
+### Making Commits
+
+When creating commits, follow these steps:
+
+1. **Assess whether PROJECT_SPEC.md needs updating:**
+   - ✅ **UPDATE if:** You implemented a new feature, added meaningful functionality, or made architecture decisions that advance the project
+   - ❌ **SKIP if:** You made refactoring changes, bug fixes, documentation updates, or minor tweaks that don't change what's been built
+
+2. **If update needed:** Add entry to PROJECT_SPEC.md "Phase 2: Implementation Progress" section with:
+   - Feature name and description
+   - Key files modified (with paths)
+   - Architecture decisions made
+   - Completion status
+
+3. **Stage all changes** (including PROJECT_SPEC.md if updated)
+
+4. **Create commit** with clear, descriptive message following the existing commit style
+
+5. **Push when appropriate** (user will specify when to push)
+
+### Document Maintenance
+
+**PROJECT_SPEC.md** = Single source of truth for:
+- Technical specification
+- Database schema
+- Implementation status and progress
+- Architecture decisions
+
+**CLAUDE.md** (this file) = Instructions for how Claude Code should work:
+- Tech stack and patterns
+- Development commands
+- Code conventions
+- Workflow guidelines
+
+Keep both files updated as the project evolves, but remember: PROJECT_SPEC.md tracks *what* was built, CLAUDE.md guides *how* to build.
