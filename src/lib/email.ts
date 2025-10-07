@@ -7,7 +7,14 @@ import * as postmark from 'postmark';
 import { PromiseItem } from '@/types';
 
 const POSTMARK_API_TOKEN = process.env.POSTMARK_API_TOKEN;
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+// Use Vercel's production URL, then deployment URL, then custom BASE_URL, fallback to localhost
+// VERCEL_PROJECT_PRODUCTION_URL gives the production domain even in preview deployments
+// VERCEL_URL gives the actual deployment URL (useful for testing previews)
+const BASE_URL = process.env.VERCEL_ENV === 'production' && process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.BASE_URL || 'http://localhost:3000';
 
 // Postmark requires a verified sender signature
 // This should be a verified email address in your Postmark account
