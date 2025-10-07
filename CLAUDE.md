@@ -143,4 +143,4 @@ MVP scope: Minimal unit tests for critical logic (token generation, hashing). In
 - Supabase project created with schema deployed
 - Core MVP implemented: authentication, backlog management, magic links
 - Middleware configured for Supabase SSR session management
-- Email system configured (currently using SMTP, will migrate to Postmark API after account verification)
+- Email system configured with Postmark API for transactional emails

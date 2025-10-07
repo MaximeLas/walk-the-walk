@@ -1,50 +1,38 @@
 /**
- * Email service wrapper with nodemailer + Mailtrap SMTP
+ * Email service wrapper with Postmark API
  * Handles transactional emails (recap/nudge emails with magic links)
- *
- * Uses Mailtrap Sandbox for development/testing - emails are captured
- * in Mailtrap inbox instead of being sent to real recipients
  */
 
-import nodemailer from 'nodemailer';
-import type { Transporter } from 'nodemailer';
+import * as postmark from 'postmark';
 import { PromiseItem } from '@/types';
 
-const SMTP_HOST = process.env.POSTMARK_SMTP_HOST;
-const SMTP_PORT = process.env.POSTMARK_SMTP_PORT;
-const SMTP_USER = process.env.POSTMARK_SMTP_USER;
-const SMTP_PASS = process.env.POSTMARK_SMTP_PASS;
+const POSTMARK_API_TOKEN = process.env.POSTMARK_API_TOKEN;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
-let transporter: Transporter | null = null;
+// Postmark requires a verified sender signature
+// This should be a verified email address in your Postmark account
+const FROM_EMAIL = process.env.POSTMARK_FROM_EMAIL || 'noreply@walkthewalk.app';
+
+let client: postmark.ServerClient | null = null;
 
 /**
- * Get or create nodemailer transporter
- * Uses Mailtrap SMTP for development
+ * Get or create Postmark client
  */
-function getTransporter(): Transporter | null {
-  if (transporter) {
-    return transporter;
+function getPostmarkClient(): postmark.ServerClient | null {
+  if (client) {
+    return client;
   }
 
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
+  if (!POSTMARK_API_TOKEN) {
     console.warn(
-      'Warning: SMTP credentials not set. Email sending will fail. ' +
-        'Set POSTMARK_SMTP_HOST, POSTMARK_SMTP_PORT, POSTMARK_SMTP_USER, POSTMARK_SMTP_PASS'
+      'Warning: POSTMARK_API_TOKEN not set. Email sending will fail. ' +
+        'Set POSTMARK_API_TOKEN in your environment variables.'
     );
     return null;
   }
 
-  transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: parseInt(SMTP_PORT, 10),
-    auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASS,
-    },
-  });
-
-  return transporter;
+  client = new postmark.ServerClient(POSTMARK_API_TOKEN);
+  return client;
 }
 
 export interface SendNudgeEmailParams {
@@ -65,12 +53,12 @@ export interface SendNudgeEmailParams {
 export async function sendNudgeEmail(
   params: SendNudgeEmailParams
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
-  const transport = getTransporter();
+  const postmarkClient = getPostmarkClient();
 
-  if (!transport) {
+  if (!postmarkClient) {
     return {
       success: false,
-      error: 'Email service not configured (missing SMTP credentials)',
+      error: 'Email service not configured (missing POSTMARK_API_TOKEN)',
     };
   }
 
@@ -106,22 +94,23 @@ export async function sendNudgeEmail(
   });
 
   try {
-    const result = await transport.sendMail({
-      from: '"WalkTheWalk" <noreply@walkthewalk.app>',
-      to: recipientEmail,
-      subject: `Quick recap — promises from ${ownerName}`,
-      text: textBody,
-      html: htmlBody,
+    const result = await postmarkClient.sendEmail({
+      From: FROM_EMAIL,
+      To: recipientEmail,
+      Subject: `Quick recap — promises from ${ownerName}`,
+      TextBody: textBody,
+      HtmlBody: htmlBody,
+      MessageStream: 'outbound',
     });
 
-    console.log('Email sent successfully:', result.messageId);
+    console.log('Email sent successfully via Postmark:', result.MessageID);
 
     return {
       success: true,
-      messageId: result.messageId,
+      messageId: result.MessageID,
     };
   } catch (error) {
-    console.error('Failed to send email:', error);
+    console.error('Failed to send email via Postmark:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',

@@ -149,7 +149,7 @@ export default function BacklogPage() {
         throw new Error(data.error || 'Failed to send nudge');
       }
 
-      alert('Nudge email sent successfully! Check Mailtrap inbox.');
+      alert(`Nudge email sent successfully to ${contact.email}!`);
     } catch (error) {
       console.error('Failed to send nudge:', error);
       alert(error instanceof Error ? error.message : 'Failed to send nudge');
