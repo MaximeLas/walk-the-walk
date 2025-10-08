@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { getSupabaseClient } from '@/lib/supabaseClient';
 import { User } from '@supabase/supabase-js';
 import { Backlog, Contact, PromiseItem } from '@/types';
+import { withTimeout, TEST_TIMEOUTS, testLog } from '@/lib/testMode';
 
 export default function BacklogPage() {
   const router = useRouter();
@@ -27,19 +28,41 @@ export default function BacklogPage() {
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
 
+  // Modal state for confirmations and messages
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState('');
+  const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
+
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error'>('success');
+
   useEffect(() => {
     const supabase = getSupabaseClient();
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
+    testLog('Checking session on backlog page...');
+    withTimeout(
+      supabase.auth.getSession(),
+      TEST_TIMEOUTS.auth,
+      'Session check timed out'
+    )
+      .then(({ data: { session } }) => {
+        if (!session) {
+          testLog('No session, redirecting to home');
+          router.push('/');
+          return;
+        }
+        testLog('Session found, loading backlog');
+        setUser(session.user);
+        if (backlogId) {
+          loadBacklog();
+        }
+      })
+      .catch((error) => {
+        console.error('Auth error:', error);
+        testLog('Auth error', error.message);
         router.push('/');
-        return;
-      }
-      setUser(session.user);
-      if (backlogId) {
-        loadBacklog();
-      }
-    });
+      });
 
     const {
       data: { subscription },
@@ -82,8 +105,11 @@ export default function BacklogPage() {
       setPromises((promisesData as PromiseItem[]) || []);
     } catch (error) {
       console.error('Failed to load backlog:', error);
-      alert('Failed to load backlog');
-      router.push('/dashboard');
+      testLog('Failed to load backlog', error);
+      setMessage('Failed to load backlog');
+      setMessageType('error');
+      setShowMessageModal(true);
+      setTimeout(() => router.push('/dashboard'), 2000);
     } finally {
       setLoading(false);
     }
@@ -119,54 +145,76 @@ export default function BacklogPage() {
       setShowAddForm(false);
     } catch (error) {
       console.error('Failed to add promise:', error);
-      alert(error instanceof Error ? error.message : 'Failed to add promise');
+      testLog('Failed to add promise', error);
+      setMessage(error instanceof Error ? error.message : 'Failed to add promise');
+      setMessageType('error');
+      setShowMessageModal(true);
     } finally {
       setAdding(false);
     }
   }
 
-  async function handleSendNudge() {
+  function handleSendNudgeClick() {
     if (!contact?.email) {
-      alert('Contact does not have an email address. Please add one first.');
+      setMessage('Contact does not have an email address. Please add one first.');
+      setMessageType('error');
+      setShowMessageModal(true);
       return;
     }
 
-    if (!confirm('Send nudge email to ' + contact.email + '?')) {
-      return;
-    }
+    setConfirmMessage(`Send nudge email to ${contact.email}?`);
+    setConfirmAction(() => async () => {
+      setShowConfirmModal(false);
+      setSending(true);
+      testLog('Sending nudge email', contact.email);
 
-    setSending(true);
+      try {
+        const response = await withTimeout(
+          fetch('/api/sendNudge', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ backlogId }),
+          }),
+          TEST_TIMEOUTS.api,
+          'Send nudge timed out'
+        );
 
-    try {
-      const response = await fetch('/api/sendNudge', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ backlogId }),
-      });
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || 'Failed to send nudge');
+        }
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to send nudge');
+        testLog('Nudge sent successfully');
+        setMessage(`Nudge email sent successfully to ${contact.email}!`);
+        setMessageType('success');
+        setShowMessageModal(true);
+      } catch (error) {
+        console.error('Failed to send nudge:', error);
+        testLog('Send nudge error', error);
+        setMessage(error instanceof Error ? error.message : 'Failed to send nudge');
+        setMessageType('error');
+        setShowMessageModal(true);
+      } finally {
+        setSending(false);
       }
-
-      alert(`Nudge email sent successfully to ${contact.email}!`);
-    } catch (error) {
-      console.error('Failed to send nudge:', error);
-      alert(error instanceof Error ? error.message : 'Failed to send nudge');
-    } finally {
-      setSending(false);
-    }
+    });
+    setShowConfirmModal(true);
   }
 
   async function handleToggleStatus(promise: PromiseItem) {
     const newStatus = promise.status === 'done' ? 'open' : 'done';
+    testLog('Toggling promise status', `${promise.id} to ${newStatus}`);
 
     try {
-      const response = await fetch(`/api/promises/${promise.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
+      const response = await withTimeout(
+        fetch(`/api/promises/${promise.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus }),
+        }),
+        TEST_TIMEOUTS.api,
+        'Update promise timed out'
+      );
 
       if (!response.ok) {
         const data = await response.json();
@@ -177,9 +225,13 @@ export default function BacklogPage() {
 
       // Update local state
       setPromises(promises.map((p) => (p.id === promise.id ? updatedPromise : p)));
+      testLog('Promise updated successfully');
     } catch (error) {
       console.error('Failed to update promise:', error);
-      alert('Failed to update promise');
+      testLog('Failed to update promise', error);
+      setMessage('Failed to update promise');
+      setMessageType('error');
+      setShowMessageModal(true);
     }
   }
 
@@ -213,6 +265,7 @@ export default function BacklogPage() {
       {/* Header */}
       <div style={{ marginBottom: '32px' }}>
         <button
+          data-testid="back-to-dashboard-button"
           onClick={() => router.push('/dashboard')}
           style={{
             padding: '8px 16px',
@@ -234,6 +287,7 @@ export default function BacklogPage() {
 
         <div style={{ display: 'flex', gap: '12px' }}>
           <button
+            data-testid="add-promise-button"
             onClick={() => setShowAddForm(true)}
             disabled={showAddForm}
             style={{
@@ -251,7 +305,8 @@ export default function BacklogPage() {
           </button>
 
           <button
-            onClick={handleSendNudge}
+            data-testid="send-nudge-button"
+            onClick={handleSendNudgeClick}
             disabled={sending || !contact?.email}
             style={{
               padding: '10px 20px',
@@ -287,6 +342,7 @@ export default function BacklogPage() {
               Description *
             </label>
             <textarea
+              data-testid="promise-description-input"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
@@ -307,6 +363,7 @@ export default function BacklogPage() {
               Due Date (optional)
             </label>
             <input
+              data-testid="promise-due-date-input"
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
@@ -321,6 +378,7 @@ export default function BacklogPage() {
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <button
+              data-testid="submit-add-promise-button"
               type="submit"
               disabled={adding}
               style={{
@@ -337,6 +395,7 @@ export default function BacklogPage() {
               {adding ? 'Adding...' : 'Add Promise'}
             </button>
             <button
+              data-testid="cancel-add-promise-button"
               type="button"
               onClick={() => {
                 setShowAddForm(false);
@@ -392,6 +451,7 @@ export default function BacklogPage() {
                   )}
                 </div>
                 <button
+                  data-testid="mark-done-button"
                   onClick={() => handleToggleStatus(promise)}
                   style={{
                     padding: '8px 16px',
@@ -444,6 +504,7 @@ export default function BacklogPage() {
                   )}
                 </div>
                 <button
+                  data-testid="reopen-button"
                   onClick={() => handleToggleStatus(promise)}
                   style={{
                     padding: '8px 16px',
@@ -460,6 +521,132 @@ export default function BacklogPage() {
             ))}
           </div>
         </section>
+      )}
+
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div
+          data-testid="confirm-modal"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+          }}
+          onClick={() => setShowConfirmModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '32px',
+              borderRadius: '12px',
+              maxWidth: '400px',
+              width: '90%',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{ marginBottom: '16px', fontSize: '24px' }}>Confirm Action</h2>
+            <p style={{ marginBottom: '20px', fontSize: '16px' }}>{confirmMessage}</p>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                data-testid="confirm-yes-button"
+                onClick={() => confirmAction && confirmAction()}
+                style={{
+                  flex: 1,
+                  padding: '10px 20px',
+                  backgroundColor: '#10B981',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontWeight: 500,
+                }}
+              >
+                Yes
+              </button>
+              <button
+                data-testid="confirm-no-button"
+                onClick={() => setShowConfirmModal(false)}
+                style={{
+                  flex: 1,
+                  padding: '10px 20px',
+                  backgroundColor: '#f3f4f6',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Message Modal */}
+      {showMessageModal && (
+        <div
+          data-testid="message-modal"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+          }}
+          onClick={() => setShowMessageModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '32px',
+              borderRadius: '12px',
+              maxWidth: '400px',
+              width: '90%',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2
+              style={{
+                marginBottom: '16px',
+                fontSize: '24px',
+                color: messageType === 'error' ? '#EF4444' : '#10B981',
+              }}
+            >
+              {messageType === 'error' ? 'Error' : 'Success'}
+            </h2>
+            <p style={{ marginBottom: '20px', fontSize: '16px' }}>{message}</p>
+            <button
+              data-testid="close-message-button"
+              onClick={() => setShowMessageModal(false)}
+              style={{
+                width: '100%',
+                padding: '10px 20px',
+                backgroundColor: '#4F46E5',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontWeight: 500,
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
