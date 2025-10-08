@@ -6,11 +6,18 @@
 import { useEffect, useState } from 'react';
 import { getSupabaseClient } from '@/lib/supabaseClient';
 import { User } from '@supabase/supabase-js';
-import { withTimeout, TEST_TIMEOUTS, testLog } from '@/lib/testMode';
+import { withTimeout, TEST_TIMEOUTS, testLog, startTimer, testMetrics } from '@/lib/testMode';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Print test metrics on unmount (when navigating away)
+  useEffect(() => {
+    return () => {
+      testMetrics.printSummary();
+    };
+  }, []);
 
   // Modal state for sign-in
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -24,6 +31,7 @@ export default function Home() {
 
   useEffect(() => {
     const supabase = getSupabaseClient();
+    const timer = startTimer('Auth: Check session');
 
     // Check current session with timeout in test mode
     testLog('Checking session...');
@@ -33,11 +41,14 @@ export default function Home() {
       'Session check timed out'
     )
       .then(({ data: { session } }) => {
+        const duration = timer.stop();
+        testMetrics.record('auth-session-check', duration);
         testLog('Session loaded', session ? 'authenticated' : 'not authenticated');
         setUser(session?.user ?? null);
         setLoading(false);
       })
       .catch((error) => {
+        timer.stop();
         console.error('Auth error:', error);
         testLog('Auth error', error.message);
         setLoading(false);
@@ -59,6 +70,7 @@ export default function Home() {
     if (!email.trim()) return;
 
     setSigningIn(true);
+    const timer = startTimer('Auth: Sign in with OTP');
     testLog('Signing in with email', email);
 
     try {
@@ -68,6 +80,9 @@ export default function Home() {
         TEST_TIMEOUTS.auth,
         'Sign in timed out'
       );
+
+      const duration = timer.stop();
+      testMetrics.record('auth-sign-in', duration);
 
       if (error) {
         testLog('Sign in error', error.message);
@@ -83,6 +98,7 @@ export default function Home() {
         setEmail('');
       }
     } catch (error) {
+      timer.stop();
       console.error('Sign in failed:', error);
       setMessage(error instanceof Error ? error.message : 'Sign in failed');
       setMessageType('error');
