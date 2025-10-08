@@ -180,6 +180,7 @@ export default function Dashboard() {
           <p style={{ color: '#666' }}>{user?.email}</p>
         </div>
         <button
+          data-testid="sign-out-button"
           onClick={handleSignOut}
           style={{
             padding: '8px 16px',
@@ -196,6 +197,7 @@ export default function Dashboard() {
       {/* Create Backlog Button */}
       {!showCreateForm && (
         <button
+          data-testid="create-backlog-button"
           onClick={() => setShowCreateForm(true)}
           style={{
             padding: '12px 24px',
@@ -231,6 +233,7 @@ export default function Dashboard() {
               Contact Name *
             </label>
             <input
+              data-testid="contact-name-input"
               type="text"
               value={contactName}
               onChange={(e) => setContactName(e.target.value)}
@@ -250,6 +253,7 @@ export default function Dashboard() {
               Contact Email (optional)
             </label>
             <input
+              data-testid="contact-email-input"
               type="email"
               value={contactEmail}
               onChange={(e) => setContactEmail(e.target.value)}
@@ -271,6 +275,7 @@ export default function Dashboard() {
               Backlog Title (optional)
             </label>
             <input
+              data-testid="backlog-title-input"
               type="text"
               value={backlogTitle}
               onChange={(e) => setBacklogTitle(e.target.value)}
@@ -287,6 +292,7 @@ export default function Dashboard() {
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <button
+              data-testid="submit-create-backlog-button"
               type="submit"
               disabled={creating}
               style={{
@@ -303,6 +309,7 @@ export default function Dashboard() {
               {creating ? 'Creating...' : 'Create Backlog'}
             </button>
             <button
+              data-testid="cancel-create-backlog-button"
               type="button"
               onClick={() => setShowCreateForm(false)}
               disabled={creating}
@@ -330,6 +337,7 @@ export default function Dashboard() {
           {backlogs.map((backlog) => (
             <div
               key={backlog.id}
+              data-testid="backlog-card"
               onClick={() => router.push(`/backlog/${backlog.id}`)}
               style={{
                 padding: '20px',
