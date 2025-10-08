@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { getSupabaseClient } from '@/lib/supabaseClient';
 import { User } from '@supabase/supabase-js';
 import { Backlog, Contact, PromiseItem } from '@/types';
+import { isTestMode, TEST_USER } from '@/lib/testAuth';
 
 interface BacklogWithStats extends Backlog {
   contact?: Contact | null;
@@ -32,6 +33,13 @@ export default function Dashboard() {
   const [backlogTitle, setBacklogTitle] = useState('');
 
   useEffect(() => {
+    // Bypass auth in test mode
+    if (isTestMode()) {
+      setUser(TEST_USER as User);
+      loadBacklogs();
+      return;
+    }
+
     const supabase = getSupabaseClient();
 
     // Check auth
@@ -59,44 +67,14 @@ export default function Dashboard() {
 
   async function loadBacklogs() {
     try {
-      const supabase = getSupabaseClient();
+      // Fetch backlogs via API route (works in both test and production modes)
+      const response = await fetch('/api/backlogs');
 
-      // Fetch backlogs with contacts
-      const { data: backlogsData, error: backlogsError } = await supabase
-        .from('backlogs')
-        .select('*, contact:contacts(*)')
-        .order('created_at', { ascending: false });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch backlogs: ${response.statusText}`);
+      }
 
-      if (backlogsError) throw backlogsError;
-
-      // Fetch promises for all backlogs
-      const backlogIds = (backlogsData || []).map((b) => b.id);
-      const { data: promisesData } = await supabase
-        .from('promises')
-        .select('*')
-        .in('backlog_id', backlogIds);
-
-      // Calculate stats for each backlog
-      const backlogsWithStats: BacklogWithStats[] = (backlogsData || []).map(
-        (backlog) => {
-          const backlogPromises = (promisesData || []).filter(
-            (p) => p.backlog_id === backlog.id
-          );
-          const openCount = backlogPromises.filter((p) => p.status === 'open').length;
-          const doneCount = backlogPromises.filter((p) => p.status === 'done').length;
-
-          return {
-            ...backlog,
-            contact: (backlog as any).contact,
-            stats: {
-              total: backlogPromises.length,
-              open: openCount,
-              done: doneCount,
-            },
-          };
-        }
-      );
-
+      const { backlogs: backlogsWithStats } = await response.json();
       setBacklogs(backlogsWithStats);
     } catch (error) {
       console.error('Failed to load backlogs:', error);
@@ -111,7 +89,7 @@ export default function Dashboard() {
     setCreating(true);
 
     try {
-      const response = await fetch('/api/backlogs', {
+      const response = await fetch('/api/backlogs/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -99,8 +99,22 @@ export function getSupabaseServiceClient(): SupabaseClient {
 /**
  * Utility to get current authenticated user from session
  * Returns null if not authenticated
+ * In test mode, returns mock user
  */
 export async function getCurrentUser(supabase: SupabaseClient) {
+  // Check if test mode is enabled (server-side)
+  if (process.env.NEXT_PUBLIC_TEST_MODE === 'true') {
+    return {
+      id: '00000000-0000-0000-0000-000000000001',
+      email: 'test@example.com',
+      created_at: new Date().toISOString(),
+      app_metadata: {},
+      user_metadata: {},
+      aud: 'authenticated',
+      role: 'authenticated',
+    };
+  }
+
   const {
     data: { session },
     error,

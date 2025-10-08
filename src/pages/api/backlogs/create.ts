@@ -20,6 +20,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   createServerSupabaseClient,
   getCurrentUser,
+  getSupabaseServiceClient,
 } from '@/lib/supabaseClient';
 import { CreateBacklogRequest, Backlog, Contact } from '@/types';
 
@@ -33,7 +34,11 @@ export default async function handler(
 
   try {
     // 1. Verify authenticated owner
-    const supabase = createServerSupabaseClient(req, res);
+    // In test mode, use service role to bypass RLS (no auth session exists)
+    const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+    const supabase = isTestMode
+      ? getSupabaseServiceClient()
+      : createServerSupabaseClient(req, res);
     const user = await getCurrentUser(supabase);
 
     if (!user) {
