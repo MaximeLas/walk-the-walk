@@ -6,12 +6,20 @@
 import { useEffect, useState } from 'react';
 import { getSupabaseClient } from '@/lib/supabaseClient';
 import { User } from '@supabase/supabase-js';
+import { isTestMode, TEST_USER } from '@/lib/testAuth';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Bypass auth in test mode
+    if (isTestMode()) {
+      setUser(TEST_USER as User);
+      setLoading(false);
+      return;
+    }
+
     const supabase = getSupabaseClient();
 
     // Check current session

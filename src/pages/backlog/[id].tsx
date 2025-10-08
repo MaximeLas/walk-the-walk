@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { getSupabaseClient } from '@/lib/supabaseClient';
 import { User } from '@supabase/supabase-js';
 import { Backlog, Contact, PromiseItem } from '@/types';
+import { isTestMode, TEST_USER } from '@/lib/testAuth';
 
 export default function BacklogPage() {
   const router = useRouter();
@@ -28,6 +29,15 @@ export default function BacklogPage() {
   const [dueDate, setDueDate] = useState('');
 
   useEffect(() => {
+    // Bypass auth in test mode
+    if (isTestMode()) {
+      setUser(TEST_USER as User);
+      if (backlogId) {
+        loadBacklog();
+      }
+      return;
+    }
+
     const supabase = getSupabaseClient();
 
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -56,30 +66,18 @@ export default function BacklogPage() {
 
   async function loadBacklog() {
     try {
-      const supabase = getSupabaseClient();
+      // Fetch backlog via API route (works in both test and production modes)
+      const response = await fetch(`/api/backlogs/${backlogId}`);
 
-      // Fetch backlog with contact
-      const { data: backlogData, error: backlogError } = await supabase
-        .from('backlogs')
-        .select('*, contact:contacts(*)')
-        .eq('id', backlogId)
-        .single();
+      if (!response.ok) {
+        throw new Error(`Failed to fetch backlog: ${response.statusText}`);
+      }
 
-      if (backlogError) throw backlogError;
+      const { backlog: backlogData, promises: promisesData } = await response.json();
 
-      setBacklog(backlogData as Backlog);
+      setBacklog(backlogData);
       setContact((backlogData as any).contact);
-
-      // Fetch promises
-      const { data: promisesData, error: promisesError } = await supabase
-        .from('promises')
-        .select('*')
-        .eq('backlog_id', backlogId)
-        .order('created_at', { ascending: false });
-
-      if (promisesError) throw promisesError;
-
-      setPromises((promisesData as PromiseItem[]) || []);
+      setPromises(promisesData || []);
     } catch (error) {
       console.error('Failed to load backlog:', error);
       alert('Failed to load backlog');
@@ -94,12 +92,12 @@ export default function BacklogPage() {
     setAdding(true);
 
     try {
-      const response = await fetch(`/api/backlogs/${backlogId}/promises`, {
+      const response = await fetch(`/api/promises`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          description,
-          dueDate: dueDate || undefined,
+          backlogId,
+          text: description,
         }),
       });
 
