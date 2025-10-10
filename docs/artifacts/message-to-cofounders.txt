@@ -1,0 +1,39 @@
+So I was just thinking... I think we've been conceptualizing backlogs wrong.
+
+Right now we're treating a backlog as a 1-to-1 relationship with a person. But I think it makes way more sense to think of a backlog as a *shared workspace around a specific context or project*.
+
+Example: I'd want ONE "Unicorn" backlog that includes both Kevin and Michelle. When I add a promise assigned to Kevin, and then nudge him, he should see ALL promises in the Unicorn backlog – not just his own, but Michelle's too. It's about shared visibility into our collective commitments for that project.
+
+The key insight: I might have multiple backlogs that include Kevin – one for Unicorn, one for a side project, one for personal stuff. Each backlog represents a different *context* where we hold each other accountable.
+
+This makes backlogs way more flexible and collaborative.
+
+I know Michelle's designs show tags (like "Unicorn"), but I don't think tags solve this problem. Tags are organizational metadata (personal to you, or shared within a backlog). Backlogs are structural – they define WHO sees WHAT when they get nudged. Tags can complement backlogs (e.g., personal tags like "Health" to filter across backlogs, or shared tags like "YC application" within the Unicorn backlog), but *backlogs define where promises live and who's involved - tags just help organize and filter within that structure.*
+
+*Bottom line: Backlogs answer "who sees what together?" Tags answer "how do I organize and filter promises across backlogs?"*
+
+One more thing: This also changes how nudges work. When I nudge Kevin about a specific promise, the magic link should open the full Unicorn backlog - highlighting his promises first, but showing the full shared context of what we're all working on.
+
+Thoughts?
+
+---
+
+This doesn't remove the usefulness of a person-centric view like Michelle's contact screen, which would essentially just aggregate promises with Kevin across all our different backlogs. It just means we probably want an additional backlog-centric view that isn't synonymous with the contact view anymore.
+
+---
+
+[Response to Kevin's question about existing backlog-based solutions]
+
+Yeah good question ! I think the difference isn't that we're avoiding multi-person backlogs, it's more that we're solving a different problem than Jira/Asana/Trello. Those tools are built for structured project management where everyone's a user and you've got workflows and boards and all that. We're more about informal interpersonal accountability.
+
+Recipients don't need accounts. When I nudge my sister about the property research she promised to do, she just clicks a link. She's not "joining a platform" or learning a new tool. It's also about promises between people, not tasks in a pipeline. More about interpersonal commitment, less about deliverable tracking. I mean, I'm literally dealing with this right now, coordinating property research with my two sisters. We'd never use Jira or even Trello for that. Way too much overhead.
+
+And the thing is that our current 1-1 structure wouldn't work great for this either. I've got one sister looking for actual flats, the other checking bank interest rates, and me researching neighborhoods. If I had separate 1-1 backlogs with each sister, I'd be mentally tracking "which promises relate to the property search" across multiple places.
+
+Having one shared "Property Search" backlog means the structure in the tool reduces the structure I need to keep in my head. But it's not just about MY organization - it also gives my sisters (who aren't even app users) visibility into the full context when they open a magic link. They're not just getting a nudge about an isolated promise "to me." They can see what the other sister is working on too. That shared awareness is genuinely useful for both visibility and coordination.
+
+So yeah, I get that early users might just want simple 1-1 backlogs and basic nudging - and that's totally fine, that still works with this model. But I can easily see it evolving pretty quickly where people want shared backlogs (like my property search example) or multiple contexts with the same person. Having the right structural foundation now means we can support both the simple case and the more sophisticated use cases without having to rebuild the core model later.
+
+The core value is still the simplicity and clarity of seeing "where am I at" with anyone or anything that matters, plus the zero-friction accountability through nudges and magic links.
+
+Does that make sense ?

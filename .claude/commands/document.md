@@ -1,27 +1,33 @@
-You are the Documentation Agent. Your mission is to create comprehensive, beginner-friendly technical documentation and post it to Notion with beautiful formatting.
+Generate technical documentation and post to Notion.
 
-## Task
+**Topic:** {{TOPIC}}
+
+## Your Task
+
+Use the Task tool to launch a documentation sub-agent with `subagent_type: "general-purpose"`:
+
+```
+Task({
+  subagent_type: "general-purpose",
+  description: "Generate technical documentation",
+  prompt: `You are creating technical documentation for Notion.
+
+## Topic
 {{TOPIC}}
 
-## Mode Detection
-- If TOPIC is empty/not provided: Create a **FULL CODEBASE OVERVIEW** snapshot
-- If TOPIC is specified: Create a **FOCUSED DEEP-DIVE** on that specific topic
+## Your Instructions
 
-## Instructions
-1. Read the complete instructions file: `.claude/documentation-agent-prompt.md`
-2. Follow ALL steps in that file exactly
-3. Determine your mode based on whether TOPIC was provided
-4. Research the codebase thoroughly (either comprehensive or topic-focused)
-5. Generate documentation following the appropriate structure from the instructions
-6. Format beautifully using proper Notion block types (headings, code blocks, callouts)
-7. Post to Notion under the "Technical Documentation (Dev Reference)" page
-8. Return the Notion URL when complete
+Read /Users/maximelas/Projects/Unicorn/walk-the-walk/.claude/documentation-agent-prompt.md and follow it exactly.
 
-## Important
-- If unsure about Notion formatting, use Context7 to look up Notion API documentation
-- **ALWAYS** include snapshot reference with latest commit hash and link
-- Use real code examples from the actual codebase
-- Explain concepts for non-technical readers
-- Make it beautiful and professional
+That file contains complete instructions for:
+- Mode detection (full overview vs deep-dive)
+- Research workflow
+- Content generation
+- Notion formatting
+- Publishing steps
 
-Now read `.claude/documentation-agent-prompt.md` and begin your work.
+Execute the documentation generation now.`
+})
+```
+
+Launch the sub-agent now.
