@@ -16,12 +16,12 @@ decisions_made:
   - Main agent expands user's brief fetch request using conversation context
 unresolved_questions: []
 key_artifacts:
-  - docs/PROTOCOL.md
-  - docs/RETRIEVAL_GUIDE.md
-  - docs/SESSION_LOG.md
+  - second-brain/PROTOCOL.md
+  - second-brain/RETRIEVAL_GUIDE.md
+  - second-brain/SESSION_LOG.md
   - .claude/commands/record-session.md
   - .claude/commands/fetch-session.md
-  - docs/SYSTEM-COMPLETE.md
+  - second-brain/SYSTEM-COMPLETE.md
 related_sessions:
   - sessions/2025-10-08-backlog-model-rethinking.md
 duration: ~4 hours
@@ -536,13 +536,12 @@ None - system is complete and production-ready.
 - AI agents can ramp up faster with past context
 
 **Key files created:**
-- `docs/PROTOCOL.md` (~5k words)
-- `docs/RETRIEVAL_GUIDE.md` (~4k words)
-- `docs/SESSION_LOG.md` (index)
-- `docs/INDEX.md`, `README.md`, `SYSTEM-COMPLETE.md`
+- `second-brain/PROTOCOL.md` (~5k words)
+- `second-brain/RETRIEVAL_GUIDE.md` (~4k words)
+- `second-brain/SESSION_LOG.md` (index)
+- `second-brain/INDEX.md`, `README.md`, `SYSTEM-COMPLETE.md`
 - `.claude/commands/record-session.md` (9 lines)
 - `.claude/commands/fetch-session.md` (23 lines)
-- `.claude/HOW-TO-USE-SESSION-RETRIEVAL.md`
 
 ## How Future AI Should Use This
 
@@ -591,8 +590,8 @@ None - system is complete and production-ready.
 ### REFERENCE:
 
 - **For understanding system design:** This session (how we built it, why we made choices)
-- **For creating sessions:** `docs/PROTOCOL.md`
-- **For retrieving sessions:** `docs/RETRIEVAL_GUIDE.md`
+- **For creating sessions:** `second-brain/PROTOCOL.md`
+- **For retrieving sessions:** `second-brain/RETRIEVAL_GUIDE.md`
 - **For slash command pattern:** `.claude/commands/fetch-session.md` (shows expansion pattern)
 
 ## Additional Notes (Freeform)
@@ -658,8 +657,8 @@ The documentation IS the system. Well-designed docs = well-designed system.
 ### On Future Improvements
 
 Possible evolution (not needed now, but could happen):
-- Extract recurring concepts to `/docs/concepts/` (if patterns emerge across 5+ sessions)
-- Add formal ADRs to `/docs/decisions/` (if major architectural decisions need synthesis)
+- Extract recurring concepts to `/second-brain/concepts/` (if patterns emerge across 5+ sessions)
+- Add formal ADRs to `/second-brain/decisions/` (if major architectural decisions need synthesis)
 - Create topical indexes ("all sessions about data modeling")
 
 But: Start simple, evolve as needed. Let patterns emerge organically.

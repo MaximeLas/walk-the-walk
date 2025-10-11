@@ -22,7 +22,7 @@ Task({
 
 ## Your Instructions
 
-Read /docs/RETRIEVAL_GUIDE.md and follow it exactly.
+Read /second-brain/RETRIEVAL_GUIDE.md and follow it exactly.
 
 That file contains complete step-by-step instructions for:
 - How to search SESSION_LOG.md
