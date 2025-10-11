@@ -1,11 +1,11 @@
 # Second Brain Protocol: Creating Session Summaries
 
-**Version:** 1.1
+**Version:** 1.0 (refined 2025-10-11)
 **Created:** 2025-10-08
-**Updated:** 2025-10-08
+**Updated:** 2025-10-11
 **Purpose:** Instructions for creating session summaries that preserve thought processes, reasoning, and insights from productive AI conversations
 
-**Note:** This document covers the **CREATE** operation (recording new sessions). For the **FETCH** operation (retrieving past context), see [RETRIEVAL_GUIDE.md](RETRIEVAL_GUIDE.md).
+**Note:** This document covers the **RECORD** operation (recording new sessions). For the **FETCH** operation (retrieving past context), see [RETRIEVAL_GUIDE.md](RETRIEVAL_GUIDE.md).
 
 ---
 
@@ -313,13 +313,9 @@ Create a session summary after a conversation that:
 
 ### How to Trigger Creation
 
-At the end of a productive conversation, say:
+At the end of a productive conversation, use the slash command:
 
-**"Create a session summary for this conversation."**
-
-Or use a slash command (if implemented):
-
-**`/record-session`** or **`/save-session`**
+**`/record-session`**
 
 ### What the AI Should Do
 
@@ -335,7 +331,7 @@ Or use a slash command (if implemented):
 10. **Generate keywords** - terms and concepts for discoverability
 11. **Create frontmatter** - structured metadata
 12. **Write summary** for SESSION_LOG.md
-13. **Save to** `/docs/sessions/YYYY-MM-DD-descriptive-title.md`
+13. **Save to** `/second-brain/sessions/YYYY-MM-DD-descriptive-title.md`
 14. **Update** `SESSION_LOG.md` with entry
 15. **Update** `INDEX.md` if needed
 
@@ -361,7 +357,7 @@ When starting a new AI conversation, if it relates to past work:
 **You say:**
 ```
 "I need help with X. For context, read:
-/docs/sessions/2025-10-08-backlog-model-rethinking.md"
+/second-brain/sessions/2025-10-08-backlog-model-rethinking.md"
 ```
 
 **Or more broadly:**
@@ -425,7 +421,7 @@ Quick-reference index of all recorded sessions with summaries and keywords.
 
 **Summary:** [2-4 sentence description naturally incorporating keywords. Describe what was explored, what insights emerged, what was decided, what examples resonated.]
 
-**Keywords:** [Comprehensive list of terms, concepts, topics, people, examples - anything that might be searched for]
+**Keywords:** [30-50 carefully selected terms for discovery - see Keyword Guidelines below]
 
 **Topics:** [Broad categories]
 
@@ -440,18 +436,48 @@ Quick-reference index of all recorded sessions with summaries and keywords.
 ...
 ```
 
+### Keyword Guidelines
+
+**Purpose:** Keywords enable quick discovery - "Did we discuss X?" should be answerable by scanning SESSION_LOG.md keywords.
+
+**Target:** 30-50 terms per session. More is noise, fewer misses important topics.
+
+**Include:**
+- ✅ Major concepts and frameworks discussed (e.g., "prompt caching", "evidence quality pyramid")
+- ✅ Key technologies and tools (e.g., "MCP", "Task tool", "Claude Code")
+- ✅ Important decisions and their subjects (e.g., "lazy toggle approach", "cost optimization")
+- ✅ People and team members mentioned (e.g., "Kevin", "Michelle")
+- ✅ Memorable examples or analogies (e.g., "property search sisters")
+- ✅ Core problems addressed (e.g., "context consumption", "token bloat")
+- ✅ Frameworks and models created (e.g., "three-layer architecture", "on-budget vs off-budget")
+- ✅ External references with high relevance (e.g., "GitHub Issue #7328")
+
+**Exclude:**
+- ❌ Specific numbers unless critical to identity (not "32.4k tokens", "15k savings" - those are summary details)
+- ❌ Version numbers unless specifically discussed (not "v2.0.14, v2.0.10" unless version itself was topic)
+- ❌ Pricing details (not "$3/1M", "$15/1M" - use "cost analysis", "token pricing")
+- ❌ Phase descriptions (not "Phase 1-8 conversation arc")
+- ❌ Every tool name (select the 3-5 most relevant, not all 20 mentioned)
+- ❌ Implementation details (not "cache read", "cache write", "cache invalidation" - use "prompt caching")
+- ❌ Sub-topics already covered by main topic (not "optimization priority", "ROI analysis", "leverage ratios" - use "cost optimization")
+- ❌ Redundant variations (not "context windows", "context management", "context consumption", "context budget" - pick 1-2)
+
+**Principle:** Keywords should be **discoverable signposts**, not exhaustive table of contents. The summary already provides comprehensive coverage.
+
+**Test:** Could someone scanning 10 session entries spot this one quickly based on keywords? If keywords take 30+ seconds to read, they've failed their purpose.
+
 ### Maintenance
 
 - **Add entry** whenever a new session is recorded
 - Entries are in **reverse chronological order** (newest first)
 - **Never delete** entries (immutable history)
-- **Include generous keywords** - err on side of more rather than fewer
+- **Apply keyword guidelines** consistently - quality over quantity
 
 ---
 
 ## Example Session Summary
 
-See `/docs/sessions/2025-10-08-backlog-model-rethinking.md` for a complete example of a well-formed session summary.
+See `/second-brain/sessions/2025-10-08-backlog-model-rethinking.md` for a complete example of a well-formed session summary.
 
 Key characteristics of that example:
 - Comprehensive coverage of conversation arc
@@ -468,7 +494,7 @@ Key characteristics of that example:
 
 ### If You're Creating a Session Summary
 
-**Trigger:** User says "Create a session summary" or uses `/record-session` slash command
+**Trigger:** User uses `/record-session` slash command
 
 **You are:** The main Claude Code agent that just had the conversation
 
@@ -489,14 +515,14 @@ Key characteristics of that example:
 5. Write comprehensive summary following template
 6. Generate rich keywords for SESSION_LOG
 7. Create files:
-   - `/docs/sessions/YYYY-MM-DD-descriptive-title.md` (main summary)
-   - Update `/docs/SESSION_LOG.md` (add entry at top)
-   - Update `/docs/INDEX.md` if needed
+   - `/second-brain/sessions/YYYY-MM-DD-descriptive-title.md` (main summary)
+   - Update `/second-brain/SESSION_LOG.md` (add entry at top)
+   - Update `/second-brain/INDEX.md` if needed
 8. Confirm with user that summary captures the session well
 
 ### If You're Fetching Past Context
 
-**Trigger:** User says "Help me with X, check past sessions for context"
+**Trigger:** User uses `/fetch-session [topic]` slash command
 
 **You are:** A specialized sub-agent launched by main agent (via Task tool)
 
@@ -525,7 +551,7 @@ Every 1-2 months, consider:
 ### Extracting Formal Documents
 
 If a concept or decision is referenced across 5+ sessions:
-- Consider extracting it to `/docs/concepts/` or `/docs/decisions/`
+- Consider extracting it to `/second-brain/concepts/` or `/second-brain/decisions/`
 - Create a living document that synthesizes the thinking
 - Reference it from session summaries
 
@@ -534,10 +560,10 @@ If a concept or decision is referenced across 5+ sessions:
 ### Adding New Folders
 
 As the system grows, you might add:
-- `/docs/concepts/` - Living documents for key concepts referenced across sessions
-- `/docs/decisions/` - Formal Architecture Decision Records for major choices
-- `/docs/customer-research/` - User interviews, feedback analysis
-- `/docs/technical-spikes/` - Deep dives on technical problems
+- `/second-brain/concepts/` - Living documents for key concepts referenced across sessions
+- `/second-brain/decisions/` - Formal Architecture Decision Records for major choices
+- `/second-brain/customer-research/` - User interviews, feedback analysis
+- `/second-brain/technical-spikes/` - Deep dives on technical problems
 
 Add folders when you feel the pain of not having them. Start simple, evolve as needed.
 
@@ -604,3 +630,4 @@ Start using it. Adjust as needed. The value compounds over time.
 
 **Version History:**
 - v1.0 (2025-10-08): Initial protocol created
+- v1.0 refined (2025-10-11): Added keyword guidelines (30-50 terms target), clarified quality standards, improved consistency

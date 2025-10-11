@@ -4,7 +4,21 @@
 
 **Who this is for:** Task agents launched by main Claude Code agent to fetch relevant past thinking.
 
-**Last Updated:** 2025-10-08
+**Last Updated:** 2025-10-11
+
+---
+
+## How Retrieval is Triggered
+
+Users invoke retrieval using the `/fetch-session [topic]` slash command.
+
+This triggers the main agent to:
+1. Read `.claude/commands/fetch-session.md`
+2. Expand the user's brief topic using conversation context
+3. Launch you (a retrieval sub-agent) via the Task tool with expanded prompt
+4. You then read this guide (RETRIEVAL_GUIDE.md) and execute retrieval
+
+**Note:** You are launched when the user types `/fetch-session [topic]`. The main agent has already expanded their brief topic to include conversation context before launching you.
 
 ---
 
@@ -25,7 +39,7 @@ You are a specialized retrieval agent. Your job is to:
 
 ### Step 1: Read SESSION_LOG.md First
 
-**Location:** `/docs/SESSION_LOG.md`
+**Location:** `/second-brain/SESSION_LOG.md`
 
 **What to scan:**
 - **Summaries** - 2-4 sentence descriptions of each session
@@ -43,7 +57,7 @@ You are a specialized retrieval agent. Your job is to:
 
 ### Step 2: Read Selected Session Files
 
-**Location:** `/docs/sessions/YYYY-MM-DD-descriptive-title.md`
+**Location:** `/second-brain/sessions/YYYY-MM-DD-descriptive-title.md`
 
 **Don't read everything.** Focus on these sections (in order of importance):
 
