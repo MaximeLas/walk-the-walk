@@ -1,3 +1,97 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary-dark: #181818;
+  --color-primary-darker: #131313;
+  --color-primary-black: #000000;
+  --color-primary-white: #ffffff;
+  --color-status-no-nudge: #000000;
+  --color-status-no-nudge-bg: transparent;
+  --color-status-scheduled: #fcd915;
+  --color-status-scheduled-bg: #fffcef;
+  --color-status-sent: #004cce;
+  --color-status-sent-bg: #eaf6ff;
+  --color-status-responded: #00b017;
+  --color-status-responded-bg: #eafff4;
+  --color-status-closed: #843dff;
+  --color-status-closed-bg: #e8daff;
+  --color-status-success: #00b017;
+  --color-status-success-bg: #eafff4;
+  --color-status-warning: #fcd915;
+  --color-status-warning-bg: #fffcef;
+  --color-status-info: #004cce;
+  --color-status-info-bg: #eaf6ff;
+  --color-status-neutral: #000000;
+  --color-status-neutral-bg: transparent;
+  --color-status-error: #843dff;
+  --color-status-error-bg: #e8daff;
+  --color-text-primary: #000000;
+  --color-text-secondary: #585858;
+  --color-text-tertiary: #7a7a7a;
+  --color-text-white: #ffffff;
+  --color-avatar-image-bg: #0b0b0b;
+  --color-avatar-contact-bg: #4b4b4b;
+  --color-avatar-space-bg: #b9b9b9;
+  --color-bg-card: #ffffff;
+  --color-bg-app: #f8f8f8;
+  --color-bg-overlay: rgba(94, 94, 94, 0.2);
+  --color-bg-pill-active: #efefef;
+  --color-border-light: #e9e9e9;
+  --color-border-medium: #7a7a7a;
+  --color-border-dark: #000000;
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, Hiragino Kaku Gothic Pro, Arial,
+    sans-serif;
+  --font-mono: IBM Plex Mono, SF Mono, Monaco, Consolas, monospace;
+
+  --text-2xs: 10px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --radius-sm: 2px;
+  --radius: 8px;
+  --radius-lg: 20px;
+  --radius-xl: 36px;
+  --radius-2xl: 40px;
+  --radius-full: 9999px;
+
+  --shadow-card: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+
+  --backdrop-blur: 6px;
+
+  --transition-duration: 150ms;
+  --transition-duration-slow: 300ms;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border-light, currentcolor);
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
