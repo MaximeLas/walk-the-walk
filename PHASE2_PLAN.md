@@ -8,13 +8,126 @@
 
 ## Table of Contents
 
-1. [Strategic Approach](#strategic-approach)
-2. [Change Management Methodology](#change-management-methodology)
-3. [Step 1: Foundation Setup](#step-1-foundation-setup)
-4. [Step 2: Atomic Components](#step-2-atomic-components)
-5. [Steps 3-7: Overview](#steps-3-7-overview)
-6. [Testing Strategy](#testing-strategy)
-7. [Timeline & Estimates](#timeline--estimates)
+1. [Agent Execution Protocol](#agent-execution-protocol)
+2. [Strategic Approach](#strategic-approach)
+3. [Change Management Methodology](#change-management-methodology)
+4. [Step 1: Foundation Setup](#step-1-foundation-setup)
+5. [Step 2: Atomic Components](#step-2-atomic-components)
+6. [Steps 3-7: Overview](#steps-3-7-overview)
+7. [Testing Strategy](#testing-strategy)
+8. [Timeline & Estimates](#timeline--estimates)
+
+---
+
+## Agent Execution Protocol
+
+**Purpose:** Define the methodology and workflow for implementing Phase 2 effectively and accurately.
+
+### Workflow: Extract → Reference → Build → Verify
+
+Every step follows this four-stage workflow:
+
+1. **Extract** - Get exact design values from Figma into COMPLETE_FIGMA_EXTRACTION.md
+2. **Reference** - Read extraction document to understand component specs
+3. **Build** - Implement components using values from extraction document
+4. **Verify** - Compare implementation to Figma visually and functionally
+
+### Key Resources
+
+**Design Source of Truth:**
+- `COMPLETE_FIGMA_EXTRACTION.md` - Systematic extraction of all Figma component specs
+- Figma Components page - Node ID 177:32228
+
+**Tools Available:**
+- **Figma MCP** - Extract components, get exact CSS values, screenshots
+- **Context7 MCP** - Up-to-date library documentation (Tailwind, Next.js, etc.)
+
+### Component Implementation Process
+
+For each component you build:
+
+1. **Before coding:**
+   - Open `COMPLETE_FIGMA_EXTRACTION.md` and locate the component section
+   - Read the full specification (colors, sizing, typography, effects)
+   - If component is missing from extraction doc: Extract it from Figma first, add to document
+   - Note the line numbers for commit message reference
+
+2. **While coding:**
+   - Use values directly from extraction document
+   - Reference line numbers in code comments for traceability
+   - Implement all documented variants (don't skip edge cases)
+
+3. **After coding:**
+   - Add component to `/demo` page with all variants
+   - Visual comparison: Screenshot your implementation vs Figma
+   - Functional testing: Test all props, edge cases, mobile viewport (375px)
+   - Report completion with screenshot before moving to next component
+
+### Tool Usage Guidelines
+
+**Use Figma MCP tools when:**
+- Extraction document is missing a component you need to build
+- You need visual reference for comparison
+- You want to verify a specific value against Figma
+
+**Use Context7 MCP tools when:**
+- Setting up a new library for the first time
+- Working with a new major version of a library
+- Unsure about API syntax or configuration
+
+**Example commands:**
+```typescript
+// Extract component specs
+mcp__figma-desktop__get_code(nodeId: "177:32815")
+
+// Get library documentation
+mcp__context7__resolve-library-id(libraryName: "tailwindcss")
+mcp__context7__get-library-docs(
+  context7CompatibleLibraryID: "/tailwindlabs/tailwindcss",
+  topic: "configuration"
+)
+```
+
+### Handling New Components
+
+If you need to build a component that isn't in `COMPLETE_FIGMA_EXTRACTION.md`:
+
+1. Check Figma Components page to confirm it exists (use get_metadata on node 177:32228)
+2. Extract the component using Figma MCP get_code with the node ID
+3. Add a new section to COMPLETE_FIGMA_EXTRACTION.md with:
+   - Component name and node ID
+   - All variants documented
+   - Complete specs: colors, sizing, typography, effects
+   - Follow the same format as existing sections
+4. Get user approval on the extraction before implementing
+5. Then build the component referencing your new extraction section
+
+### Quality Standards
+
+**Pixel-perfect implementation:**
+- Colors must match extraction document exactly (no "close enough")
+- Spacing, typography, border radius must match exactly
+- All variants must be implemented, not just the happy path
+
+**Code quality:**
+- TypeScript interfaces for all component props
+- Proper prop types matching documented variants
+- Accessible HTML semantics
+- Mobile-optimized (touch targets ≥ 44px)
+
+**Testing requirements:**
+- All prop combinations render correctly
+- Edge cases handled (missing images, long text, empty states)
+- Mobile viewport (375px) tested
+- Demo page includes all variants
+
+### Commit Standards
+
+Each commit should:
+- Reference COMPLETE_FIGMA_EXTRACTION.md line numbers for specs used
+- Include "Part of Phase 2: [Step Name]" in commit message
+- Focus on one component or one logical unit of work
+- Follow existing commit message style in the repo
 
 ---
 
@@ -681,9 +794,11 @@ Michelle's mobile-first design system.
 
 ## Step 2: Atomic Components
 
-**Goal:** Build smallest reusable UI components matching Figma specs exactly
-**Estimated Time:** 8-10 hours
-**Total Commits:** 4
+**Goal:** Build smallest reusable UI components that are used across multiple screens
+**Estimated Time:** 4-5 hours
+**Total Commits:** 2
+
+**Source:** COMPLETE_FIGMA_EXTRACTION.md lines 9-239 (Entry Chips + Avatars)
 
 ---
 
@@ -691,61 +806,50 @@ Michelle's mobile-first design system.
 
 **Time estimate:** 2-2.5 hours
 
+**Figma reference:** COMPLETE_FIGMA_EXTRACTION.md lines 150-239
+
 **Component API:**
 ```tsx
 // src/components/ui/Avatar.tsx
 interface AvatarProps {
-  variant: 'image' | 'contact-initials' | 'space-initials'
-  src?: string          // Required if variant='image'
-  initials?: string     // Required if variant includes 'initials'
-  size?: 'sm' | 'md' | 'lg'
-  alt?: string          // For accessibility
+  type: 'image' | 'contact-initials' | 'space-initials'
+  size: 'sm' | 'md' | 'lg'  // 24px, 44px, 64px
+  src?: string       // Required if type='image'
+  initials?: string  // Required if type includes 'initials'
+  alt?: string       // For accessibility
 }
 ```
 
-**Figma specs:**
-
-**Sizes:**
-- sm: 24px (List Card avatars)
-- md: 44px (Top Nav profile avatar)
-- lg: 64px (Profile/detail pages)
-
-**Variants:**
-- `image`: Circular photo, background #0b0b0b, image scaled/cropped to fit
-- `contact-initials`: Blue background (#eaf6ff), blue text (#004cce), centered initials
-- `space-initials`: Purple background (#f3e8ff), purple text (#7c3aed), centered initials
-
-**Border:** 1px solid #7a7a7a (all variants)
-**Border radius:** full (9999px)
-
-**Implementation steps:**
-1. Create component file and interface
-2. Implement size variants using Tailwind classes
-3. Implement visual variants (image, contact, space)
-4. Add proper image handling (loading, error states)
-5. Add to `/demo` page with all variant combinations
+**Implementation checklist:**
+1. Read COMPLETE_FIGMA_EXTRACTION.md lines 150-239 for complete specs
+2. Extract exact values: colors, sizing, typography from extraction document
+3. Create component with 3 types × 3 sizes = 9 total combinations
+4. Handle edge cases (missing image, long initials)
+5. Add all variants to `/demo` page
 
 **Testing checklist:**
-- ✅ All 9 combinations render (3 variants × 3 sizes)
+- ✅ All 9 combinations render (3 types × 3 sizes)
+- ✅ Colors match extraction document exactly (lines 157, 183, 214)
 - ✅ Image variant handles missing/broken images gracefully
 - ✅ Initials are centered and readable
-- ✅ Border appears on all variants
-- ✅ Perfect circles at all sizes
-- ✅ Matches Figma pixel-perfect
+- ✅ Perfect circles at all sizes (50px border radius)
+- ✅ Visual comparison to Figma screenshots confirms pixel-perfect match
 
-**Commit message:**
+**Commit message template:**
 ```
-Add Avatar component with 3 variants and 3 sizes
+Add Avatar component with 3 types and 3 sizes
 
-Implements Michelle's Avatar design from Figma Components page:
-- Image variant: circular photo with dark background
-- Contact initials: blue background, blue text
-- Space initials: purple background, purple text
+Implements Avatar design from COMPLETE_FIGMA_EXTRACTION.md lines 150-239:
+- Image type: Dark gray background (#0B0B0B)
+- Contact initials type: Medium gray background (#4B4B4B), white text
+- Space initials type: Light gray background (#B9B9B9), black text
 
 Sizes: sm (24px), md (44px), lg (64px)
-All variants include 1px border and are perfectly circular.
+All types are perfectly circular (50px border radius).
 
-Added to /demo page with all variant combinations.
+Added to /demo page with all type and size combinations.
+
+Part of Phase 2: Step 2 - Atomic Components
 ```
 
 ---
@@ -754,163 +858,54 @@ Added to /demo page with all variant combinations.
 
 **Time estimate:** 2-2.5 hours
 
+**Figma reference:** COMPLETE_FIGMA_EXTRACTION.md lines 9-147
+
 **Component API:**
 ```tsx
 // src/components/ui/EntryChip.tsx
 interface EntryChipProps {
   status: 'no-nudge' | 'nudge-scheduled' | 'nudge-sent' | 'nudge-responded' | 'entry-closed'
-  label?: string  // Optional custom label
-  size?: 'sm' | 'md'
+  label?: string  // Optional custom label, defaults to status label
 }
 ```
 
-**Figma specs (from Entry Chips section):**
-
-**Status variants:**
-- **no-nudge:** White bg, black border
-- **nudge-scheduled:** #fffcef bg, #fcd915 border
-- **nudge-sent:** #f5f5f5 bg, #585858 border
-- **nudge-responded:** #f3e8ff bg, #7c3aed border
-- **entry-closed:** #fee2e2 bg, #ef4444 border
-
-**Layout:**
-- Height: 36px
-- Min-width: 80px
-- Padding: 12px horizontal, 6px vertical
-- Border radius: 2px
-- Text: 12px Arial Regular, black, centered
+**Implementation checklist:**
+1. Read COMPLETE_FIGMA_EXTRACTION.md lines 9-147 for complete specs (all 5 status variants)
+2. Extract exact values: colors, sizing, typography from extraction document
+3. Create component with all 5 status variants
+4. Implement consistent 12px padding, 2px border radius
+5. Add all status variants to `/demo` page
 
 **Testing checklist:**
 - ✅ All 5 status variants render correctly
-- ✅ Colors match Figma exactly
-- ✅ Border colors distinct from backgrounds
-- ✅ Text is centered and readable
-- ✅ Height is consistent (36px)
-- ✅ Chips expand to fit custom labels
+- ✅ Colors match extraction document exactly:
+  - no-nudge: Transparent bg + #000000 border (lines 16-18)
+  - nudge-scheduled: #FFFCEF bg + #FCD915 border (lines 44-46)
+  - nudge-sent: #EAF6FF bg + #004CCE border (lines 72-74)
+  - nudge-responded: #EAFFF4 bg + #00B017 border (lines 99-101)
+  - entry-closed: #E8DAFF bg + #843DFF border (lines 126-128)
+- ✅ Border colors are distinct and visible against backgrounds
+- ✅ Text is centered, 12px Arial Regular, black
+- ✅ Chips expand to fit custom labels while maintaining consistent height
+- ✅ Visual comparison to Figma screenshots confirms pixel-perfect match
 
-**Commit message:**
+**Commit message template:**
 ```
 Add EntryChip component with 5 status variants
 
-Implements Michelle's Entry Chip design showing promise/entry status:
-- no-nudge: White bg, black border
-- nudge-scheduled: Yellow bg, yellow border
-- nudge-sent: Gray bg, gray border
-- nudge-responded: Purple bg, purple border
-- entry-closed: Red bg, red border
+Implements Entry Chip design from COMPLETE_FIGMA_EXTRACTION.md lines 9-147:
+- no-nudge: Transparent bg, black border
+- nudge-scheduled: Yellow bg (#FFFCEF), yellow border (#FCD915)
+- nudge-sent: Blue bg (#EAF6FF), blue border (#004CCE)
+- nudge-responded: Green bg (#EAFFF4), green border (#00B017)
+- entry-closed: Purple bg (#E8DAFF), purple border (#843DFF)
 
-Layout: 36px height, 2px border radius, 12px padding, centered text
-All colors extracted from Figma Components page Entry Chips section.
+Layout: 12px padding, 2px border radius, 12px Arial Regular text
+All colors extracted exactly from Figma Components page.
 
-Added to /demo page with all status states.
-```
+Added to /demo page with all status variants.
 
----
-
-### Commit 3: Button Component
-
-**Time estimate:** 2-3 hours
-
-**Component API:**
-```tsx
-// src/components/ui/Button.tsx
-interface ButtonProps {
-  variant: 'primary' | 'secondary' | 'icon' | 'add'
-  size?: 'sm' | 'md' | 'lg'
-  disabled?: boolean
-  loading?: boolean
-  icon?: React.ReactNode
-  onClick?: () => void
-  children?: React.ReactNode
-  className?: string
-}
-```
-
-**Figma specs:**
-
-**Primary Button:**
-- Background: black gradient
-- Text: white, 14px Arial Bold
-- Height: 44px, Padding: 12px horizontal
-- Border radius: 40px (pill shape)
-
-**Secondary Button:**
-- Background: white, Border: 1px solid #e9e9e9
-- Text: black, 14px Arial Bold
-- Height: 44px, Padding: 12px horizontal
-
-**Add Button:**
-- Size: 68x68px outer, 42x42px inner white circle
-- Box shadow: 0px 4px 16px rgba(0,0,0,0.15)
-- Backdrop blur: 6px (glassmorphism)
-- Plus icon: 24px, black
-
-**Testing checklist:**
-- ✅ All variants render correctly
-- ✅ Hover states work
-- ✅ Loading spinner appears
-- ✅ Disabled state prevents clicks
-- ✅ Add button matches glassmorphism effect
-- ✅ Touch targets ≥ 44x44px
-
-**Commit message:**
-```
-Add Button component with primary, secondary, icon, and add variants
-
-Implements Michelle's button designs:
-- Primary: Black gradient pill button for CTAs
-- Secondary: White pill button with border
-- Icon: Transparent button for icons (44x44px)
-- Add: FAB with glassmorphism effect
-
-All variants support loading and disabled states.
-Min 44x44px touch targets for mobile accessibility.
-
-Added to /demo page with all variants and states.
-```
-
----
-
-### Commit 4: StatusIndicator Component
-
-**Time estimate:** 1.5-2 hours
-
-**Component API:**
-```tsx
-// src/components/ui/StatusIndicator.tsx
-interface StatusIndicatorProps {
-  status: 'online' | 'recent' | 'offline'
-  size?: 'sm' | 'md'
-  showLabel?: boolean
-  label?: string  // e.g., "1 min. ago"
-}
-```
-
-**Figma specs:**
-- **Online:** #00b017 (green), 8px diameter
-- **Recent:** #fcd915 (yellow), 8px diameter
-- **Offline:** #585858 (gray), 8px diameter
-- **With label:** Dot + 4px gap + text (12px, #585858)
-
-**Testing checklist:**
-- ✅ All 3 status colors render correctly
-- ✅ Dots are perfectly circular (8px)
-- ✅ Labels display correctly when enabled
-- ✅ Gap between dot and label is correct (4px)
-
-**Commit message:**
-```
-Add StatusIndicator component for online/recent/offline status
-
-Implements status dot from Michelle's List Card design:
-- Online: Green dot (#00b017)
-- Recent: Yellow dot (#fcd915)
-- Offline: Gray dot (#585858)
-
-8px circular indicators with optional text label.
-Used in List Card to show contact activity status.
-
-Added to /demo page with all status states and label variants.
+Part of Phase 2: Step 2 - Atomic Components
 ```
 
 ---
