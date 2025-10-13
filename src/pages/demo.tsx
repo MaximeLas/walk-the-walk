@@ -10,6 +10,7 @@
  */
 
 import { Avatar } from '@/components/ui/Avatar'
+import { EntryChip } from '@/components/ui/EntryChip'
 
 export default function ComponentDemo() {
   return (
@@ -318,15 +319,51 @@ export default function ComponentDemo() {
             </div>
           </div>
 
-          {/* Placeholder for remaining atomic components */}
+          {/* EntryChip Component */}
           <div className="bg-bg-card rounded shadow-card p-6">
-            <p className="text-text-secondary text-center py-8">
-              More atomic components coming next...
-              <br />
-              <span className="text-xs">
-                (EntryChip, Button, StatusIndicator)
-              </span>
+            <h3 className="text-lg font-semibold mb-4 text-text-primary">
+              EntryChip Component
+            </h3>
+            <p className="text-sm text-text-secondary mb-6">
+              Five status variants with color-coded backgrounds and borders
             </p>
+
+            <div className="flex flex-wrap items-start gap-4">
+              <div className="flex flex-col items-center gap-2">
+                <EntryChip status="no-nudge">No Nudge</EntryChip>
+                <span className="text-xs text-text-secondary">No Nudge</span>
+                <span className="text-[10px] text-text-tertiary">Transparent</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <EntryChip status="scheduled">Nudge Scheduled</EntryChip>
+                <span className="text-xs text-text-secondary">Scheduled</span>
+                <span className="text-[10px] text-text-tertiary">Yellow</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <EntryChip status="sent">Nudge Sent</EntryChip>
+                <span className="text-xs text-text-secondary">Sent</span>
+                <span className="text-[10px] text-text-tertiary">Blue</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <EntryChip status="responded">Nudge Responded</EntryChip>
+                <span className="text-xs text-text-secondary">Responded</span>
+                <span className="text-[10px] text-text-tertiary">Green</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <EntryChip status="closed">Entry Closed</EntryChip>
+                <span className="text-xs text-text-secondary">Closed</span>
+                <span className="text-[10px] text-text-tertiary">Purple</span>
+              </div>
+            </div>
+
+            {/* Usage notes */}
+            <div className="mt-6 p-4 bg-bg-app rounded border border-border-light">
+              <p className="text-xs text-text-secondary">
+                <strong className="text-text-primary">Design specs:</strong> Arial Regular 12px,
+                12px padding, 2px border radius, center aligned text. All variants use black text
+                with status-specific background and border colors.
+              </p>
+            </div>
           </div>
         </section>
 
