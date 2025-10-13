@@ -9,6 +9,8 @@
  * Components will be added as we build them in Step 2.
  */
 
+import { Avatar } from '@/components/ui/Avatar'
+
 export default function ComponentDemo() {
   return (
     <div className="min-h-screen bg-bg-app">
@@ -198,18 +200,131 @@ export default function ComponentDemo() {
           </div>
         </section>
 
-        {/* Component Sections Placeholder */}
+        {/* Component Sections */}
         <section className="mb-12">
           <h2 className="text-xl font-semibold mb-6 text-text-primary">
             Atomic Components
           </h2>
 
+          {/* Avatar Component */}
+          <div className="bg-bg-card rounded shadow-card p-6 mb-8">
+            <h3 className="text-lg font-semibold mb-4 text-text-primary">
+              Avatar Component
+            </h3>
+            <p className="text-sm text-text-secondary mb-6">
+              Three types (image, contact-initials, space-initials) × Three sizes (sm, md, lg) = 9 variants
+            </p>
+
+            {/* Image Avatars */}
+            <div className="mb-8">
+              <h4 className="text-sm font-medium mb-3 text-text-primary">
+                Type: Image (with dark background #0B0B0B)
+              </h4>
+              <div className="flex flex-wrap items-center gap-6">
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="image"
+                    size="sm"
+                    src="https://i.pravatar.cc/150?img=1"
+                    alt="User 1"
+                  />
+                  <span className="text-xs text-text-secondary">Small (24px)</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="image"
+                    size="md"
+                    src="https://i.pravatar.cc/150?img=2"
+                    alt="User 2"
+                  />
+                  <span className="text-xs text-text-secondary">Medium (32px)</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="image"
+                    size="lg"
+                    src="https://i.pravatar.cc/150?img=3"
+                    alt="User 3"
+                  />
+                  <span className="text-xs text-text-secondary">Large (44px)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Initials Avatars */}
+            <div className="mb-8">
+              <h4 className="text-sm font-medium mb-3 text-text-primary">
+                Type: Contact Initials (Dark gray #4B4B4B, white text)
+              </h4>
+              <div className="flex flex-wrap items-center gap-6">
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="contact-initials"
+                    size="sm"
+                    initials="MH"
+                  />
+                  <span className="text-xs text-text-secondary">Small (24px)</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="contact-initials"
+                    size="md"
+                    initials="KL"
+                  />
+                  <span className="text-xs text-text-secondary">Medium (32px)</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="contact-initials"
+                    size="lg"
+                    initials="JS"
+                  />
+                  <span className="text-xs text-text-secondary">Large (44px)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Space Initials Avatars */}
+            <div>
+              <h4 className="text-sm font-medium mb-3 text-text-primary">
+                Type: Space Initials (Light gray #B9B9B9, black text)
+              </h4>
+              <div className="flex flex-wrap items-center gap-6">
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="space-initials"
+                    size="sm"
+                    initials="WK"
+                  />
+                  <span className="text-xs text-text-secondary">Small (24px)</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="space-initials"
+                    size="md"
+                    initials="PT"
+                  />
+                  <span className="text-xs text-text-secondary">Medium (32px)</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Avatar
+                    type="space-initials"
+                    size="lg"
+                    initials="SF"
+                  />
+                  <span className="text-xs text-text-secondary">Large (44px)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Placeholder for remaining atomic components */}
           <div className="bg-bg-card rounded shadow-card p-6">
             <p className="text-text-secondary text-center py-8">
-              Components will be added here as we build them in Step 2.
+              More atomic components coming next...
               <br />
               <span className="text-xs">
-                (Avatar, EntryChip, Button, StatusIndicator)
+                (EntryChip, Button, StatusIndicator)
               </span>
             </p>
           </div>
