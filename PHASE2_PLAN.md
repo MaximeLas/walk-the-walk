@@ -34,15 +34,163 @@ open http://localhost:3000/demo
 
 ## Table of Contents
 
-1. [Core Workflow](#core-workflow)
-2. [Strategic Approach](#strategic-approach)
-3. [Component Implementation Process](#component-implementation-process)
-4. [Tool Usage Guidelines](#tool-usage-guidelines)
-5. [Quality Standards](#quality-standards)
-6. [Commit Standards](#commit-standards)
-7. [Change Management Protocol](#change-management-protocol)
-8. [Step Implementation Details](#step-implementation-details)
-9. [Testing Strategy](#testing-strategy)
+1. [🚨 CRITICAL: Agent Execution Protocol](#-critical-agent-execution-protocol)
+2. [Core Workflow](#core-workflow)
+3. [Strategic Approach](#strategic-approach)
+4. [Component Implementation Process](#component-implementation-process)
+5. [Tool Usage Guidelines](#tool-usage-guidelines)
+6. [Quality Standards](#quality-standards)
+7. [Commit Standards](#commit-standards)
+8. [Change Management Protocol](#change-management-protocol)
+9. [Step Implementation Details](#step-implementation-details)
+10. [Testing Strategy](#testing-strategy)
+
+---
+
+## 🚨 CRITICAL: Agent Execution Protocol
+
+**READ THIS FIRST - Required workflow for all Phase 2 work**
+
+### Per-Step Execution Rules
+
+**MANDATORY: Each step must be done in its own feature branch and MUST stop after completion for testing.**
+
+#### Step Workflow (REQUIRED)
+
+```bash
+# 1. CREATE FEATURE BRANCH for the step
+git checkout -b feature/phase2-step-X-description
+
+# 2. IMPLEMENT the step (all commits for that step)
+# ... make your commits ...
+
+# 3. STOP HERE - DO NOT CONTINUE TO NEXT STEP
+# Agent must stop and report completion
+```
+
+#### After Step Completion, Agent MUST:
+
+1. **Report completion** with:
+   - Summary of what was implemented
+   - List of files created/modified
+   - Link to demo page to test (`http://localhost:3000/demo`)
+   - Any issues or notes encountered
+
+2. **Wait for user testing** - User will:
+   - Test implementation manually
+   - Run automated tests (if applicable)
+   - Review code
+   - Provide feedback or approval
+
+3. **Only after approval**, user will:
+   - Merge feature branch to main
+   - Tell agent to continue with next step
+
+### Why This Matters
+
+- **Testing is mandatory** between steps - components must work before building on them
+- **Feature branches isolate work** - easier to test, review, and rollback if needed
+- **Prevents cascading errors** - don't build Step 3 on broken Step 2
+- **Allows design iteration** - Michelle might want changes after seeing implementation
+
+### Automated Testing (Chrome DevTools MCP)
+
+**Agent MUST use Chrome DevTools MCP to verify implementation before reporting completion:**
+
+```bash
+# Start dev server if not running
+npm run dev
+
+# Agent uses Chrome DevTools MCP:
+# 1. Navigate to demo page
+# 2. Check for console errors (MANDATORY)
+# 3. Take full-page screenshots (desktop + mobile viewports)
+# 4. Test interactions if applicable (clicks, hovers, form inputs)
+# 5. Verify responsive behavior across viewports
+# 6. Check visual consistency between sections
+```
+
+**Testing Protocol (Step-by-Step):**
+
+1. **Load & Verify**
+   ```
+   mcp__chrome-devtools__navigate_page("http://localhost:3000/demo")
+   mcp__chrome-devtools__list_console_messages()  # MUST be error-free (except favicon 404)
+   ```
+
+2. **Desktop Visual Test**
+   ```
+   mcp__chrome-devtools__resize_page(1440, 900)
+   mcp__chrome-devtools__take_screenshot(fullPage=true)
+   ```
+
+3. **Mobile Visual Test**
+   ```
+   mcp__chrome-devtools__resize_page(375, 667)  # iPhone SE
+   mcp__chrome-devtools__take_screenshot(fullPage=true)
+   ```
+
+4. **Visual Consistency Analysis** (MANDATORY)
+   - Compare screenshots against previous sections
+   - Look for size/spacing inconsistencies
+   - Verify same elements look identical across sections
+   - Check for unintended duplication
+
+5. **Interaction Testing** (if applicable)
+   ```
+   mcp__chrome-devtools__click(uid="...")
+   mcp__chrome-devtools__hover(uid="...")
+   mcp__chrome-devtools__fill(uid="...", value="...")
+   ```
+
+**Available Chrome DevTools MCP tools:**
+- `mcp__chrome-devtools__navigate_page` - Load pages
+- `mcp__chrome-devtools__take_screenshot` - Capture visual proof (use fullPage=true)
+- `mcp__chrome-devtools__take_snapshot` - Get interactive element UIDs
+- `mcp__chrome-devtools__list_console_messages` - Check for errors (CRITICAL)
+- `mcp__chrome-devtools__click` / `hover` / `fill` - Test interactions
+- `mcp__chrome-devtools__resize_page` - Test different viewports
+- `mcp__chrome-devtools__list_network_requests` - Check for failed requests
+
+**What to Look For:**
+- ✅ No console errors (except expected favicon 404)
+- ✅ Components render correctly on both desktop and mobile
+- ✅ Visual consistency within the page (same elements look the same)
+- ✅ No layout breaks or overflow issues
+- ✅ Proper spacing and alignment
+- ❌ Different font sizes for same type of content
+- ❌ Inconsistent padding/margins between sections
+- ❌ Duplicate content that serves no purpose
+- ❌ Poor organization or confusing structure
+
+### Example Step Completion Report
+
+```markdown
+## Step 2 (Atomic Components) - COMPLETE ✅
+
+**Branch:** feature/phase2-step-2-atomic-components
+**Commits:** 2/2
+- e5bd7a1 - Avatar component
+- 800152b - EntryChip component
+
+**Files Created:**
+- src/components/ui/Avatar.tsx (9 variants)
+- src/components/ui/EntryChip.tsx (5 variants)
+
+**Demo Page:** http://localhost:3000/demo
+- Avatar: All 3 types × 3 sizes rendering correctly
+- EntryChip: All 5 status variants rendering correctly
+
+**Automated Tests:**
+✅ Demo page loads without console errors
+✅ All Avatar variants render correctly
+✅ All EntryChip variants render with correct colors
+✅ Mobile viewport (375px) tested
+
+**Screenshots attached:** [links to screenshots]
+
+**Ready for:** Manual testing and approval before Step 3
+```
 
 ---
 
@@ -115,11 +263,218 @@ open http://localhost:3000/demo
 
 ### After Coding
 
-1. Add component to `/demo` page with all variants
-2. Visual comparison: Screenshot your implementation vs Figma
-3. Functional testing: Test all props, edge cases, mobile viewport (375px)
-4. Report completion with screenshot before moving to next component
-5. Update PHASE2_STATUS_TRACKING.md to mark commit as complete
+**CRITICAL: Comprehensive testing is mandatory before reporting completion**
+
+#### 1. Add to Demo Page
+- Add component to `/demo` page with ALL variants
+- Include usage examples and prop documentation
+- Ensure clear labeling and organization
+- **REQUIRED: Add "Review Notes for Michelle" section** (see template below)
+
+#### 2. Automated Testing (Chrome DevTools MCP)
+Use Chrome DevTools MCP tools to verify implementation:
+
+```bash
+# Navigate to demo page
+mcp__chrome-devtools__navigate_page("http://localhost:3000/demo")
+
+# Check for console errors
+mcp__chrome-devtools__list_console_messages()
+
+# Take full-page screenshot (desktop)
+mcp__chrome-devtools__take_screenshot(fullPage=true)
+
+# Test mobile viewport (375px iPhone SE)
+mcp__chrome-devtools__resize_page(375, 667)
+mcp__chrome-devtools__take_screenshot(fullPage=true)
+
+# Test interactions if applicable
+mcp__chrome-devtools__click(uid="...")
+mcp__chrome-devtools__hover(uid="...")
+```
+
+#### 3. Visual & UX Consistency Review
+**IMPORTANT: Don't just verify technical correctness - verify UX quality**
+
+- **Internal consistency**: Do the same elements look the same across different sections?
+- **Size consistency**: Are text sizes, spacing, and component sizes consistent throughout?
+- **Visual hierarchy**: Is the page organized clearly? Can you tell what's new vs old?
+- **Information architecture**: Is it easy to find and navigate content?
+- **Comparison against Figma**: Side-by-side visual verification of colors, spacing, typography
+- **Mobile feel**: Does everything feel comfortable on a 375px viewport?
+
+**Red flags to check:**
+- Different font sizes for the same type of text in different sections
+- Inconsistent spacing or padding between similar elements
+- Duplicate content that serves no clear purpose
+- Confusing organization or lack of clear sectioning
+- Elements that look similar but aren't using the same component
+
+#### 4. Functional Testing Checklist
+- [ ] All prop combinations render correctly
+- [ ] Edge cases handled (missing data, long text, empty states)
+- [ ] Mobile viewport (375px) works perfectly
+- [ ] Desktop viewport doesn't break
+- [ ] No console errors or warnings
+- [ ] Interactions work (hover, click, focus if applicable)
+- [ ] Accessibility basics (alt text, aria labels, semantic HTML)
+
+#### 5. Report Completion
+Create comprehensive completion report including:
+- Summary of what was implemented
+- Screenshot proof (desktop + mobile)
+- Test results (automated + manual checklist)
+- Any UX issues discovered and fixed
+- Any deviations from Figma with justification
+- Demo page URL for manual testing
+
+#### 6. Update Documentation
+- Update PHASE2_STATUS_TRACKING.md to mark commit as complete
+- Add any important notes or learnings
+- Flag any concerns or questions for user review
+
+---
+
+### Review Notes for Michelle (Demo Page Template)
+
+**REQUIRED: Every step must include designer review notes on the demo page**
+
+Add this section at the top of each step's content in `/demo` page, right after the step description. This allows Michelle to review directly in the deployed preview without needing to read the PR.
+
+**Template Structure:**
+```tsx
+{/* Review Notes for Michelle */}
+<div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-r p-6 mb-8">
+  <div className="flex items-start gap-3">
+    <span className="text-2xl">👩‍🎨</span>
+    <div className="flex-1">
+      <h3 className="text-lg font-semibold text-purple-900 mb-3">
+        Review Notes for Michelle
+      </h3>
+      <div className="space-y-3 text-sm text-gray-700">
+        {/* Content goes here */}
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**Content Guidelines:**
+
+1. **"What to review" paragraph** - Brief overview of what this step implements (1-2 sentences)
+
+2. **Component-specific checklists** - For each component, provide bulleted verification points:
+   - Key visual elements to check (colors, sizes, typography)
+   - Specific Figma node IDs or sections to compare against
+   - Variants to verify (all sizes, types, states)
+   - Common issues to watch for
+
+3. **"How to check" paragraph** - Step-by-step instructions:
+   - Which Figma page/section to open
+   - What to compare (colors, spacing, typography)
+   - Mobile testing reminder
+
+4. **Context/rationale** - Why these components first? How do they fit into the bigger picture?
+
+5. **Pro tip (optional)** - Helpful insight about what to pay special attention to
+
+**Example (Step 2 - Atomic Components):**
+```tsx
+<p>
+  <strong className="text-purple-900">What to review:</strong> This step implements
+  the first building block components from your Figma designs — Avatar and EntryChip.
+  These are the atomic components that will be combined to create the list cards in Step 3.
+</p>
+<div>
+  <strong className="text-purple-900">Avatar Component — 9 variants to check:</strong>
+  <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+    <li><strong>Image type:</strong> Does the dark background (#0B0B0B) look right with profile photos?</li>
+    <li><strong>Contact Initials:</strong> Is the dark gray (#4B4B4B) with white text readable?</li>
+    <li><strong>Space Initials:</strong> Is the light gray (#B9B9B9) with black text distinct enough?</li>
+    <li><strong>Sizes:</strong> Do small (24px), medium (32px), and large (44px) feel appropriate?</li>
+    <li><strong>Typography:</strong> Is IBM Plex Mono Bold the right font for initials?</li>
+  </ul>
+</div>
+<div>
+  <strong className="text-purple-900">EntryChip Component — 5 status variants to check:</strong>
+  <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+    <li><strong>Colors:</strong> Do all 5 status colors match your Figma exactly?</li>
+    <li><strong>Contrast:</strong> Is black text readable on all colored backgrounds?</li>
+    <li><strong>Distinction:</strong> Are the 5 statuses visually distinct enough?</li>
+    <li><strong>Size/Padding:</strong> Does the 12px padding feel right?</li>
+    <li><strong>Border Radius:</strong> Is the 2px corner subtle enough?</li>
+  </ul>
+</div>
+<p>
+  <strong className="text-purple-900">How to check:</strong> Open your Figma Components
+  page (Node ID: 177:32228) side-by-side with this demo. Find the "Avatars" and "Entry Chips"
+  sections in Figma and compare each variant. Test on your phone too — these components need
+  to look great on mobile.
+</p>
+<p>
+  <strong className="text-purple-900">Why these first?</strong> These are the smallest
+  building blocks. Once you approve these, we'll combine them into ListCard components (Step 3)
+  — Avatar + EntryChips + text = a contact or space card. It's easier to adjust a single Avatar
+  now than fix it in 10 different cards later!
+</p>
+<p className="text-xs text-gray-600 italic mt-4">
+  ✨ Tip: Pay special attention to the color contrast on Entry Chips — they'll be used
+  throughout the app to show status at a glance. If any status color is hard to distinguish,
+  let us know!
+</p>
+```
+
+**Key Principles:**
+- **Actionable**: Every bullet point should be a specific thing Michelle can verify
+- **Visual**: Reference specific colors, sizes, and node IDs from Figma
+- **Context**: Explain why this step matters and how it fits the bigger picture
+- **Mobile-first**: Always remind to test on actual phone
+- **Comprehensive**: Cover ALL variants, not just the happy path
+
+**Styling Notes:**
+- Purple/pink gradient background with left border stands out as "designer zone"
+- Designer emoji (👩‍🎨) makes it immediately recognizable
+- Strong tags highlight key terms for quick scanning
+- Bulleted lists for easy checklist-style review
+- Italic tip at bottom provides helpful insight
+
+**When to add:**
+- Immediately after implementing all components for a step
+- Before marking the step as complete
+- Before pushing to remote and creating/updating PR
+
+**Collapsible Detailed Section (REQUIRED):**
+
+Every review note MUST include a collapsible "Detailed Verification Guide" at the end for deep-dive verification:
+
+```tsx
+{/* Collapsible Detailed Verification Guide */}
+<details className="mt-4 border-t border-purple-200 pt-4">
+  <summary className="cursor-pointer text-sm font-semibold text-purple-900 hover:text-purple-700">
+    🔍 Detailed Verification Guide (click to expand)
+  </summary>
+  <div className="mt-4 space-y-3 text-sm text-gray-700 bg-white/50 p-4 rounded">
+    {/* Detailed content here */}
+  </div>
+</details>
+```
+
+**What to include in detailed section:**
+1. **Exact Color Values** - All hex codes with descriptive labels for color picker verification
+2. **Complete Specs** - Font families, sizes, weights, padding, margins, border-radius with pixel values
+3. **Step-by-Step Figma Comparison** - Numbered instructions for systematic review (which section, what to compare)
+4. **Edge Cases to Test** - Scenarios beyond happy path (long text, missing data, extreme sizes, etc.)
+5. **Usage Context** - Where these components will appear in the app (helps understand sizing choices)
+6. **Design Decisions (if applicable)** - Why certain choices were made or how components relate
+
+**Why this two-tier structure:**
+- **Main section = Quick scan (2-3 min)** - Michelle can verify basics quickly for routine review
+- **Detailed section = Deep dive (10-15 min)** - Available when she wants thorough review or needs to check exact specs
+- **Best of both worlds** - Fast for "looks good" reviews, comprehensive for "need to verify details"
+- **No information overload** - Details hidden by default, expanded on demand
+- **Self-documenting** - All specs embedded where she's looking, no need to hunt through Figma or ask questions
+
+This ensures Michelle can review everything directly from the Vercel preview without needing to check PRs or ask for explanations.
 
 ---
 
