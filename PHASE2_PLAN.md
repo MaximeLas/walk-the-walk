@@ -34,15 +34,117 @@ open http://localhost:3000/demo
 
 ## Table of Contents
 
-1. [Core Workflow](#core-workflow)
-2. [Strategic Approach](#strategic-approach)
-3. [Component Implementation Process](#component-implementation-process)
-4. [Tool Usage Guidelines](#tool-usage-guidelines)
-5. [Quality Standards](#quality-standards)
-6. [Commit Standards](#commit-standards)
-7. [Change Management Protocol](#change-management-protocol)
-8. [Step Implementation Details](#step-implementation-details)
-9. [Testing Strategy](#testing-strategy)
+1. [🚨 CRITICAL: Agent Execution Protocol](#-critical-agent-execution-protocol)
+2. [Core Workflow](#core-workflow)
+3. [Strategic Approach](#strategic-approach)
+4. [Component Implementation Process](#component-implementation-process)
+5. [Tool Usage Guidelines](#tool-usage-guidelines)
+6. [Quality Standards](#quality-standards)
+7. [Commit Standards](#commit-standards)
+8. [Change Management Protocol](#change-management-protocol)
+9. [Step Implementation Details](#step-implementation-details)
+10. [Testing Strategy](#testing-strategy)
+
+---
+
+## 🚨 CRITICAL: Agent Execution Protocol
+
+**READ THIS FIRST - Required workflow for all Phase 2 work**
+
+### Per-Step Execution Rules
+
+**MANDATORY: Each step must be done in its own feature branch and MUST stop after completion for testing.**
+
+#### Step Workflow (REQUIRED)
+
+```bash
+# 1. CREATE FEATURE BRANCH for the step
+git checkout -b feature/phase2-step-X-description
+
+# 2. IMPLEMENT the step (all commits for that step)
+# ... make your commits ...
+
+# 3. STOP HERE - DO NOT CONTINUE TO NEXT STEP
+# Agent must stop and report completion
+```
+
+#### After Step Completion, Agent MUST:
+
+1. **Report completion** with:
+   - Summary of what was implemented
+   - List of files created/modified
+   - Link to demo page to test (`http://localhost:3000/demo`)
+   - Any issues or notes encountered
+
+2. **Wait for user testing** - User will:
+   - Test implementation manually
+   - Run automated tests (if applicable)
+   - Review code
+   - Provide feedback or approval
+
+3. **Only after approval**, user will:
+   - Merge feature branch to main
+   - Tell agent to continue with next step
+
+### Why This Matters
+
+- **Testing is mandatory** between steps - components must work before building on them
+- **Feature branches isolate work** - easier to test, review, and rollback if needed
+- **Prevents cascading errors** - don't build Step 3 on broken Step 2
+- **Allows design iteration** - Michelle might want changes after seeing implementation
+
+### Automated Testing (Chrome DevTools MCP)
+
+**Agent should use Chrome DevTools MCP to verify implementation before reporting completion:**
+
+```bash
+# Start dev server if not running
+npm run dev
+
+# Agent uses Chrome DevTools MCP:
+# 1. Navigate to demo page
+# 2. Take screenshots of components
+# 3. Test interactions (clicks, hovers)
+# 4. Check console for errors
+# 5. Verify responsive behavior
+```
+
+**Available Chrome DevTools MCP tools:**
+- `mcp__chrome-devtools__navigate_page` - Load demo page
+- `mcp__chrome-devtools__take_screenshot` - Capture visual proof
+- `mcp__chrome-devtools__take_snapshot` - Get page state
+- `mcp__chrome-devtools__list_console_messages` - Check for errors
+- `mcp__chrome-devtools__click` / `hover` - Test interactions
+- `mcp__chrome-devtools__resize_page` - Test mobile viewport
+
+### Example Step Completion Report
+
+```markdown
+## Step 2 (Atomic Components) - COMPLETE ✅
+
+**Branch:** feature/phase2-step-2-atomic-components
+**Commits:** 2/2
+- e5bd7a1 - Avatar component
+- 800152b - EntryChip component
+
+**Files Created:**
+- src/components/ui/Avatar.tsx (9 variants)
+- src/components/ui/EntryChip.tsx (5 variants)
+
+**Demo Page:** http://localhost:3000/demo
+- Avatar: All 3 types × 3 sizes rendering correctly
+- EntryChip: All 5 status variants rendering correctly
+
+**Automated Tests:**
+✅ Demo page loads without console errors
+✅ All Avatar variants render correctly
+✅ All EntryChip variants render with correct colors
+✅ Mobile viewport (375px) tested
+
+**Screenshots attached:** [links to screenshots]
+
+**Ready for:** Manual testing and approval before Step 3
+```
 
 ---
 
