@@ -443,6 +443,37 @@ Add this section at the top of each step's content in `/demo` page, right after 
 - Before marking the step as complete
 - Before pushing to remote and creating/updating PR
 
+**Collapsible Detailed Section (REQUIRED):**
+
+Every review note MUST include a collapsible "Detailed Verification Guide" at the end for deep-dive verification:
+
+```tsx
+{/* Collapsible Detailed Verification Guide */}
+<details className="mt-4 border-t border-purple-200 pt-4">
+  <summary className="cursor-pointer text-sm font-semibold text-purple-900 hover:text-purple-700">
+    🔍 Detailed Verification Guide (click to expand)
+  </summary>
+  <div className="mt-4 space-y-3 text-sm text-gray-700 bg-white/50 p-4 rounded">
+    {/* Detailed content here */}
+  </div>
+</details>
+```
+
+**What to include in detailed section:**
+1. **Exact Color Values** - All hex codes with descriptive labels for color picker verification
+2. **Complete Specs** - Font families, sizes, weights, padding, margins, border-radius with pixel values
+3. **Step-by-Step Figma Comparison** - Numbered instructions for systematic review (which section, what to compare)
+4. **Edge Cases to Test** - Scenarios beyond happy path (long text, missing data, extreme sizes, etc.)
+5. **Usage Context** - Where these components will appear in the app (helps understand sizing choices)
+6. **Design Decisions (if applicable)** - Why certain choices were made or how components relate
+
+**Why this two-tier structure:**
+- **Main section = Quick scan (2-3 min)** - Michelle can verify basics quickly for routine review
+- **Detailed section = Deep dive (10-15 min)** - Available when she wants thorough review or needs to check exact specs
+- **Best of both worlds** - Fast for "looks good" reviews, comprehensive for "need to verify details"
+- **No information overload** - Details hidden by default, expanded on demand
+- **Self-documenting** - All specs embedded where she's looking, no need to hunt through Figma or ask questions
+
 This ensures Michelle can review everything directly from the Vercel preview without needing to check PRs or ask for explanations.
 
 ---

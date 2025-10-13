@@ -75,6 +75,69 @@ export default function ComponentDemo() {
                       ✨ Tip: These tokens are configured once and reused everywhere. If something looks off,
                       it's easier to fix now before components use them!
                     </p>
+
+                    {/* Collapsible Detailed Verification Guide */}
+                    <details className="mt-4 border-t border-purple-200 pt-4">
+                      <summary className="cursor-pointer text-sm font-semibold text-purple-900 hover:text-purple-700">
+                        🔍 Detailed Verification Guide (click to expand)
+                      </summary>
+                      <div className="mt-4 space-y-3 text-sm text-gray-700 bg-white/50 p-4 rounded">
+                        <div>
+                          <strong className="text-purple-900">Status Colors — Exact Values:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>No Nudge:</strong> Transparent background, Border #000000 (black), 1px solid</li>
+                            <li><strong>Scheduled:</strong> Background #FFFCEF, Border #FCD915 (golden yellow)</li>
+                            <li><strong>Sent:</strong> Background #EAF6FF, Border #004CCE (deep blue)</li>
+                            <li><strong>Responded:</strong> Background #EAFFF4, Border #00B017 (green)</li>
+                            <li><strong>Closed:</strong> Background #E8DAFF, Border #843DFF (purple)</li>
+                          </ul>
+                          <p className="text-xs text-gray-600 mt-2">
+                            💡 Use Figma's color picker or inspect mode to verify these exact hex values in your Entry Chips section.
+                          </p>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Typography Scale — Complete Breakdown:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>text-2xl (24px):</strong> Page titles, large headings</li>
+                            <li><strong>text-xl (20px):</strong> Section headers</li>
+                            <li><strong>text-lg (18px):</strong> Card titles, prominent labels</li>
+                            <li><strong>text-base (16px):</strong> Body text, main content, button labels</li>
+                            <li><strong>text-sm (14px):</strong> Tab labels, secondary actions</li>
+                            <li><strong>text-xs (12px):</strong> Entry chips, metadata, timestamps, helper text</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Border Radius Values:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>2px (rounded-sm):</strong> Entry chips - subtle, barely rounded corners</li>
+                            <li><strong>8px (rounded):</strong> List cards - soft corners</li>
+                            <li><strong>20px (rounded-lg):</strong> Tab buttons - pill-ish shape</li>
+                            <li><strong>40px (rounded-2xl):</strong> Buttons, search bars - fully rounded pill</li>
+                            <li><strong>50px/full (rounded-full):</strong> Avatars, icons - perfect circles</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Step-by-Step Figma Comparison:</strong>
+                          <ol className="list-decimal list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li>Open Figma Components page (Node ID: 177:32228)</li>
+                            <li>Use split screen: Figma on left, demo page on right</li>
+                            <li>Check Entry Chips section: Compare each status color swatch</li>
+                            <li>Use color picker tool in Figma to verify hex codes match</li>
+                            <li>Check typography examples against your design system</li>
+                            <li>Compare border radius examples to component specs</li>
+                          </ol>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Edge Cases to Verify:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li>Do the status colors have enough contrast from each other?</li>
+                            <li>Is text readable on all colored backgrounds?</li>
+                            <li>Does the glassmorphism effect render correctly in Safari?</li>
+                            <li>Are the color swatches rendering accurately (not washed out)?</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </details>
                   </div>
                 </div>
               </div>
@@ -312,6 +375,74 @@ export default function ComponentDemo() {
                       ✨ Tip: Pay special attention to the color contrast on Entry Chips — they'll be used throughout the app
                       to show status at a glance. If any status color is hard to distinguish, let us know!
                     </p>
+
+                    {/* Collapsible Detailed Verification Guide */}
+                    <details className="mt-4 border-t border-purple-200 pt-4">
+                      <summary className="cursor-pointer text-sm font-semibold text-purple-900 hover:text-purple-700">
+                        🔍 Detailed Verification Guide (click to expand)
+                      </summary>
+                      <div className="mt-4 space-y-3 text-sm text-gray-700 bg-white/50 p-4 rounded">
+                        <div>
+                          <strong className="text-purple-900">Avatar — Exact Color Values:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>Image type:</strong> Background #0B0B0B (very dark gray/black), contains profile photo</li>
+                            <li><strong>Contact Initials:</strong> Background #4B4B4B (medium gray), Text #FFFFFF (white), Font: IBM Plex Mono Bold 10px-14px</li>
+                            <li><strong>Space Initials:</strong> Background #B9B9B9 (light gray), Text #000000 (black), Font: IBM Plex Mono Bold 10px-14px</li>
+                            <li><strong>Sizes:</strong> Small 24×24px, Medium 32×32px, Large 44×44px — all with rounded-full (50px border-radius)</li>
+                          </ul>
+                          <p className="text-xs text-gray-600 mt-2">
+                            💡 Check contrast ratios: Contact initials should have higher contrast than Space initials
+                          </p>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">EntryChip — Exact Color Values:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>No Nudge:</strong> Bg transparent, Border #000000 (black) 1px, Text #000000</li>
+                            <li><strong>Scheduled:</strong> Bg #FFFCEF (light yellow), Border #FCD915 (golden yellow) 1px, Text #000000</li>
+                            <li><strong>Sent:</strong> Bg #EAF6FF (light blue), Border #004CCE (deep blue) 1px, Text #000000</li>
+                            <li><strong>Responded:</strong> Bg #EAFFF4 (light green), Border #00B017 (green) 1px, Text #000000</li>
+                            <li><strong>Closed:</strong> Bg #E8DAFF (light purple), Border #843DFF (purple) 1px, Text #000000</li>
+                          </ul>
+                          <p className="text-xs text-gray-600 mt-2">
+                            💡 All use: Arial Regular 12px, 12px padding all sides, 2px border-radius, center-aligned text
+                          </p>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Step-by-Step Figma Comparison:</strong>
+                          <ol className="list-decimal list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li>Open Figma Components page (Node ID: 177:32228)</li>
+                            <li>Find "Avatars" section — compare 3 fill types against demo</li>
+                            <li>Verify all 3 avatar sizes match your specs (24px in list cards, 44px in top nav)</li>
+                            <li>Find "Entry Chips" section — compare all 5 status variants</li>
+                            <li>Use color picker to verify each chip's background and border colors</li>
+                            <li>Check that 2px border-radius is subtle (barely rounded, not pill-shaped)</li>
+                          </ol>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Edge Cases to Test:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>Avatar:</strong> Try long initials (&gt;2 characters) - should truncate to 2</li>
+                            <li><strong>Avatar:</strong> Missing image src - should show placeholder or error state</li>
+                            <li><strong>EntryChip:</strong> Long text - does it wrap or truncate?</li>
+                            <li><strong>EntryChip:</strong> Very short text ("OK") - does padding look balanced?</li>
+                            <li><strong>Color Contrast:</strong> Can you distinguish all 5 chip statuses at a glance?</li>
+                            <li><strong>Mobile:</strong> Do small (24px) avatars feel too tiny on phone?</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Usage Context (where these will appear):</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>Small Avatar (24px):</strong> In ListCard contacts/spaces list</li>
+                            <li><strong>Medium Avatar (32px):</strong> General purpose, inline with text</li>
+                            <li><strong>Large Avatar (44px):</strong> Top navigation bar (your profile)</li>
+                            <li><strong>EntryChips:</strong> In ListCard bottom section showing promise statuses</li>
+                          </ul>
+                          <p className="text-xs text-gray-600 mt-2">
+                            Next step: These components will be composed into ListCard (Step 3) combining Avatar + EntryChips + text
+                          </p>
+                        </div>
+                      </div>
+                    </details>
                   </div>
                 </div>
               </div>
