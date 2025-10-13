@@ -95,7 +95,7 @@ git checkout -b feature/phase2-step-X-description
 
 ### Automated Testing (Chrome DevTools MCP)
 
-**Agent should use Chrome DevTools MCP to verify implementation before reporting completion:**
+**Agent MUST use Chrome DevTools MCP to verify implementation before reporting completion:**
 
 ```bash
 # Start dev server if not running
@@ -103,19 +103,65 @@ npm run dev
 
 # Agent uses Chrome DevTools MCP:
 # 1. Navigate to demo page
-# 2. Take screenshots of components
-# 3. Test interactions (clicks, hovers)
-# 4. Check console for errors
-# 5. Verify responsive behavior
+# 2. Check for console errors (MANDATORY)
+# 3. Take full-page screenshots (desktop + mobile viewports)
+# 4. Test interactions if applicable (clicks, hovers, form inputs)
+# 5. Verify responsive behavior across viewports
+# 6. Check visual consistency between sections
 ```
 
+**Testing Protocol (Step-by-Step):**
+
+1. **Load & Verify**
+   ```
+   mcp__chrome-devtools__navigate_page("http://localhost:3000/demo")
+   mcp__chrome-devtools__list_console_messages()  # MUST be error-free (except favicon 404)
+   ```
+
+2. **Desktop Visual Test**
+   ```
+   mcp__chrome-devtools__resize_page(1440, 900)
+   mcp__chrome-devtools__take_screenshot(fullPage=true)
+   ```
+
+3. **Mobile Visual Test**
+   ```
+   mcp__chrome-devtools__resize_page(375, 667)  # iPhone SE
+   mcp__chrome-devtools__take_screenshot(fullPage=true)
+   ```
+
+4. **Visual Consistency Analysis** (MANDATORY)
+   - Compare screenshots against previous sections
+   - Look for size/spacing inconsistencies
+   - Verify same elements look identical across sections
+   - Check for unintended duplication
+
+5. **Interaction Testing** (if applicable)
+   ```
+   mcp__chrome-devtools__click(uid="...")
+   mcp__chrome-devtools__hover(uid="...")
+   mcp__chrome-devtools__fill(uid="...", value="...")
+   ```
+
 **Available Chrome DevTools MCP tools:**
-- `mcp__chrome-devtools__navigate_page` - Load demo page
-- `mcp__chrome-devtools__take_screenshot` - Capture visual proof
-- `mcp__chrome-devtools__take_snapshot` - Get page state
-- `mcp__chrome-devtools__list_console_messages` - Check for errors
-- `mcp__chrome-devtools__click` / `hover` - Test interactions
-- `mcp__chrome-devtools__resize_page` - Test mobile viewport
+- `mcp__chrome-devtools__navigate_page` - Load pages
+- `mcp__chrome-devtools__take_screenshot` - Capture visual proof (use fullPage=true)
+- `mcp__chrome-devtools__take_snapshot` - Get interactive element UIDs
+- `mcp__chrome-devtools__list_console_messages` - Check for errors (CRITICAL)
+- `mcp__chrome-devtools__click` / `hover` / `fill` - Test interactions
+- `mcp__chrome-devtools__resize_page` - Test different viewports
+- `mcp__chrome-devtools__list_network_requests` - Check for failed requests
+
+**What to Look For:**
+- ✅ No console errors (except expected favicon 404)
+- ✅ Components render correctly on both desktop and mobile
+- ✅ Visual consistency within the page (same elements look the same)
+- ✅ No layout breaks or overflow issues
+- ✅ Proper spacing and alignment
+- ❌ Different font sizes for same type of content
+- ❌ Inconsistent padding/margins between sections
+- ❌ Duplicate content that serves no purpose
+- ❌ Poor organization or confusing structure
 
 ### Example Step Completion Report
 
@@ -217,11 +263,74 @@ npm run dev
 
 ### After Coding
 
-1. Add component to `/demo` page with all variants
-2. Visual comparison: Screenshot your implementation vs Figma
-3. Functional testing: Test all props, edge cases, mobile viewport (375px)
-4. Report completion with screenshot before moving to next component
-5. Update PHASE2_STATUS_TRACKING.md to mark commit as complete
+**CRITICAL: Comprehensive testing is mandatory before reporting completion**
+
+#### 1. Add to Demo Page
+- Add component to `/demo` page with ALL variants
+- Include usage examples and prop documentation
+- Ensure clear labeling and organization
+
+#### 2. Automated Testing (Chrome DevTools MCP)
+Use Chrome DevTools MCP tools to verify implementation:
+
+```bash
+# Navigate to demo page
+mcp__chrome-devtools__navigate_page("http://localhost:3000/demo")
+
+# Check for console errors
+mcp__chrome-devtools__list_console_messages()
+
+# Take full-page screenshot (desktop)
+mcp__chrome-devtools__take_screenshot(fullPage=true)
+
+# Test mobile viewport (375px iPhone SE)
+mcp__chrome-devtools__resize_page(375, 667)
+mcp__chrome-devtools__take_screenshot(fullPage=true)
+
+# Test interactions if applicable
+mcp__chrome-devtools__click(uid="...")
+mcp__chrome-devtools__hover(uid="...")
+```
+
+#### 3. Visual & UX Consistency Review
+**IMPORTANT: Don't just verify technical correctness - verify UX quality**
+
+- **Internal consistency**: Do the same elements look the same across different sections?
+- **Size consistency**: Are text sizes, spacing, and component sizes consistent throughout?
+- **Visual hierarchy**: Is the page organized clearly? Can you tell what's new vs old?
+- **Information architecture**: Is it easy to find and navigate content?
+- **Comparison against Figma**: Side-by-side visual verification of colors, spacing, typography
+- **Mobile feel**: Does everything feel comfortable on a 375px viewport?
+
+**Red flags to check:**
+- Different font sizes for the same type of text in different sections
+- Inconsistent spacing or padding between similar elements
+- Duplicate content that serves no clear purpose
+- Confusing organization or lack of clear sectioning
+- Elements that look similar but aren't using the same component
+
+#### 4. Functional Testing Checklist
+- [ ] All prop combinations render correctly
+- [ ] Edge cases handled (missing data, long text, empty states)
+- [ ] Mobile viewport (375px) works perfectly
+- [ ] Desktop viewport doesn't break
+- [ ] No console errors or warnings
+- [ ] Interactions work (hover, click, focus if applicable)
+- [ ] Accessibility basics (alt text, aria labels, semantic HTML)
+
+#### 5. Report Completion
+Create comprehensive completion report including:
+- Summary of what was implemented
+- Screenshot proof (desktop + mobile)
+- Test results (automated + manual checklist)
+- Any UX issues discovered and fixed
+- Any deviations from Figma with justification
+- Demo page URL for manual testing
+
+#### 6. Update Documentation
+- Update PHASE2_STATUS_TRACKING.md to mark commit as complete
+- Add any important notes or learnings
+- Flag any concerns or questions for user review
 
 ---
 
