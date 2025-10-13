@@ -82,24 +82,24 @@ ring-opacity-*	Use opacity modifiers like ring-black/50
 placeholder-opacity-*	Use opacity modifiers like placeholder-black/50
 flex-shrink-*	shrink-*
 flex-grow-*	grow-*
-overflow-ellipsis	text-ellipsis
-decoration-slice	box-decoration-slice
-decoration-clone	box-decoration-clone
+text-ellipsis	text-ellipsis
+box-decoration-slice	box-decoration-slice
+box-decoration-clone	box-decoration-clone
 Renamed utilities
 We've renamed the following utilities in v4 to make them more consistent and predictable:
 
 v3	v4
-shadow-sm	shadow-xs
+shadow-sm	shadow-2xs
 shadow	shadow-sm
+drop-shadow-xs	drop-shadow-xs
 drop-shadow-sm	drop-shadow-xs
-drop-shadow	drop-shadow-sm
-blur-sm	blur-xs
-blur	blur-sm
-backdrop-blur-sm	backdrop-blur-xs
-backdrop-blur	backdrop-blur-sm
+blur-xs	blur-xs
+blur	blur-xs
+backdrop-blur-xs	backdrop-blur-xs
+backdrop-blur	backdrop-blur-xs
 rounded-sm	rounded-xs
 rounded	rounded-sm
-outline-none	outline-hidden
+outline-hidden	outline-hidden
 ring	ring-3
 Updated shadow, radius, and blur scales
 We've renamed the default shadow, radius and blur scales to make sure every utility has a named value. The "bare" versions still work for backward compatibility, but the <utility>-sm utilities will look different unless updated to their respective <utility>-xs versions.
@@ -108,23 +108,23 @@ To update your project for these changes, replace all the v3 utilities with thei
 
 HTML
 <input class="shadow-sm" />
-<input class="shadow-xs" />
+<input class="shadow-2xs" />
 <input class="shadow" />
 <input class="shadow-sm" />
 Renamed outline utility
 The outline utility now sets outline-width: 1px by default to be more consistent with border and ring utilities. Furthermore all outline-<number> utilities default outline-style to solid, omitting the need to combine them with outline:
 
 HTML
-<input class="outline outline-2" />
+<input class="outline-solid outline-2" />
 <input class="outline-2" />
-The outline-none utility previously didn't actually set outline-style: none, and instead set an invisible outline that would still show up in forced colors mode for accessibility reasons.
+The outline-hidden utility previously didn't actually set outline-style: none, and instead set an invisible outline that would still show up in forced colors mode for accessibility reasons.
 
-To make this more clear we've renamed this utility to outline-hidden and added a new outline-none utility that actually sets outline-style: none.
+To make this more clear we've renamed this utility to outline-hidden and added a new outline-hidden utility that actually sets outline-style: none.
 
-To update your project for this change, replace any usage of outline-none with outline-hidden:
+To update your project for this change, replace any usage of outline-hidden with outline-hidden:
 
 HTML
-<input class="focus:outline-none" />
+<input class="focus:outline-hidden" />
 <input class="focus:outline-hidden" />
 Default ring width change
 In v3, the ring utility added a 3px ring. We've changed this in v4 to be 1px to make it consistent with borders and outlines.
@@ -132,7 +132,7 @@ In v3, the ring utility added a 3px ring. We've changed this in v4 to be 1px to 
 To update your project for this change, replace any usage of ring with ring-3:
 
 HTML
-<input class="ring ring-blue-500" />
+<input class="ring-3 ring-blue-500" />
 <input class="ring-3 ring-blue-500" />
 Space-between selector
 We've changed the selector used by the space-x-* and space-y-* utilities to address serious performance issues on large pages:
@@ -160,7 +160,7 @@ Using variants with gradients
 In v3, overriding part of a gradient with a variant would "reset" the entire gradient, so in this example the to-* color would be transparent in dark mode instead of yellow:
 
 HTML
-<div class="bg-gradient-to-r from-red-500 to-yellow-400 dark:from-blue-500">
+<div class="bg-linear-to-r from-red-500 to-yellow-400 dark:from-blue-500">
   <!-- ... -->
 </div>
 In v4, these values are preserved which is more consistent with how other utilities in Tailwind work.
@@ -206,7 +206,7 @@ We've changed the width of the ring utility from 3px to 1px and changed the defa
 
 To update your project for these changes, replace any use of ring with ring-3:
 
-<button class="focus:ring ...">
+<button class="focus:ring-3 ...">
 <button class="focus:ring-3 ...">
   <!-- ... -->
 </button>
@@ -329,8 +329,8 @@ In v3, stacked variants were applied from right to left, but in v4 we've updated
 To update your project for this change, reverse the order of any order-sensitive stacked variants in your project:
 
 HTML
-<ul class="py-4 first:*:pt-0 last:*:pb-0">
 <ul class="py-4 *:first:pt-0 *:last:pb-0">
+<ul class="py-4 first:*:pt-0 last:*:pb-0">
   <li>One</li>
   <li>Two</li>
   <li>Three</li>
@@ -343,7 +343,7 @@ In v3 you were able to use CSS variables as arbitrary values without var(), but 
 To update your project for this change, replace usage of the old variable shorthand syntax with the new variable shorthand syntax:
 
 HTML
-<div class="bg-[--brand-color]"></div>
+<div class="bg-(--brand-color)"></div>
 <div class="bg-(--brand-color)"></div>
 Hover styles on mobile
 In v4 we've updated the hover variant to only apply when the primary input device supports hover:

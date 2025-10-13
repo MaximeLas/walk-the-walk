@@ -183,7 +183,7 @@ export default function ComponentDemo() {
           </div>
 
           {/* Glassmorphism Effect */}
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded shadow-card p-6 mb-8">
+          <div className="bg-linear-to-br from-indigo-500 to-purple-600 rounded shadow-card p-6 mb-8">
             <h3 className="text-lg font-semibold mb-4 text-white">
               Glassmorphism (Backdrop Blur)
             </h3>

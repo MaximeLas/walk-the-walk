@@ -186,7 +186,7 @@ Avatar components with three different fill types.
 
 **Sizing:**
 - Container: size-full (flexible)
-- Avatar circle: aspect-[61/61] (square aspect ratio, circular with border-radius)
+- Avatar circle: aspect-61/61 (square aspect ratio, circular with border-radius)
 - Border radius: 50px (circular)
 - Text container:
   - Left: 20.83% of container
@@ -217,7 +217,7 @@ Avatar components with three different fill types.
 
 **Sizing:**
 - Container: size-full (flexible)
-- Avatar circle: aspect-[61/61] (square aspect ratio, circular with border-radius)
+- Avatar circle: aspect-61/61 (square aspect ratio, circular with border-radius)
 - Border radius: 50px (circular)
 - Text container:
   - Left: 20.83% of container
