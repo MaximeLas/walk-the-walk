@@ -1,0 +1,302 @@
+MICHELLE
+Well, shall we get down to it? I want to hear your thoughts and I have thoughts. And I. Yeah, I'll let you go ahead. You start, Max.
+
+KEVIN
+I don't know.
+
+MAX
+Yeah, I can go again over it, but I think I explained my thinking.
+
+KEVIN
+You made your points.
+
+MAX
+I made my points, yes.
+
+KEVIN
+So, Michelle, I'd be interested to know yours.
+
+MICHELLE
+I. Okay, so I am trying to put the two things Max put in together because I don't think the first thing you said was right about you thinking about backlogs. Wrong. But I do know what you mean about it being like, can if we treated projects or situations or events as if they were a contact. Right? Or like if instead of like a tag, the tag was actually like the thing that like three people could go into. Right. Like if the unicorn was treated like a contact instead of a, you know, instead of a tag, then the three of us would be part of unicorn and we could each go and get, you know, information in there and nudge each other and whatever else I want. I'm just wondering, like, do you see that replacing the concept of the contacts, or would it replace the content of like the list view of all of your log items throughout your backlogs? Or neither. Like, would it be a third thing?
+
+MAX
+No, it's just a different basic unit. A contact is one thing and then they have a backlog. A backlog is like a context that can involve one or more contacts in it. So as I said, you might care about the contact view to know what are all the promises that Kevin owes you? Because you're about to talk to Kevin and you want to know what he owes you for the unicorn project as well as for the freelancing thing or whatever. But then the backlog is a context, so it's just a different thing. So yeah, we would need a different view, I think, to look at the backlog. Or maybe it's not a view, but, you know, you just see a list of backlogs and then you click on one and you have the backlog. But, but, but just this one to one relationship, basically, this, this, it's. It's kind of the equivalence that I think is wrong to have between a contact and a backlog.
+
+MICHELLE
+Okay, wait, that. You lost me on that last part. Because what do you mean with.
+
+MAX
+So right now, right now in our tool, a backlog is the same thing as a contact. I mean, it's not the same thing, but it's basically.
+
+MICHELLE
+No, it's not.
+
+MAX
+Yeah, it is. Because a backlog you have to put a contact, right? Isn't it?
+
+MICHELLE
+Well, no contact has a backlog. The contact isn't the backlog.
+
+MAX
+Contact has a backlog or the backlog has a contact?
+
+MICHELLE
+Like it's your backlog with the contact.
+
+MAX
+Okay, so, so what do you mean? So you mean now that we could have different backlogs with Kevin? I have two different backlogs with Kevin. That's what you mean?
+
+MICHELLE
+Because if you like, you have your backlog with Kevin. Right? Say I have my backlog with Kevin and Kevin has the backlog with each of us. Right. But in some of the items within with our backlogs, they'll be for the unicorn versus some will just be between me and Kevin because of maybe like some other work or whatever. What I thought you were saying is that in those situations in which the three of us are in the same one, that becomes in and of itself another backlog in which it's like tied to the specific project or event or whatever, and then that event or project becomes sort of like a contact in and of itself that holds its own backlog.
+
+MAX
+I wouldn't say it's a contact of it. I just think we want to define what the backlog is. And I don't really see the use case of just saying a backlog is what is the backlog between me and Kevin. What is more useful is like what is the backlog I have on a certain project or a certain context which might involve only Kevin, and I might only have one backlog with Kevin. But that's more important than just say what is my backlog with Kevin? Because in your example, how would you, how would you sort out this unicorn thing that we have, the three of us? I think it makes sense to have that defined as a context. Sorry, like as a backlog, because that's the context that we care about. When Kevin goes on a unicorn promise, he can then see the backlog that we have, all of us. If I go on the research property with two of my sisters, that is the backlog that we have like the three of us. It's like the, the context. I don't care about the backlog I have with one of my sisters because that's irrelevant.
+
+MICHELLE
+Right. I think we're all saying. I actually do think we're all saying the same thing and agreeing. I just think that the words are mixing me up a little bit.
+
+MAX
+No, but I'm saying that our current tool doesn't, you know, handle that in any way. In our tool we have a one to one relationship between a backlog and a contact.
+
+MICHELLE
+I think I know what you mean, I think, and correct me if I'm wrong, what you're saying is that the capability. I think what you're saying is that instead of the capability of the tag just serving as this metadata connector between people that are in a certain group, however it's designed or whatever, it's actually in and of itself its own backlog for whatever that tag is for. Right? So I go into Unicorn and I see the backlog between the three of us, and it doesn't necessarily have anything to do with my contact Kevin.
+
+MAX
+Yeah, so the tag is more like for organizing and filtering. I care about my view. So, like, you put in your screens, you put health, you put finance.
+
+MICHELLE
+Right, right, right.
+
+MAX
+I can put things like that, but that's not what.
+
+MICHELLE
+Right, right, right. But then if I want to, like, filter everything from Unicorn, I can see it in a filtered results view, or I can just go into Unicorn, is what you're saying.
+
+MAX
+Yeah, you can do unicorn. But it's much more useful to have an actual unicorn backlog than me having a unicorn tag, because we.
+
+MICHELLE
+So I think these are two separate things. Like, one is how useful is having a tag displayed that shows the connection between the different contacts and yourself, and the other.
+
+MAX
+But it's not just contacts.
+
+MICHELLE
+OR whatever, like contacts, like input, like a person, a project, whatever it is. Anything that has a backlog.
+
+MAX
+Yeah, right, okay, sure. Okay, yeah.
+
+MICHELLE
+So maybe, yeah, anything that has a backlog. Like, honestly, it could be anything. So that's one issue. And then the other is. Like, I mean, I don't think it's mutually exclusive. I think it could be both. I think it could be both a tag or not. Or not a tag, and exist as an entity that has a backlog in and of itself.
+
+KEVIN
+Ok, so Michelle, I'm sorry, guys, to interrupt. So the point is, I have very, very low battery and I need to get upstairs at my parents and I don't have the key, so we need to call them at certain point. So I need to be quick.
+
+MAX
+Okay, so go ahead.
+
+KEVIN
+I think I understand what you both mean at first. The first message you sent Max to me, it wasn't clear and it was not the same thing as the things you explained in your second message on WhatsApp. So, basically, having the ability to use the tag Unicorn to access to the whole mixed backlogs related to this project is something we discussed already, and that is a feature we talked about when we talked about the UI and all the designs. That Michelle made, what you said is that this feature might be a key feature to start with. And also what you're saying from my understanding is that it shouldn't only be accessible through a small tag, but there should be an interface to access the projects. So as the same way you see contacts, you could see projects. And for this project you have the mixed backlog related to this project. So with the filter for all the people that are involved in this project. So basically what you're saying is that this feature should be a priority or be part of the mvp. And you're saying that accessibility should be quite central because you don't always want to get the tasks access through one person. But sometimes for a project.
+
+MAX
+I think it changes the model structure also of like how we put, you know how. Yeah, the relationship between the entities. It's a different model.
+
+KEVIN
+No, no, no, no. It doesn't change that much.
+
+MAX
+It doesn't change much. It doesn't change much. But it. So again, like now do you agree that now there is a one to one relationship between a backlog and, and a contact?
+
+KEVIN
+So the way we, we, the way Michelle structured it and with the way we talked about it was in a very agile way. So for us a backlog could be. It's a filter of a database. So basically, if you want to see the backlog of a project, you need to see all the tasks that have the tag for this project, for example. So you have as many backlogs as you have ways of filtering the database.
+
+MAX
+Yeah. Okay. So. Okay, sure. So that's a very loose thing. It's like, it doesn't mean anything. It's just like a result of a search by filter. But let me ask you, when I send you a nudge and you open the magic link, you know, we said that we would, they would be able to see the backlog. So what does that backlog mean? Because there is no filtering applied yet, it's like about the recipient. So we need to decide what does the backlog mean.
+
+MICHELLE
+Well I think that depends on what the user sets for for like public and private. Right. Because we decided some things can be public, some things can be private.
+
+MAX
+No, no, I'm talking about public tasks.
+
+MICHELLE
+Yes, yes, yes, fine. What I'm saying is if you share a magic link, it'll depend if you share it from, you know, to. If you share it to Michelle from your contact Michelle or to Michelle from your entity unicorn. And so then if you send it through Michelle, I'll just see Your backlog that you've allowed for me to see under my contact, but if you send it to me through Unicorn, I'll see what I'm allowed to see under Unicorn.
+
+KEVIN
+So, if you allow me, Michelle, maybe what we're talking about is how do you define. It's maybe not just public or private, but generally speaking, how do you define the things you want to nudge the person or a group of person about? So it's something we can think of.
+
+MICHELLE
+Yeah. Maybe they don't need to see the whole backlog. They'll just see that one line item and the backlog, it's attached to the backlog.
+
+MAX
+Yes but which backlog?
+
+MICHELLE
+The backlog you sent it from.
+
+MAX
+Okay, exactly. So you do think there is a thing of backlogs that is not just this one. We could have a backlog of the unicorn and then I could have a personal backlog with you and I might even have another backlog with you that is about something else. Right, but this is a context that makes sense that the promise would fall under in my eyes. So that's my point. It's like basically multiple people can participate in the same backlog. That's one thing that I want observation and the other is that the same person can be in multiple different backlogs.
+
+MICHELLE
+Yes.
+
+MAX
+And each backlog essentially represents like a distinct, you know, sphere of accountability. Basically, yes.
+
+MICHELLE
+Okay.
+
+KEVIN
+But Michelle, is this all big news or? In my mind, it was already what we talked about.
+
+MICHELLE
+I feel like we touched on it briefly. There have been no designs or flows around it yet, but it is, I, I now see it, I see some things changing in the design as we're talking about this. I worked on the designs for a few hours yesterday. I'm going to work on them right now actually. Let's try and meet tomorrow or Friday.
+
+MAX
+Okay. Kevin, you said that the first message says something else than the second one. I think they're very coherent. Like I didn't have any new ideas really. Do you want to say what, what, you don't agree with the first message?
+
+KEVIN
+I don't know, maybe I read it too quickly. But from my understanding, at first you wanted to like make the whole user interaction and the whole user experience around the projects themselves instead of the one to one people relationship. I think it's always about people. It's about one to one. I think the basis of the user experience is to manage one to one backlogs and tasks. And of course, if you really get into this kind of way of doing things, you will want to use projects and to mix and to.
+
+MAX
+He's off?
+
+MICHELLE
+I think his phone died. His phone died, probably.
+
+KEVIN
+I'm sorry. The phone is dying. I have to go. But what I was thinking is that.
+
+MAX
+You were saying about projects, that it was more about projects in your eyes, What I was saying.
+
+KEVIN
+Yeah. I was like, he wants to create a new Trello.
+
+MAX
+Yeah. But no, I don't. Okay, maybe read the message again, because I do want to make sure that we're on the same page. No, not to show you that I agreed, but because I do believe what I wrote. So maybe we're not on the same page yet.
+
+KEVIN
+We're on the same page. We understood each other. And I agree with, like, 99% of the things that Michelle said. So I think we're all on the same page.
+
+MICHELLE
+I do think we're on the same page. I think the vocabulary is funny. And we're still sorting out labeling conventions. I think I'll design some shit. I'll show it to you guys. If it's not how we all see it or are on the same page, then we'll figure it out then.
+
+KEVIN
+Exactly.
+
+MAX
+Maybe backlog isn't the right term, by the way. I would think maybe there is something else that.
+
+MICHELLE
+What do you mean, by the way? That's literally what I've been saying this whole time about label. What do you mean, by the way? Like you discovered this, like, revelation. I can't.
+
+MAX
+What do you mean? What, what did you propose as an alternative? What did you propose?
+
+MICHELLE
+This whole time, these last few weeks, I've been adding screenshots of thesaurus.com, different things we can use for items, logs, loads, backlog, like, all these things. And now you're like, oh, by the way, I think this might not actually be the right term.
+
+MAX
+But I don't understand. I never heard a proposal from you saying we should change the term backlog to something else.
+
+KEVIN
+Gary, I'm going to leave you, too, to this vocabulary discussion. I need to go. I love you boys. Thank you for all your time. Speak to you tomorrow or Friday.
+
+MICHELLE
+Okay. Ciao.
+
+MAX
+Ciao.
+
+MICHELLE
+Okay. Hey, Judas.
+
+MAX
+Hey. So, I don't get where you're coming from. You sent a lot of things, but you always used the term backlog.
+
+MICHELLE
+Well, I mean, I didn't come up with formal proposal for things to change. But I've dropped comments.
+
+MAX
+You what?
+
+MICHELLE
+I've left comments. I've said things. I've talked about the copywriting and how it could affect the way the designs turn out and all that, but I don't, I don't know, maybe you don't listen to me.
+
+MAX
+Maybe. Or maybe you don't explain clearly. I don't see how the copyright has to do with it.
+
+MICHELLE
+Copywriting. What do you mean, copywriting? UX copywriting has everything to do with labeling conventions. That's what it is.
+
+MAX
+That's what it. What it is. Okay, you need to educate me then, because I'm a bit confused how it's related.
+
+MICHELLE
+Okay. Within the UX sphere, you have, you know, UX design, UX strategy, and then you have, like, UX copywriting, which is like, there's a whole category of people that work in this that it's their job basically to understand how words and their meanings and like, their synonyms and whatever can affect user behavior. And they decide on the length of sentences and the, you know, best number of words before people start losing their memory of it and all this other shit. And so they're really, really well versed in, like, the psychology of language and whatever else. And so UX copywriters do research on their target audience and all that other stuff to figure out, oh, you know, if we're targeting old ladies, obviously we would never use the word backlog. Like, they don't, but it would be something like laundry list. I don't fucking know. You know what I mean?
+
+MAX
+Okay, go ahead. Okay, I need to go. But. But can you send me that link once again, please?
+
+MICHELLE
+What link?
+
+MAX
+Well, about the copyright that you said or. It's not a link that you sent.
+
+MICHELLE
+No, I just, like, posted stuff in Resources in the figma.
+
+MAX
+Okay, so it's in Resources of the figma.
+
+MICHELLE
+I'll tag you. I'll tag you.
+
+MAX
+Tag me. And also, what do you think of the word space instead of backlog?
+
+MICHELLE
+Yeah, I like that. I think space is cool. Like, you know, it's funny, I've been looking up words actually, and so many of them are just like, dirty as fuck. I'm like, well, no, we can't call it load because that's dirty. And like, I don't know.
+
+MAX
+Well space, I think is nice.
+
+MICHELLE
+Space is good. I like that. I hadn't thought of that. I do like space, I started designing the chat stuff. We need to talk more about this. And, like, maybe you and I should have one on ones. Okay.
+
+MAX
+Yeah. Okay, cool.
+
+MICHELLE
+All right. Where are you going? Where are you off to?
+
+MAX
+No, I'm about to go dinner. They're just waiting for me.
+
+MICHELLE
+Oh, yeah.
+
+MAX
+Okay, cool. So listen, I want to start working on this tonight. So I don't know if you have any thoughts about one screen that you're already set on and that I can start looking at before the rest and start working on.
+
+MICHELLE
+I can tag you in figma.
+
+MAX
+Okay, tag me.
+
+MICHELLE
+I worked on it yesterday.
+
+MAX
+If you have any thoughts on, like, what to start on, let me know. Otherwise, I will have my best judgment. Okay?
+
+MICHELLE
+Okay. Cutie patootie. Don't worry about it. Okay, bye.
+
+MAX
+Bye.
