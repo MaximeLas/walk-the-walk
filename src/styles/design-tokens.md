@@ -211,24 +211,134 @@ This font stack provides:
 
 ## Border Radius
 
-Border radius tokens will be added in Step 1.5.
+Michelle's designs use consistent border radius values for different component types:
 
-**Preview of what's coming:**
-- `rounded-sm`: 2px (entry chips)
-- `rounded`: 8px (cards)
-- `rounded-lg`: 20px (tab pills)
-- `rounded-full`: Perfect circles (avatars, buttons)
+| Class | Value | Figma Usage |
+|-------|-------|-------------|
+| `rounded-sm` | 2px | Entry chips (sharp, subtle rounding) |
+| `rounded` | 8px | Cards, general components |
+| `rounded-lg` | 20px | Tab pills, larger rounded elements |
+| `rounded-xl` | 36px | Top nav bottom corners |
+| `rounded-2xl` | 40px | Circular buttons, search bar |
+| `rounded-full` | 9999px | Avatars, status dots (perfect circles) |
+
+**Examples:**
+```tsx
+// Entry chip
+<div className="rounded-sm">No Nudge</div>
+
+// Card
+<div className="rounded shadow-card">...</div>
+
+// Tab button
+<button className="rounded-lg">All</button>
+
+// Avatar
+<img className="rounded-full" src="..." />
+
+// Top navigation (rounded bottom corners)
+<nav className="rounded-b-xl">...</nav>
+```
 
 ---
 
 ## Shadows & Effects
 
-Shadow and effect tokens will be added in Step 1.5.
+### Box Shadows
 
-**Preview of what's coming:**
-- Card shadows for elevation
-- Backdrop blur for glassmorphism effects
-- Transition durations for smooth interactions
+Used to create visual hierarchy and depth:
+
+| Class | Value | Usage |
+|-------|-------|-------|
+| `shadow-card` | 0px 4px 16px rgba(0,0,0,0.15) | Cards, elevated elements |
+| `shadow-sm` | 0px 2px 8px rgba(0,0,0,0.1) | Subtle elevation, dropdowns |
+
+**Examples:**
+```tsx
+// List card with elevation
+<div className="bg-bg-card rounded shadow-card">
+  <h3>Maxime L.</h3>
+</div>
+
+// Add button with shadow
+<button className="shadow-card rounded-full">+</button>
+```
+
+### Backdrop Blur (Glassmorphism)
+
+Creates frosted glass effect seen in Michelle's designs:
+
+| Class | Value | Usage |
+|-------|-------|-------|
+| `backdrop-blur` | 6px | Cards, navigation, overlays |
+
+**Examples:**
+```tsx
+// Glassmorphism card (from Figma)
+<div className="backdrop-blur bg-bg-overlay rounded shadow-card">
+  {/* Content */}
+</div>
+
+// Top navigation with blur
+<nav className="backdrop-blur bg-primary-dark/90">
+  {/* Nav content */}
+</nav>
+```
+
+### Transitions
+
+Smooth animations for interactive elements:
+
+| Class | Duration | Usage |
+|-------|----------|-------|
+| `duration-150` (default) | 150ms | Hover states, focus rings, color changes |
+| `duration-300` | 300ms | Modal open/close, drawer animations |
+
+**Examples:**
+```tsx
+// Button with hover transition
+<button className="transition-colors duration-150 hover:bg-indigo-700">
+  Sign In
+</button>
+
+// Modal with slide animation
+<div className="transition-transform duration-300 ease-out">
+  {/* Modal content */}
+</div>
+```
+
+### Common Effect Patterns
+
+**Elevated Card (List Card):**
+```tsx
+<div className="bg-bg-card backdrop-blur rounded shadow-card">
+  {/* Card content */}
+</div>
+```
+
+**Glassmorphism Add Button:**
+```tsx
+<button className="
+  bg-bg-overlay backdrop-blur
+  rounded-full shadow-card
+  transition-transform duration-150
+  hover:scale-105
+">
+  +
+</button>
+```
+
+**Interactive Tab:**
+```tsx
+<button className="
+  rounded-lg
+  transition-colors duration-150
+  hover:bg-gray-100
+  active:bg-gray-200
+">
+  All
+</button>
+```
 
 ---
 
@@ -254,6 +364,7 @@ This centers a mobile-sized container (max-width: 28rem / 448px) on larger scree
 - All spacing values from Figma are multiples of 4px
 - Tailwind's default spacing scale requires no customization
 - Use semantic color names (e.g., `text-primary`) over arbitrary values
-- The design system is additive - tokens will be added in subsequent commits
+- All design tokens from Michelle's Figma designs are now configured
+- Mock data and component demo page coming in next commits
 
-**Last Updated:** 2025-10-13 (Step 1.3)
+**Last Updated:** 2025-10-13 (Step 1.5 - Design tokens complete)

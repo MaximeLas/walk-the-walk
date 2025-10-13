@@ -62,6 +62,25 @@ const config: Config = {
         semibold: '600', // Hiragino W6, section headers
         bold: '700',     // Arial Bold, main headings
       },
+      borderRadius: {
+        sm: '2px',      // Entry chips
+        DEFAULT: '8px', // Cards, general rounding
+        lg: '20px',     // Tab pills, larger rounded elements
+        xl: '36px',     // Top nav bottom corners
+        '2xl': '40px',  // Circular buttons, search bar
+        full: '9999px', // Avatars, perfect circles
+      },
+      boxShadow: {
+        card: '0px 4px 16px 0px rgba(0, 0, 0, 0.15)',  // Cards, elevated elements
+        sm: '0px 2px 8px 0px rgba(0, 0, 0, 0.1)',      // Subtle elevation
+      },
+      backdropBlur: {
+        DEFAULT: '6px', // Glassmorphism effect (cards, nav)
+      },
+      transitionDuration: {
+        DEFAULT: '150ms', // Standard transitions (hover, focus)
+        slow: '300ms',    // Modal/drawer animations
+      },
     },
   },
   plugins: [],
