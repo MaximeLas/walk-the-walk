@@ -798,7 +798,7 @@ Michelle's mobile-first design system.
 **Estimated Time:** 4-5 hours
 **Total Commits:** 2
 
-**Source:** COMPLETE_FIGMA_EXTRACTION.md lines 9-239 (Entry Chips + Avatars)
+**Source:** COMPLETE_FIGMA_EXTRACTION.md sections "Avatars" and "Entry Chips"
 
 ---
 
@@ -806,47 +806,44 @@ Michelle's mobile-first design system.
 
 **Time estimate:** 2-2.5 hours
 
-**Figma reference:** COMPLETE_FIGMA_EXTRACTION.md lines 150-239
+**Figma reference:** COMPLETE_FIGMA_EXTRACTION.md section "Avatars"
 
 **Component API:**
 ```tsx
 // src/components/ui/Avatar.tsx
 interface AvatarProps {
   type: 'image' | 'contact-initials' | 'space-initials'
-  size: 'sm' | 'md' | 'lg'  // 24px, 44px, 64px
+  size: 'sm' | 'md' | 'lg'
   src?: string       // Required if type='image'
   initials?: string  // Required if type includes 'initials'
   alt?: string       // For accessibility
 }
 ```
 
-**Implementation checklist:**
-1. Read COMPLETE_FIGMA_EXTRACTION.md lines 150-239 for complete specs
-2. Extract exact values: colors, sizing, typography from extraction document
-3. Create component with 3 types × 3 sizes = 9 total combinations
-4. Handle edge cases (missing image, long initials)
-5. Add all variants to `/demo` page
+**Implementation approach:**
+1. Read the "Avatars" section in COMPLETE_FIGMA_EXTRACTION.md
+2. Find the three fill types: Fill=Image, Fill=Contact Initials, Fill=Space Initials
+3. Extract all values (colors, sizing, typography, effects) from those subsections
+4. Implement 3 types × 3 sizes = 9 total combinations
+5. Handle edge cases (missing image, long initials)
+6. Add all variants to `/demo` page
 
 **Testing checklist:**
-- ✅ All 9 combinations render (3 types × 3 sizes)
-- ✅ Colors match extraction document exactly (lines 157, 183, 214)
+- ✅ All 9 combinations render correctly
+- ✅ All colors match extraction document exactly
 - ✅ Image variant handles missing/broken images gracefully
 - ✅ Initials are centered and readable
-- ✅ Perfect circles at all sizes (50px border radius)
-- ✅ Visual comparison to Figma screenshots confirms pixel-perfect match
+- ✅ Perfect circles at all sizes
+- ✅ Visual comparison to Figma confirms pixel-perfect match
 
-**Commit message template:**
+**Commit message:**
 ```
 Add Avatar component with 3 types and 3 sizes
 
-Implements Avatar design from COMPLETE_FIGMA_EXTRACTION.md lines 150-239:
-- Image type: Dark gray background (#0B0B0B)
-- Contact initials type: Medium gray background (#4B4B4B), white text
-- Space initials type: Light gray background (#B9B9B9), black text
+Implements Avatar design from COMPLETE_FIGMA_EXTRACTION.md "Avatars" section.
+All specs (colors, sizing, typography) taken directly from extraction document.
 
-Sizes: sm (24px), md (44px), lg (64px)
-All types are perfectly circular (50px border radius).
-
+Supports: image, contact-initials, space-initials × sm/md/lg sizes
 Added to /demo page with all type and size combinations.
 
 Part of Phase 2: Step 2 - Atomic Components
@@ -858,7 +855,7 @@ Part of Phase 2: Step 2 - Atomic Components
 
 **Time estimate:** 2-2.5 hours
 
-**Figma reference:** COMPLETE_FIGMA_EXTRACTION.md lines 9-147
+**Figma reference:** COMPLETE_FIGMA_EXTRACTION.md section "Entry Chips"
 
 **Component API:**
 ```tsx
@@ -869,40 +866,29 @@ interface EntryChipProps {
 }
 ```
 
-**Implementation checklist:**
-1. Read COMPLETE_FIGMA_EXTRACTION.md lines 9-147 for complete specs (all 5 status variants)
-2. Extract exact values: colors, sizing, typography from extraction document
-3. Create component with all 5 status variants
-4. Implement consistent 12px padding, 2px border radius
+**Implementation approach:**
+1. Read the "Entry Chips" section in COMPLETE_FIGMA_EXTRACTION.md
+2. Find all five status variants: No Nudge, Nudge Scheduled, Nudge Sent, Nudge Responded, Entry Closed
+3. Extract all values (colors, sizing, typography, effects) from those subsections
+4. Implement all 5 status variants
 5. Add all status variants to `/demo` page
 
 **Testing checklist:**
 - ✅ All 5 status variants render correctly
-- ✅ Colors match extraction document exactly:
-  - no-nudge: Transparent bg + #000000 border (lines 16-18)
-  - nudge-scheduled: #FFFCEF bg + #FCD915 border (lines 44-46)
-  - nudge-sent: #EAF6FF bg + #004CCE border (lines 72-74)
-  - nudge-responded: #EAFFF4 bg + #00B017 border (lines 99-101)
-  - entry-closed: #E8DAFF bg + #843DFF border (lines 126-128)
+- ✅ All colors match extraction document exactly (purple for entry-closed, green for nudge-responded, blue for nudge-sent)
 - ✅ Border colors are distinct and visible against backgrounds
-- ✅ Text is centered, 12px Arial Regular, black
+- ✅ Text is centered and readable
 - ✅ Chips expand to fit custom labels while maintaining consistent height
-- ✅ Visual comparison to Figma screenshots confirms pixel-perfect match
+- ✅ Visual comparison to Figma confirms pixel-perfect match
 
-**Commit message template:**
+**Commit message:**
 ```
 Add EntryChip component with 5 status variants
 
-Implements Entry Chip design from COMPLETE_FIGMA_EXTRACTION.md lines 9-147:
-- no-nudge: Transparent bg, black border
-- nudge-scheduled: Yellow bg (#FFFCEF), yellow border (#FCD915)
-- nudge-sent: Blue bg (#EAF6FF), blue border (#004CCE)
-- nudge-responded: Green bg (#EAFFF4), green border (#00B017)
-- entry-closed: Purple bg (#E8DAFF), purple border (#843DFF)
+Implements Entry Chip design from COMPLETE_FIGMA_EXTRACTION.md "Entry Chips" section.
+All specs (colors, sizing, typography) taken directly from extraction document.
 
-Layout: 12px padding, 2px border radius, 12px Arial Regular text
-All colors extracted exactly from Figma Components page.
-
+Supports all 5 status states with proper color coding.
 Added to /demo page with all status variants.
 
 Part of Phase 2: Step 2 - Atomic Components
@@ -912,32 +898,42 @@ Part of Phase 2: Step 2 - Atomic Components
 
 ## Steps 3-7: Overview
 
-These steps will be detailed as we complete prior steps.
+These steps will be detailed as we complete prior steps. Each step will follow the same Extract → Reference → Build → Verify workflow.
 
 ### Step 3: Molecule Components (6-8 hours)
-- **SpaceCard:** Combines Avatar + EntryChips, glassmorphism effect
-- **QuickNudgeModal:** Simplified modal (not sliding drawer)
+**Source:** COMPLETE_FIGMA_EXTRACTION.md section "List Cards"
 
-### Step 4: Navigation Components (6-8 hours)
-- **TopNav:** Search bar + profile avatar, dark background
-- **MiddleNav:** All/Contacts/Spaces tabs with filters
-- **AddButton:** Floating action button
+- **ListCard (Contact type):** Combines Avatar + StatusDot + Text + EntryChips
+- **ListCard (Space type):** Combines Avatar + Text + EntryChips + Connection count
+- Glassmorphism effects as documented in extraction
+
+### Step 4: Navigation & Action Components (12-15 hours)
+**Source:** COMPLETE_FIGMA_EXTRACTION.md sections "Navigation Components", "Screen Mode Components", "Add Button"
+
+- **TopNav:** Search bar + profile avatar (2 states: Active=No, Active=Yes)
+- **MiddleNav:** Filter/sort controls + view tabs (3 variants: All, Contacts, Spaces)
+- **ScreenModeSwitcher:** List/Grid/Chat tabs (3 states)
+- **AddButton:** Floating action button (2 states: Add, Close with menu)
 
 ### Step 5: Home Screen (8-10 hours)
-- Build layout with mock data
-- PinnedSection component
-- Integrate real Supabase data (replace mocks)
+**Source:** COMPLETE_FIGMA_EXTRACTION.md section "Pinned" (if needed, extract using Figma MCP)
+
+- Build layout combining navigation and molecule components
+- PinnedSection component (if not yet extracted, add to COMPLETE_FIGMA_EXTRACTION.md first)
+- Use mock data for initial development
+- Swap to real Supabase data in dedicated commit
 
 ### Step 6: Space Detail Page (6-8 hours)
-- Promise list view (mobile-optimized)
-- QuickNudgeModal integration
-- Owner actions (add, edit, mark done)
+- Entry list view (mobile-optimized)
+- QuickNudgeModal (if not yet extracted, add to COMPLETE_FIGMA_EXTRACTION.md first)
+- Owner actions (add entry, edit, mark done)
+- Reuses ListCard and EntryChip components
 
 ### Step 7: Magic Link Recipient View (4-6 hours)
 - Recipient view without authentication
-- Token verification flow
-- Simplified actions ("Mark Done")
-- Reuses SpaceCard and promise list components
+- Token verification flow (backend logic)
+- Simplified UI reusing existing components
+- Limited actions appropriate for recipients
 
 ---
 
