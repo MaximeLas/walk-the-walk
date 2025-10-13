@@ -111,12 +111,101 @@ All color tokens are defined in `tailwind.config.ts` under `theme.extend.colors`
 
 ## Typography
 
-Typography tokens will be added in Step 1.4 (next commit).
+### Font Families
 
-**Preview of what's coming:**
-- Font families: System fonts with Hiragino Kaku Gothic Pro and Arial fallbacks
-- Font sizes: 12px (xs) to 24px (2xl)
-- Font weights: 400 (normal) to 700 (bold)
+**Sans Serif Stack:**
+```
+-apple-system, BlinkMacSystemFont, Hiragino Kaku Gothic Pro, Arial, sans-serif
+```
+
+This font stack provides:
+- Native system fonts on Apple devices (-apple-system, BlinkMacSystemFont)
+- Hiragino Kaku Gothic Pro (used in Figma designs)
+- Arial as universal fallback
+- Generic sans-serif as final fallback
+
+**Usage:**
+```tsx
+// Applied by default to all text
+<p className="font-sans">This uses the system font stack</p>
+```
+
+### Font Sizes
+
+| Class | Size | Figma Usage |
+|-------|------|-------------|
+| `text-xs` | 12px | Entry chips, metadata, timestamps, small labels |
+| `text-sm` | 14px | Tab labels, secondary buttons, captions |
+| `text-base` | 16px | Body text, search placeholder, form inputs |
+| `text-lg` | 18px | Card titles, list item names, prominent text |
+| `text-xl` | 20px | Section headers, modal titles |
+| `text-2xl` | 24px | Page titles, main headings |
+
+**Examples:**
+```tsx
+// Page title
+<h1 className="text-2xl font-bold">Home</h1>
+
+// Card title
+<h2 className="text-lg font-semibold">Maxime L.</h2>
+
+// Metadata
+<span className="text-xs text-text-secondary">1 min. ago</span>
+
+// Entry chip
+<div className="text-xs">App Review</div>
+```
+
+### Font Weights
+
+| Class | Weight | Figma Font | Usage |
+|-------|--------|------------|-------|
+| `font-normal` | 400 | Arial Regular | Body text, paragraphs, descriptions |
+| `font-medium` | 500 | Hiragino W3 | Slightly emphasized text |
+| `font-semibold` | 600 | Hiragino W6 | Section headers, card titles |
+| `font-bold` | 700 | Arial Bold | Main headings, primary emphasis |
+
+**Examples:**
+```tsx
+// Main heading
+<h1 className="font-bold">WalkTheWalk</h1>
+
+// Section header
+<h2 className="font-semibold">Pinned</h2>
+
+// Card title
+<h3 className="font-semibold">Contact Name</h3>
+
+// Body text
+<p className="font-normal">Your accountability companion</p>
+```
+
+### Common Typography Patterns
+
+**List Card Name:**
+```tsx
+<h3 className="text-lg font-semibold text-text-primary">Maxime L.</h3>
+```
+
+**Metadata/Timestamp:**
+```tsx
+<span className="text-xs font-normal text-text-secondary">1 min. ago</span>
+```
+
+**Entry Chip Label:**
+```tsx
+<span className="text-xs font-normal text-text-primary">App Review</span>
+```
+
+**Tab Label (Active):**
+```tsx
+<span className="text-sm font-bold text-text-primary">All</span>
+```
+
+**Tab Label (Inactive):**
+```tsx
+<span className="text-sm font-bold text-text-secondary">Contacts</span>
+```
 
 ---
 

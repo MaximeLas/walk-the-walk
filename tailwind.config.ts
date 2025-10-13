@@ -39,6 +39,29 @@ const config: Config = {
         'bg-app': '#f8f8f8',            // App background
         'bg-overlay': 'rgba(94, 94, 94, 0.2)', // Overlay/backdrop
       },
+      fontFamily: {
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Hiragino Kaku Gothic Pro',
+          'Arial',
+          'sans-serif',
+        ],
+      },
+      fontSize: {
+        xs: '12px',    // Chips, metadata, small labels
+        sm: '14px',    // Tab labels, secondary buttons
+        base: '16px',  // Body text, search placeholder, inputs
+        lg: '18px',    // Card titles, prominent text
+        xl: '20px',    // Section headers
+        '2xl': '24px', // Page titles, main headers
+      },
+      fontWeight: {
+        normal: '400',   // Arial Regular, body text
+        medium: '500',   // Hiragino W3, slightly emphasized
+        semibold: '600', // Hiragino W6, section headers
+        bold: '700',     // Arial Bold, main headings
+      },
     },
   },
   plugins: [],
