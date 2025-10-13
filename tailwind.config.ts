@@ -8,7 +8,37 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // Design tokens will be added in subsequent commits
+      colors: {
+        // Primary colors
+        'primary-dark': '#181818',      // Top nav background
+        'primary-white': '#ffffff',     // Cards, buttons
+
+        // Status colors (from Entry Chips)
+        'status-success': '#00b017',    // Green - Responded/Done
+        'status-success-bg': '#eafff4', // Light green background
+        'status-warning': '#fcd915',    // Yellow - Scheduled
+        'status-warning-bg': '#fffcef', // Light yellow background
+        'status-info': '#004cce',       // Blue - In Progress
+        'status-info-bg': '#eaf6ff',    // Light blue background
+        'status-neutral': '#585858',    // Gray - No Nudge
+        'status-neutral-bg': '#f5f5f5', // Light gray background
+        'status-error': '#ef4444',      // Red - Closed/Error
+        'status-error-bg': '#fee2e2',   // Light red background
+
+        // Text colors
+        'text-primary': '#000000',      // Primary text (headings, labels)
+        'text-secondary': '#585858',    // Secondary text (metadata, captions)
+        'text-tertiary': '#7a7a7a',     // Tertiary text (disabled, placeholders)
+
+        // Border colors
+        'border-light': '#e9e9e9',      // Light borders (cards, inputs)
+        'border-dark': '#7a7a7a',       // Dark borders (avatars, emphasis)
+
+        // Background colors
+        'bg-card': '#ffffff',           // Card backgrounds
+        'bg-app': '#f8f8f8',            // App background
+        'bg-overlay': 'rgba(94, 94, 94, 0.2)', // Overlay/backdrop
+      },
     },
   },
   plugins: [],
