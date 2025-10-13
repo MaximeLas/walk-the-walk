@@ -37,31 +37,41 @@ export default function ComponentDemo() {
             </h3>
 
             <div className="space-y-4">
-              {/* Status Colors */}
+              {/* Status Colors - EXACT from Michelle's Figma */}
               <div>
                 <h4 className="text-sm font-medium mb-2 text-text-secondary">
-                  Status Colors
+                  Entry Chip Status Colors (from Figma Components page)
                 </h4>
                 <div className="flex flex-wrap gap-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-12 bg-status-success-bg border-2 border-status-success rounded" />
-                    <span className="text-xs">Success</span>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-20 h-9 bg-status-neutral-bg border border-status-neutral rounded-sm flex items-center justify-center">
+                      <span className="text-xs">No Nudge</span>
+                    </div>
+                    <span className="text-xs text-text-secondary">Black</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-12 bg-status-warning-bg border-2 border-status-warning rounded" />
-                    <span className="text-xs">Warning</span>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-28 h-9 bg-status-warning-bg border border-status-warning rounded-sm flex items-center justify-center">
+                      <span className="text-xs">Nudge Scheduled</span>
+                    </div>
+                    <span className="text-xs text-text-secondary">Yellow</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-12 bg-status-info-bg border-2 border-status-info rounded" />
-                    <span className="text-xs">Info</span>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-24 h-9 bg-status-info-bg border border-status-info rounded-sm flex items-center justify-center">
+                      <span className="text-xs">Nudge Sent</span>
+                    </div>
+                    <span className="text-xs text-text-secondary">Blue</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-12 bg-status-neutral-bg border-2 border-status-neutral rounded" />
-                    <span className="text-xs">Neutral</span>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-32 h-9 bg-status-success-bg border border-status-success rounded-sm flex items-center justify-center">
+                      <span className="text-xs">Nudge Responded</span>
+                    </div>
+                    <span className="text-xs text-text-secondary">Green</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-12 bg-status-error-bg border-2 border-status-error rounded" />
-                    <span className="text-xs">Error</span>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-24 h-9 bg-status-error-bg border border-status-error rounded-sm flex items-center justify-center">
+                      <span className="text-xs">Entry Closed</span>
+                    </div>
+                    <span className="text-xs text-text-secondary">Purple</span>
                   </div>
                 </div>
               </div>

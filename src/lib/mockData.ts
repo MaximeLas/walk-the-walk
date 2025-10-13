@@ -347,12 +347,13 @@ export const getStatusLabel = (status: EntryStatus): string => {
 
 export const getStatusColor = (status: EntryStatus): string => {
   // Returns Tailwind color classes for backgrounds and borders
+  // EXACT mappings from Michelle's Figma Components page (node 177:32228)
   const colors: Record<EntryStatus, { bg: string; border: string }> = {
-    'no-nudge': { bg: 'bg-white', border: 'border-black' },
-    'nudge-scheduled': { bg: 'bg-status-warning-bg', border: 'border-status-warning' },
-    'nudge-sent': { bg: 'bg-status-neutral-bg', border: 'border-status-neutral' },
-    'nudge-responded': { bg: 'bg-status-success-bg', border: 'border-status-success' },
-    'entry-closed': { bg: 'bg-status-error-bg', border: 'border-status-error' },
+    'no-nudge': { bg: 'bg-status-neutral-bg', border: 'border-status-neutral' }, // transparent bg, #000000 border
+    'nudge-scheduled': { bg: 'bg-status-warning-bg', border: 'border-status-warning' }, // #fffcef bg, #fcd915 border
+    'nudge-sent': { bg: 'bg-status-info-bg', border: 'border-status-info' }, // #eaf6ff bg, #004cce border
+    'nudge-responded': { bg: 'bg-status-success-bg', border: 'border-status-success' }, // #eafff4 bg, #00b017 border
+    'entry-closed': { bg: 'bg-status-error-bg', border: 'border-status-error' }, // #e8daff bg, #843dff border (PURPLE!)
   }
   return `${colors[status].bg} ${colors[status].border}`
 }

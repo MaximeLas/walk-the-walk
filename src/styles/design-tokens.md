@@ -70,16 +70,31 @@ All color tokens are defined in `tailwind.config.ts` under `theme.extend.colors`
 
 ### Usage Examples
 
-**Status Colors:**
+**Status Colors (from Michelle's Figma Components page):**
 ```tsx
-// Entry chip with "nudge scheduled" status
+// Status=No Nudge (transparent bg, black border)
+<div className="bg-status-neutral-bg border border-status-neutral">
+  No Nudge
+</div>
+
+// Status=Nudge Scheduled (light yellow bg, yellow border)
 <div className="bg-status-warning-bg border border-status-warning">
   Nudge Scheduled
 </div>
 
-// Entry chip with "responded" status
+// Status=Nudge Sent (light blue bg, blue border)
+<div className="bg-status-info-bg border border-status-info">
+  Nudge Sent
+</div>
+
+// Status=Nudge Responded (light green bg, green border)
 <div className="bg-status-success-bg border border-status-success">
-  Responded
+  Nudge Responded
+</div>
+
+// Status=Entry Closed (light purple bg, purple border)
+<div className="bg-status-error-bg border border-status-error">
+  Entry Closed
 </div>
 ```
 
