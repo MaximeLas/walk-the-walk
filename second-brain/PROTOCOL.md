@@ -99,7 +99,13 @@ Don't record trivial sessions or repetitive explanations.
 - `2025-10-15-magic-link-security-design.md`
 - `2025-10-22-mvp-scope-prioritization.md`
 
-**Multiple sessions same day:** Add `-part-1`, `-part-2`, etc.
+**Multiple sessions same day:** Use Roman numerals between date and title:
+- First session: `YYYY-MM-DD-descriptive-title.md` (no numeral)
+- Second session: `YYYY-MM-DD-II-descriptive-title.md`
+- Third session: `YYYY-MM-DD-III-descriptive-title.md`
+- Fourth session: `YYYY-MM-DD-IV-descriptive-title.md`
+
+**Rationale**: Roman numerals clearly indicate chronological order without cluttering filename. The first session has no numeral for brevity when it's the only session that day. This helps future agents understand which session was recorded first and prevents confusion when referencing multiple sessions from the same date.
 
 ### Frontmatter Schema
 

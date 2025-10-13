@@ -2,7 +2,67 @@
 
 Quick-reference index of all recorded sessions with summaries and keywords.
 
-**Last Updated:** 2025-10-11
+**Last Updated:** 2025-10-13
+
+---
+
+## 2025-10-13-III: Demo Page UX Improvements & Designer Review Notes System
+
+**File:** [sessions/2025-10-13-III-demo-page-ux-improvements-and-designer-review-notes.md](sessions/2025-10-13-III-demo-page-ux-improvements-and-designer-review-notes.md)
+
+**Summary:** After completing Phase 2 Step 2 (Avatar and EntryChip components), Max identified critical workflow gaps: agent jumped to Step 3 without testing Step 2, no feature branch used, demo page had UX issues (duplicate Entry Chips with inconsistent sizes, too dense, poor organization), and testing was too narrow (technical correctness but missed UX consistency). Implemented comprehensive fixes: added mandatory Agent Execution Protocol to PHASE2_PLAN.md (feature branches required, stop after each step, automated testing with Chrome DevTools MCP, visual consistency review), rewrote demo page with collapsible sections by step for better scalability, removed duplication (Step 1 shows color swatches, Step 2 shows functional components), added designer review notes embedded in demo page so Michelle can review from Vercel preview without navigating GitHub PRs. Max questioned why demo notes were shorter than PR description notes - led to two-tier solution: scannable main section (2-3 min quick verification) + collapsible detailed section (10-15 min comprehensive review with exact hex codes, edge cases, usage context). Progressive disclosure principle: Michelle controls level of detail, no information omitted but no information overload. Properly reverted commits and created feature branch `feature/phase2-step-2-atomic-components` with cherry-picked commits, pushed PR #5. Key lesson: as context grows (~140k tokens), vigilance required to avoid basic mistakes like skipping protocols or missing UX issues that should be obvious.
+
+**Keywords:** demo page UX, collapsible sections, designer review notes, Michelle collaboration, progressive disclosure, two-tier structure, feature branch workflow, Agent Execution Protocol, testing improvements, visual consistency, Chrome DevTools MCP, automated testing, UX quality vs technical correctness, information architecture, Vercel preview, PR navigation, embedded documentation, context size impact, workflow gaps, Step 2 completion, Avatar component, EntryChip component, PHASE2_PLAN.md updates, designer-developer workflow, scannable checklists, detailed verification, hex codes, edge cases, usage context, PR #5
+
+**Topics:** UX design, designer collaboration, workflow improvements, testing methodology, documentation architecture, progressive disclosure, information design
+
+**Key Decisions:**
+- Feature branch mandatory for each Phase 2 step (documented in PHASE2_PLAN.md)
+- Agent must stop after each step for testing/approval (no automatic continuation)
+- Demo page uses collapsible sections by step for scalability
+- Designer review notes embedded in demo page (two-tier structure)
+- Two-tier review notes: scannable main + collapsible detailed (progressive disclosure)
+
+**Key Frameworks:**
+- Progressive Disclosure Pattern (quick scan vs deep dive, user controls depth)
+- Two Contexts for Same Information (PR vs Demo have different information needs)
+- Testing Levels: Technical Correctness → Component Quality → UX Consistency → Information Architecture
+
+**Unresolved:** None - all issues identified and fixed
+
+---
+
+## 2025-10-13-II: Phase 2 Foundation Completion & Agent Handoff System
+
+**File:** [sessions/2025-10-13-II-phase2-foundation-completion-and-agent-handoff-system.md](sessions/2025-10-13-II-phase2-foundation-completion-and-agent-handoff-system.md)
+
+**Summary:** Continued Phase 2 Step 1 after previous agent left Tailwind v4 upgrade incomplete at context limit. Completed upgrade, verified all design tokens against Figma extraction. Discovered critical handoff problem: plan said "Step 1 Pending" while git showed 8/8 commits complete. Created comprehensive two-file agent handoff system separating status tracking (PHASE2_STATUS_TRACKING.md) from methodology (PHASE2_PLAN.md). Key insight: status changes frequently, methodology rarely - mixing them creates contradictions and staleness. Removed all hardcoded specs from plan (duplication defeats single source of truth), changed brittle line number references to resilient section names. Launched subagent with fresh eyes to review plan - achieved 73% reduction (856→225 lines) while keeping 100% essential content for future work. Removed 500+ lines of outdated Step 1 details (described Tailwind v3, we used v4), eliminated 100+ lines of duplicated workflow explanations. Cleaned up 6 temporary files (2,096 lines) before PR: post-mortems, verification notes, copy-pasted docs - knowledge incorporated into permanent documentation. Created comprehensive PR #4 with complete Step 1 foundation and validated handoff system ready for incoming agents.
+
+**Keywords:** agent handoff, multi-agent collaboration, status tracking, Tailwind CSS v4, design tokens verification, PHASE2_STATUS_TRACKING.md, PHASE2_PLAN.md refactoring, documentation maintenance, single source of truth, section references, subagent review, fresh eyes pattern, duplication elimination, temporary file cleanup, PR hygiene, two-file system, separation of concerns, brittle references, resilient architecture, Extract-Reference-Build-Verify workflow, incoming agent orientation, context limit handoff, git verification, Figma MCP validation, Step 1 completion, comprehensive PR
+
+**Topics:** Agent collaboration systems, documentation architecture, project handoff, methodology design, quality standards
+
+**Key Decisions:**
+- Two-file system: STATUS (what's done) separate from PLAN (how to work)
+- Section names not line numbers for references (resilient vs brittle)
+- No hardcoded specs in plan - only reference extraction document
+- Remove temporary files before PR (incorporate knowledge, remove clutter)
+- Subagent review for fresh perspective after intensive editing
+
+**Key Frameworks:**
+- Two-File Pattern for Multi-Agent Work (STATUS + PLAN separation)
+- Extract → Reference → Build → Verify workflow
+- Fresh Eyes Subagent Review Pattern (when/how to delegate)
+
+---
+
+## 2025-10-13: Design Integration Planning - Phase 2 Mobile MVP
+
+**File:** [sessions/2025-10-13-design-integration-planning-phase2-mobile-mvp.md](sessions/2025-10-13-design-integration-planning-phase2-mobile-mvp.md)
+
+**Summary:** Max preparing to start Phase 2 (mobile-first MVP) with co-founder Michelle's designs - first time working with UX/UI designer. Created comprehensive 370+ line DESIGN_DEVELOPER_GUIDE.md covering design tokens, Figma basics, component architecture, and collaboration best practices. Inspected Michelle's Figma designs using MCP tools - discovered component library ready but design tokens not formally created (must extract manually). Michelle's October 12th notes revealed what's ready (List View, components) vs. uncertain (Grid/Chat views). Established strategic approaches: 90/10 mobile-first priority (90% mobile perfection, 10% desktop basic), branch-per-step git workflow for incremental feedback, mock data first then Supabase integration, simplified interactions (modals not sliding drawers). Created CHANGE Protocol for handling evolving requirements - 5-step process with prioritization matrix and communication format. Developed AGENT_PROMPT_DESIGN_INTEGRATION.md through 3 iterations to be self-contained. Agent proposed plan, received feedback twice, final plan approved with Tailwind CSS, 40-50 hour timeline, detailed Step 1-2 breakdowns (8 commits + 4 commits). Step 1 completed (foundation: Tailwind, tokens, mock data, demo page, archive v0), Max caught that testing wasn't prompted - established protocol that verification required after each step before marking complete. Key frameworks: 90/10 Rule, CHANGE Protocol, Branch-Per-Step, Design Intent Translation, Mock-Then-Real decoupling. Terminology decision: "space" not "backlog" in all new code. Four major artifacts created: educational guide, agent prompt, plan feedback documents, final implementation plan.
+
+**Keywords:** design integration, Figma, mobile-first MVP, UX/UI designer collaboration, design tokens, component architecture, Tailwind CSS, branch-per-step workflow, CHANGE Protocol, 90/10 Rule, mock data strategy, incremental feedback, Michelle, design-to-code translation, atomic design, git workflow, testing protocol, evolving requirements, DESIGN_DEVELOPER_GUIDE.md, AGENT_PROMPT_DESIGN_INTEGRATION.md, PHASE2_PLAN.md, space terminology, simplified interactions, startup constraints, Figma MCP server, Dev Mode, design intent, responsive design, feature branches, verification protocol
 
 ---
 
