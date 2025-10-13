@@ -43,6 +43,43 @@ export default function ComponentDemo() {
           </summary>
 
           <div className="ml-9 space-y-8">
+            {/* Review Notes for Michelle */}
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-r p-6 mb-8">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">👩‍🎨</span>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-3">
+                    Review Notes for Michelle
+                  </h3>
+                  <div className="space-y-3 text-sm text-gray-700">
+                    <p>
+                      <strong className="text-purple-900">What to review:</strong> This step sets up all the design tokens
+                      from your Figma designs — the colors, typography, spacing, and effects that all components will use.
+                    </p>
+                    <div>
+                      <strong className="text-purple-900">Key items to verify:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Status Colors:</strong> Do the 5 color swatches match your Entry Chip designs in Figma? (No Nudge, Scheduled, Sent, Responded, Closed)</li>
+                        <li><strong>Text Hierarchy:</strong> Are the three text color shades appropriate? (Primary, Secondary, Tertiary)</li>
+                        <li><strong>Typography Scale:</strong> Do the font sizes feel right? (24px → 12px)</li>
+                        <li><strong>Border Radius:</strong> Do the different roundness levels match your designs? (2px subtle → full circles)</li>
+                        <li><strong>Glassmorphism:</strong> Does the frosted glass effect look right?</li>
+                      </ul>
+                    </div>
+                    <p>
+                      <strong className="text-purple-900">How to check:</strong> Open your Figma Components page side-by-side
+                      with this demo. Compare the color swatches, font sizes, and visual effects. Everything here should match
+                      your design system exactly.
+                    </p>
+                    <p className="text-xs text-gray-600 italic mt-4">
+                      ✨ Tip: These tokens are configured once and reused everywhere. If something looks off,
+                      it's easier to fix now before components use them!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <p className="text-sm text-text-secondary mb-6">
               Design tokens extracted from Figma and configured in <code className="bg-gray-200 px-1 rounded">src/styles/globals.css</code>.
               These are the building blocks used by all components.
@@ -227,6 +264,59 @@ export default function ComponentDemo() {
           </summary>
 
           <div className="ml-9 space-y-8">
+            {/* Review Notes for Michelle */}
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-r p-6 mb-8">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">👩‍🎨</span>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-3">
+                    Review Notes for Michelle
+                  </h3>
+                  <div className="space-y-3 text-sm text-gray-700">
+                    <p>
+                      <strong className="text-purple-900">What to review:</strong> This step implements the first building block
+                      components from your Figma designs — Avatar and EntryChip. These are the atomic components that will be
+                      combined to create the list cards in Step 3.
+                    </p>
+                    <div>
+                      <strong className="text-purple-900">Avatar Component — 9 variants to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Image type:</strong> Does the dark background (#0B0B0B) look right with profile photos?</li>
+                        <li><strong>Contact Initials:</strong> Is the dark gray (#4B4B4B) with white text readable? Correct contrast?</li>
+                        <li><strong>Space Initials:</strong> Is the light gray (#B9B9B9) with black text distinct enough from Contact?</li>
+                        <li><strong>Sizes:</strong> Do small (24px), medium (32px), and large (44px) feel appropriate for their uses?</li>
+                        <li><strong>Typography:</strong> Is IBM Plex Mono Bold the right font for initials?</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-purple-900">EntryChip Component — 5 status variants to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Colors:</strong> Do all 5 status colors match your Figma exactly? (Yellow, Blue, Green, Purple, Black)</li>
+                        <li><strong>Contrast:</strong> Is black text readable on all colored backgrounds?</li>
+                        <li><strong>Distinction:</strong> Are the 5 statuses visually distinct enough from each other?</li>
+                        <li><strong>Size/Padding:</strong> Does the 12px padding feel right? Not too cramped or too loose?</li>
+                        <li><strong>Border Radius:</strong> Is the 2px corner subtle enough? (Intended to be barely rounded)</li>
+                      </ul>
+                    </div>
+                    <p>
+                      <strong className="text-purple-900">How to check:</strong> Open your Figma Components page (Node ID: 177:32228)
+                      side-by-side with this demo. Find the "Avatars" and "Entry Chips" sections in Figma and compare each variant.
+                      Test on your phone too — these components need to look great on mobile.
+                    </p>
+                    <p>
+                      <strong className="text-purple-900">Why these first?</strong> These are the smallest building blocks. Once you
+                      approve these, we'll combine them into ListCard components (Step 3) — Avatar + EntryChips + text = a contact
+                      or space card. It's easier to adjust a single Avatar now than fix it in 10 different cards later!
+                    </p>
+                    <p className="text-xs text-gray-600 italic mt-4">
+                      ✨ Tip: Pay special attention to the color contrast on Entry Chips — they'll be used throughout the app
+                      to show status at a glance. If any status color is hard to distinguish, let us know!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <p className="text-sm text-text-secondary mb-6">
               Smallest reusable UI components. These are fully functional components with prop-based variants,
               ready to be composed into larger components in Step 3.

@@ -269,6 +269,7 @@ npm run dev
 - Add component to `/demo` page with ALL variants
 - Include usage examples and prop documentation
 - Ensure clear labeling and organization
+- **REQUIRED: Add "Review Notes for Michelle" section** (see template below)
 
 #### 2. Automated Testing (Chrome DevTools MCP)
 Use Chrome DevTools MCP tools to verify implementation:
@@ -331,6 +332,118 @@ Create comprehensive completion report including:
 - Update PHASE2_STATUS_TRACKING.md to mark commit as complete
 - Add any important notes or learnings
 - Flag any concerns or questions for user review
+
+---
+
+### Review Notes for Michelle (Demo Page Template)
+
+**REQUIRED: Every step must include designer review notes on the demo page**
+
+Add this section at the top of each step's content in `/demo` page, right after the step description. This allows Michelle to review directly in the deployed preview without needing to read the PR.
+
+**Template Structure:**
+```tsx
+{/* Review Notes for Michelle */}
+<div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-r p-6 mb-8">
+  <div className="flex items-start gap-3">
+    <span className="text-2xl">👩‍🎨</span>
+    <div className="flex-1">
+      <h3 className="text-lg font-semibold text-purple-900 mb-3">
+        Review Notes for Michelle
+      </h3>
+      <div className="space-y-3 text-sm text-gray-700">
+        {/* Content goes here */}
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**Content Guidelines:**
+
+1. **"What to review" paragraph** - Brief overview of what this step implements (1-2 sentences)
+
+2. **Component-specific checklists** - For each component, provide bulleted verification points:
+   - Key visual elements to check (colors, sizes, typography)
+   - Specific Figma node IDs or sections to compare against
+   - Variants to verify (all sizes, types, states)
+   - Common issues to watch for
+
+3. **"How to check" paragraph** - Step-by-step instructions:
+   - Which Figma page/section to open
+   - What to compare (colors, spacing, typography)
+   - Mobile testing reminder
+
+4. **Context/rationale** - Why these components first? How do they fit into the bigger picture?
+
+5. **Pro tip (optional)** - Helpful insight about what to pay special attention to
+
+**Example (Step 2 - Atomic Components):**
+```tsx
+<p>
+  <strong className="text-purple-900">What to review:</strong> This step implements
+  the first building block components from your Figma designs — Avatar and EntryChip.
+  These are the atomic components that will be combined to create the list cards in Step 3.
+</p>
+<div>
+  <strong className="text-purple-900">Avatar Component — 9 variants to check:</strong>
+  <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+    <li><strong>Image type:</strong> Does the dark background (#0B0B0B) look right with profile photos?</li>
+    <li><strong>Contact Initials:</strong> Is the dark gray (#4B4B4B) with white text readable?</li>
+    <li><strong>Space Initials:</strong> Is the light gray (#B9B9B9) with black text distinct enough?</li>
+    <li><strong>Sizes:</strong> Do small (24px), medium (32px), and large (44px) feel appropriate?</li>
+    <li><strong>Typography:</strong> Is IBM Plex Mono Bold the right font for initials?</li>
+  </ul>
+</div>
+<div>
+  <strong className="text-purple-900">EntryChip Component — 5 status variants to check:</strong>
+  <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+    <li><strong>Colors:</strong> Do all 5 status colors match your Figma exactly?</li>
+    <li><strong>Contrast:</strong> Is black text readable on all colored backgrounds?</li>
+    <li><strong>Distinction:</strong> Are the 5 statuses visually distinct enough?</li>
+    <li><strong>Size/Padding:</strong> Does the 12px padding feel right?</li>
+    <li><strong>Border Radius:</strong> Is the 2px corner subtle enough?</li>
+  </ul>
+</div>
+<p>
+  <strong className="text-purple-900">How to check:</strong> Open your Figma Components
+  page (Node ID: 177:32228) side-by-side with this demo. Find the "Avatars" and "Entry Chips"
+  sections in Figma and compare each variant. Test on your phone too — these components need
+  to look great on mobile.
+</p>
+<p>
+  <strong className="text-purple-900">Why these first?</strong> These are the smallest
+  building blocks. Once you approve these, we'll combine them into ListCard components (Step 3)
+  — Avatar + EntryChips + text = a contact or space card. It's easier to adjust a single Avatar
+  now than fix it in 10 different cards later!
+</p>
+<p className="text-xs text-gray-600 italic mt-4">
+  ✨ Tip: Pay special attention to the color contrast on Entry Chips — they'll be used
+  throughout the app to show status at a glance. If any status color is hard to distinguish,
+  let us know!
+</p>
+```
+
+**Key Principles:**
+- **Actionable**: Every bullet point should be a specific thing Michelle can verify
+- **Visual**: Reference specific colors, sizes, and node IDs from Figma
+- **Context**: Explain why this step matters and how it fits the bigger picture
+- **Mobile-first**: Always remind to test on actual phone
+- **Comprehensive**: Cover ALL variants, not just the happy path
+
+**Styling Notes:**
+- Purple/pink gradient background with left border stands out as "designer zone"
+- Designer emoji (👩‍🎨) makes it immediately recognizable
+- Strong tags highlight key terms for quick scanning
+- Bulleted lists for easy checklist-style review
+- Italic tip at bottom provides helpful insight
+
+**When to add:**
+- Immediately after implementing all components for a step
+- Before marking the step as complete
+- Before pushing to remote and creating/updating PR
+
+This ensures Michelle can review everything directly from the Vercel preview without needing to check PRs or ask for explanations.
 
 ---
 
