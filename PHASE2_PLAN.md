@@ -10,31 +10,25 @@
 
 ---
 
-## Quick Start for Incoming Agents
+## ⚠️ Entry Point for New Agents ⚠️
 
-**First time working on Phase 2? Read these in order:**
+### **START HERE: [PHASE2_STATUS_TRACKING.md](PHASE2_STATUS_TRACKING.md)**
 
-1. **[PHASE2_STATUS_TRACKING.md](PHASE2_STATUS_TRACKING.md)** - What's complete, what's in progress, what's next
-2. **This file** - Methodology, workflow, quality standards
-3. **[COMPLETE_FIGMA_EXTRACTION.md](COMPLETE_FIGMA_EXTRACTION.md)** - Design specs for components
+**Read PHASE2_STATUS_TRACKING.md first.** It contains:
+- Critical workflow rules (mandatory, non-optional)
+- Current status and which step to work on
+- Step-by-step implementation instructions
+- Testing checkpoints and completion requirements
 
-**Quick orientation:**
-```bash
-# See recent Phase 2 commits
-git log --oneline --grep="Phase 2" -20
+**This file (PHASE2_PLAN.md) is supplementary.** It contains detailed methodology, templates, and best practices. Use it as a reference AFTER you understand the workflow.
 
-# Start dev server
-npm run dev
-
-# View demo page
-open http://localhost:3000/demo
-```
+**Why this order?** STATUS_TRACKING explains the workflow and tells you what to do. This file (PLAN) explains *how* to do it and *why* we do it this way. Context first, details second.
 
 ---
 
 ## Table of Contents
 
-1. [🚨 CRITICAL: Agent Execution Protocol](#-critical-agent-execution-protocol)
+1. [🚨 CRITICAL: Agent Execution Protocol](#-critical-agent-execution-protocol) ← **START HERE**
 2. [Core Workflow](#core-workflow)
 3. [Strategic Approach](#strategic-approach)
 4. [Component Implementation Process](#component-implementation-process)

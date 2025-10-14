@@ -4,12 +4,73 @@
 
 ---
 
+## 🚨 STOP - READ THIS ENTIRE SECTION FIRST 🚨
+
+**This is your starting point. Read this file first, top to bottom, before looking at any other documentation.**
+
+### Critical Workflow Rules (MANDATORY - NOT OPTIONAL)
+
+**Every Phase 2 step MUST follow this workflow. No exceptions.**
+
+#### 1. Feature Branch Workflow
+- Create a separate git branch for each step (e.g., `feature/phase2-step-3-molecule-components`)
+- Do ALL work for that step in the feature branch
+- **NEVER commit directly to `main` branch**
+- After completion, user will merge branch to `main`
+- *Why: Isolates work for easy testing/rollback; prevents broken code on main*
+
+#### 2. Automated Testing (Chrome DevTools MCP)
+- Before reporting completion, you MUST test using Chrome DevTools MCP tools
+- Navigate to demo page, check console for errors, take screenshots (desktop + mobile)
+- Testing is NOT optional - required before every completion report
+- *Why: Catches bugs before review; provides visual proof implementation works*
+
+#### 3. Stop and Report After Each Step
+- After completing and testing a step, STOP working
+- Report completion to user with test results and screenshots
+- **DO NOT continue to next step** automatically
+- *Why: Allows review before building on this step; prevents cascading errors*
+
+#### 4. TodoWrite Tool Usage
+- Use TodoWrite to track progress throughout each step
+- Add critical workflow steps: create branch, test, report completion
+- Helps remember important steps during long sessions (6-8 hours)
+- *Why: Easy to forget "stop and report" by the end; TodoWrite acts as checklist*
+
+
+
+### 📚 Additional Context (Read After Understanding Above)
+
+For detailed methodology and implementation guidance, see [PHASE2_PLAN.md](PHASE2_PLAN.md).
+That file contains templates, best practices, and detailed instructions.
+But the CRITICAL workflow rules above are what you MUST follow.
+
+---
+
 ## Current Status
 
 **Phase:** Phase 2 - Mobile-First Design Integration
 **Overall Progress:** 30% (Steps 1-2 complete, Step 3 ready to start)
-**Last Updated:** 2025-10-13
-**Updated By:** Claude (session continuing from 2025-10-13)
+**Last Updated:** 2025-10-14
+**Updated By:** Rollback after workflow violation
+
+---
+
+## 📋 Before Starting Any Step - Mandatory Checklist
+
+**Copy this checklist to your response and check each box to confirm completion:**
+
+- [ ] I have read the "Critical Workflow Rules" section above completely
+- [ ] I understand: Feature branch workflow (never commit to main)
+- [ ] I understand: Automated testing with Chrome DevTools MCP is required
+- [ ] I understand: I must STOP after completion and report results
+- [ ] I understand: Violating workflow = rollback and restart
+- [ ] **ACTION:** I have created TodoWrite items for this step including: create branch, implement, test, report completion
+- [ ] **ACTION:** I have created a feature branch: `git checkout -b feature/phase2-step-X-name`
+- [ ] **ACTION:** Dev server is running: `npm run dev`
+- [ ] **ACTION:** I can access the demo page: http://localhost:3000/demo
+
+**If you cannot check ALL boxes above, STOP and ask the user for clarification.**
 
 ---
 
@@ -20,6 +81,7 @@
 **Completed:** 2025-10-13
 **Total Time:** ~8 hours
 **Commits:** 8/8 ✅
+**Branch:** `main` (pre-workflow implementation)
 
 - ✅ Commit 1: Install and configure Tailwind CSS v4
 - ✅ Commit 2: Extract and configure color tokens
@@ -59,6 +121,7 @@ git log --oneline -20  # View recent commits
 **Completed:** 2025-10-13
 **Total Time:** ~2 hours
 **Commits:** 2/2 ✅
+**Branch:** `feature/phase2-step-2-atomic-components`
 
 - ✅ Commit 1: Avatar component (3 types × 3 sizes = 9 variants)
 - ✅ Commit 2: EntryChip component (5 status variants)
@@ -90,7 +153,50 @@ ls src/components/ui/  # Should show Avatar.tsx and EntryChip.tsx
 **Status:** Ready to start
 **Estimated Time:** 6-8 hours
 **Commits:** 0/2
+**Required Branch:** `feature/phase2-step-3-molecule-components`
 
+---
+
+### ⚠️ REMINDER: After Completing This Step
+
+**This step takes 6-8 hours. Don't forget the workflow by the end.**
+
+**After both commits, you MUST:**
+1. Run full testing protocol (Chrome DevTools MCP)
+2. Take desktop + mobile screenshots
+3. Report completion with test results
+4. **STOP** - DO NOT continue to Step 4
+
+**Add to TodoWrite NOW:**
+- [ ] **CRITICAL: Test, screenshot, report, STOP**
+
+---
+
+**⚠️ BEFORE YOU START:**
+
+**Copy this Step 3 checklist to your response and check each box:**
+
+- [ ] I have read the "Critical Workflow Rules" section at the top of this file
+- [ ] I understand I must create a feature branch (never commit to main)
+- [ ] I understand I must test with Chrome DevTools MCP before reporting
+- [ ] I understand I must STOP after completion and report results
+- [ ] **ACTION:** I have created branch: `git checkout -b feature/phase2-step-3-molecule-components`
+- [ ] **ACTION:** Dev server is running: `npm run dev`
+- [ ] **ACTION:** Demo page loads: http://localhost:3000/demo
+- [ ] **ACTION:** I have created TodoWrite items for this step (see example below)
+
+**Example TodoWrite for Step 3:**
+```
+- [ ] Create branch: feature/phase2-step-3-molecule-components
+- [ ] Read List Cards design specs from COMPLETE_FIGMA_EXTRACTION.md
+- [ ] Implement ListCard Contact type + add to demo + commit
+- [ ] Implement ListCard Space type + add to demo + commit
+- [ ] **CRITICAL: Run full testing protocol (Chrome DevTools MCP)**
+- [ ] Take desktop & mobile screenshots
+- [ ] **STOP - Report completion (DO NOT continue to Step 4)**
+```
+
+**Commits Planned:**
 - ⬜ Commit 1: ListCard (Contact type)
 - ⬜ Commit 2: ListCard (Space type)
 
@@ -100,24 +206,90 @@ ls src/components/ui/  # Should show Avatar.tsx and EntryChip.tsx
 - ✅ COMPLETE_FIGMA_EXTRACTION.md has "List Cards" section
 - ✅ Demo page exists for testing
 
-**Next Actions:**
-1. Read COMPLETE_FIGMA_EXTRACTION.md "List Cards" section
-2. Implement ListCard component with Contact type
-3. Add Contact type to demo page
-4. Commit, then move to Space type
+**Implementation Steps:**
+
+1. **Read Design Specs:**
+   - Open [COMPLETE_FIGMA_EXTRACTION.md](COMPLETE_FIGMA_EXTRACTION.md)
+   - Read "List Cards" section (Contact type: 177:32766, Space type: 177:32834)
+   - Note all colors, spacing, typography, effects
+   - **Add to TodoWrite:** "Read List Cards design specs"
+
+2. **Commit 1 - ListCard Contact Type:**
+   - Implement Contact type (Avatar + name + status dot + timestamp + chips)
+   - Add to demo page with multiple examples
+   - **Quick verification:** Check demo page in browser - does it render without errors?
+   - Git commit with descriptive message
+   - **Add to TodoWrite:** "Implement and commit ListCard Contact type"
+
+3. **Commit 2 - ListCard Space Type:**
+   - Implement Space type (Avatar + name + connection count + timestamp + chips)
+   - Add to demo page with multiple examples
+   - **Quick verification:** Check demo page in browser - does it render without errors?
+   - Git commit with descriptive message
+   - **Add to TodoWrite:** "Implement and commit ListCard Space type"
+
+4. **TESTING CHECKPOINT** (after both commits complete):
+
+   Test using Chrome DevTools MCP:
+   ```bash
+   mcp__chrome-devtools__navigate_page("http://localhost:3000/demo")
+   mcp__chrome-devtools__list_console_messages()  # Check for errors
+   mcp__chrome-devtools__resize_page(1440, 900)
+   mcp__chrome-devtools__take_screenshot(fullPage=true)  # Desktop
+   mcp__chrome-devtools__resize_page(375, 667)
+   mcp__chrome-devtools__take_screenshot(fullPage=true)  # Mobile
+   ```
+
+   If issues found: fix, re-test, then report.
+
+   *See [PHASE2_PLAN.md lines 115-167](PHASE2_PLAN.md) for complete testing protocol and tool documentation.*
+
+5. **Report Completion (FINAL STEP):**
+   - Provide summary of what was implemented
+   - Attach desktop + mobile screenshots from testing
+   - List test results (console clean? all variants work?)
+   - Link to demo page for manual review
+   - **Add to TodoWrite:** "Report Step 3 completion to user"
+   - **COMPLETE YOUR TODO:** "Stop and report completion"
+
+---
+
+## ⛔ CHECKPOINT: Step 3 Complete ⛔
+
+**STOP. Do not continue to Step 4.**
+
+**Before moving on:**
+1. ✅ Ran full testing protocol?
+2. ✅ Created completion report with screenshots?
+3. ✅ Reported completion to user?
+
+**If NO to any: Complete that step now.**
+
+---
+
+**After Reporting Completion:**
+- User reviews implementation and test results
+- User may provide feedback or request changes
+- User merges feature branch to main when satisfied
 
 ---
 
 ### ⬜ Step 4: Navigation & Action Components (NOT STARTED)
 
-**Status:** Blocked (requires Step 3 completion)
+**Status:** Blocked (requires Step 3 completion and approval)
 **Estimated Time:** 12-15 hours
 **Commits:** 0/4
+**Required Branch:** `feature/phase2-step-4-navigation-components`
 
 - ⬜ Commit 1: TopNav
 - ⬜ Commit 2: MiddleNav
 - ⬜ Commit 3: ScreenModeSwitcher
 - ⬜ Commit 4: AddButton
+
+**Prerequisites:**
+- ⬜ ListCard component complete (both types)
+- ⬜ Step 3 tested and approved by user
+- ⬜ COMPLETE_FIGMA_EXTRACTION.md has "Navigation Components" sections
 
 ---
 
@@ -125,6 +297,7 @@ ls src/components/ui/  # Should show Avatar.tsx and EntryChip.tsx
 
 **Status:** Blocked (requires Step 4 completion)
 **Estimated Time:** 8-10 hours
+**Required Branch:** `feature/phase2-step-5-home-screen`
 
 ---
 
@@ -132,6 +305,7 @@ ls src/components/ui/  # Should show Avatar.tsx and EntryChip.tsx
 
 **Status:** Blocked (requires Step 5 completion)
 **Estimated Time:** 6-8 hours
+**Required Branch:** `feature/phase2-step-6-space-detail`
 
 ---
 
@@ -139,6 +313,7 @@ ls src/components/ui/  # Should show Avatar.tsx and EntryChip.tsx
 
 **Status:** Blocked (requires Step 6 completion)
 **Estimated Time:** 4-6 hours
+**Required Branch:** `feature/phase2-step-7-magic-link`
 
 ---
 
@@ -163,37 +338,28 @@ ls src/components/ui/  # Should show Avatar.tsx and EntryChip.tsx
 
 1. Add to "Important Notes" for that step
 2. If it affects timeline, update estimates
-3. Document in CONTINUE_SESSION.md for next agent
+3. Document in completion report for user
 
 ---
 
 ## For Incoming Agents: How to Orient Yourself
 
 **Step 1: Check this file first**
+- Read "🚨 STOP - READ THIS FIRST" section
 - Read "Current Status" section to see where we are
-- Read the step marked "IN PROGRESS" or next "READY TO START"
-- Check "Important Notes" for context
+- Check the step marked "READY TO START"
 
-**Step 2: Verify against git**
+**Step 2: Read the mandatory workflow**
+- Open [PHASE2_PLAN.md](PHASE2_PLAN.md)
+- Read "🚨 CRITICAL: Agent Execution Protocol" section (lines 50-194)
+- Understand: feature branches, testing, stop-and-report
+
+**Step 3: Verify dev environment**
 ```bash
-# See what's actually been done
-git log --oneline --grep="Phase 2" -30
-
 # Check current branch
 git branch
 
-# See what's changed recently
-git diff main --stat
-```
-
-**Step 3: Read relevant documentation**
-- `PHASE2_PLAN.md` - Overall plan and methodology
-- `COMPLETE_FIGMA_EXTRACTION.md` - Design specs for components you're building
-- `CONTINUE_SESSION.md` - Context from previous session (if exists)
-
-**Step 4: Verify dev environment**
-```bash
-# Start dev server
+# Start dev server (if not running)
 npm run dev
 
 # Visit demo page
@@ -203,10 +369,22 @@ npm run dev
 ls src/components/ui/
 ```
 
-**Step 5: Start work**
-- Follow PHASE2_PLAN.md "Agent Execution Protocol" section
+**Step 4: Create feature branch**
+```bash
+# Create branch for your step
+git checkout -b feature/phase2-step-X-name
+```
+
+**Step 5: Read design specs**
+- Open [COMPLETE_FIGMA_EXTRACTION.md](COMPLETE_FIGMA_EXTRACTION.md)
+- Find the component section you're implementing
+- Read all specs before coding
+
+**Step 6: Start work**
+- Follow "Implementation Steps" for your step
 - Update this file as you complete commits
-- Create CONTINUE_SESSION.md if your session is ending mid-step
+- Run automated tests before reporting completion
+- **STOP and report completion - DO NOT continue to next step**
 
 ---
 
@@ -221,7 +399,7 @@ ls src/components/ui/
 |------|-----------|--------|--------|
 | 1 | 6-8h | ~8h | ✅ Complete |
 | 2 | 4-5h | ~2h | ✅ Complete |
-| 3 | 6-8h | - | ⬜ Not Started |
+| 3 | 6-8h | - | 🔄 Ready to start |
 | 4 | 12-15h | - | ⬜ Not Started |
 | 5 | 8-10h | - | ⬜ Not Started |
 | 6 | 6-8h | - | ⬜ Not Started |
@@ -244,6 +422,16 @@ ls src/components/ui/
 - [x] EntryChip component works (all 5 status variants)
 - [x] Both components in demo page
 - [x] Components match Figma specs
+- [x] Tested and approved by user
+
+**Step 3:** (To be completed)
+- [ ] ListCard Contact type works
+- [ ] ListCard Space type works
+- [ ] Both types in demo page with examples
+- [ ] Components match Figma specs exactly
+- [ ] Automated tests pass (console clean, screenshots taken)
+- [ ] Desktop + mobile viewports tested
+- [ ] User testing and approval received
 
 ---
 
@@ -264,3 +452,5 @@ ls src/components/ui/
 - Mock data first, real Supabase later
 - Demo page for isolated testing
 - Mobile-first (320-767px priority)
+- **Feature branch + testing workflow (MANDATORY)**
+- **Stop after each step for user approval**
