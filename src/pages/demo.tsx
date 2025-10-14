@@ -11,6 +11,7 @@
 
 import { Avatar } from '@/components/ui/Avatar'
 import { EntryChip } from '@/components/ui/EntryChip'
+import { ListCard } from '@/components/ui/ListCard'
 
 export default function ComponentDemo() {
   return (
@@ -589,25 +590,185 @@ export default function ComponentDemo() {
         </details>
 
         {/* Step 3: Molecule Components */}
-        <details className="group">
+        <details open className="group">
           <summary className="cursor-pointer list-none">
             <div className="flex items-center gap-3 mb-6">
               <span className="text-2xl group-open:rotate-90 transition-transform">▶</span>
               <h2 className="text-xl font-semibold text-text-primary">
-                Step 3: Molecule Components ⏳
+                Step 3: Molecule Components 🚧
               </h2>
             </div>
           </summary>
 
-          <div className="ml-9">
+          <div className="ml-9 space-y-8">
+            {/* Review Notes for Michelle */}
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-r p-6 mb-8">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">👩‍🎨</span>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-3">
+                    Review Notes for Michelle
+                  </h3>
+                  <div className="space-y-3 text-sm text-gray-700">
+                    <p>
+                      <strong className="text-purple-900">What to review:</strong> This step implements the ListCard component
+                      in two variants — Contact and Space. These cards combine the Avatar and EntryChip components from Step 2
+                      with names, timestamps, and status indicators to create the main list items you'll see throughout the app.
+                    </p>
+                    <div>
+                      <strong className="text-purple-900">Contact ListCard — Key elements to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Layout:</strong> Avatar on left, name + green online dot, timestamp on right</li>
+                        <li><strong>Online Indicator:</strong> Is the green dot (#00B017, 8px) visible and appropriately sized?</li>
+                        <li><strong>Typography:</strong> Name in Hiragino Kaku Gothic Pro W6 (16px, semi-bold)</li>
+                        <li><strong>Timestamp:</strong> Gray text (#585858), right-aligned, 12px</li>
+                        <li><strong>Entry Chips:</strong> Bottom row with 12px gap between chips</li>
+                        <li><strong>Card Shadow:</strong> Does the shadow (0px 4px 16px rgba(0,0,0,0.15)) look right?</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-purple-900">Space ListCard — Key elements to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Layout:</strong> Avatar, space name, separator line, "+X Others" count, timestamp</li>
+                        <li><strong>Separator:</strong> Is the vertical line visible and positioned correctly?</li>
+                        <li><strong>Connection Count:</strong> "+X Others" text in light weight (W3, 12px)</li>
+                        <li><strong>Consistency:</strong> Does spacing/padding match Contact cards?</li>
+                      </ul>
+                    </div>
+                    <p>
+                      <strong className="text-purple-900">How to check:</strong> Open your Figma Components page and find the
+                      "List Cards" section. Compare both Contact (177:32766) and Space (177:32834) variants side-by-side with
+                      the demo below. Check spacing, colors, typography, and the overall visual hierarchy.
+                    </p>
+                    <p>
+                      <strong className="text-purple-900">Mobile Testing:</strong> These cards are designed mobile-first.
+                      View this page on your phone to ensure the cards look great at narrow widths and that text doesn't overflow.
+                    </p>
+                    <p className="text-xs text-gray-600 italic mt-4">
+                      ✨ Tip: These cards will be the primary interface for browsing contacts and spaces in the Home screen.
+                      Make sure they feel tappable and the information hierarchy is clear at a glance!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-sm text-text-secondary mb-6">
+              Molecule components that combine atomic components (Avatar + EntryChip) with text and layout.
+              These are the main building blocks for the Home screen list view.
+            </p>
+
+            {/* ListCard Component */}
             <div className="bg-bg-card rounded shadow-card p-6">
-              <p className="text-text-secondary text-center py-8">
-                Components will be added here in Step 3.
-                <br />
-                <span className="text-xs text-text-tertiary mt-2 block">
-                  ListCard (Contact + Space types) - Combines Avatar, EntryChip, and text
-                </span>
+              <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                ListCard Component
+              </h3>
+              <p className="text-sm text-text-secondary mb-6">
+                <code className="bg-gray-200 px-1 rounded">src/components/ui/ListCard.tsx</code> •
+                Two types: Contact & Space
               </p>
+
+              {/* Contact Type */}
+              <div className="mb-8">
+                <h4 className="text-sm font-medium mb-4 text-text-primary">
+                  Type: Contact (with online status indicator)
+                </h4>
+                <div className="space-y-4 max-w-md">
+                  <ListCard
+                    type="contact"
+                    avatar={{
+                      type: 'contact-initials',
+                      initials: 'MH',
+                    }}
+                    name="Michelle Harrison"
+                    isOnline={true}
+                    timestamp="2 min ago"
+                    chips={[
+                      { status: 'sent', label: 'Check designs' },
+                      { status: 'responded', label: 'Review PR' },
+                    ]}
+                  />
+                  <ListCard
+                    type="contact"
+                    avatar={{
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=5',
+                    }}
+                    name="Kevin Liu"
+                    isOnline={false}
+                    timestamp="1 hour ago"
+                    chips={[
+                      { status: 'scheduled', label: 'Follow up' },
+                      { status: 'no-nudge', label: 'Draft ideas' },
+                    ]}
+                  />
+                  <ListCard
+                    type="contact"
+                    avatar={{
+                      type: 'contact-initials',
+                      initials: 'JS',
+                    }}
+                    name="Jane Smith"
+                    isOnline={true}
+                    timestamp="5 min ago"
+                    chips={[
+                      { status: 'responded', label: 'Testing done' },
+                      { status: 'closed', label: 'Archived' },
+                    ]}
+                  />
+                </div>
+              </div>
+
+              {/* Space Type */}
+              <div>
+                <h4 className="text-sm font-medium mb-4 text-text-primary">
+                  Type: Space (with connection count)
+                </h4>
+                <div className="space-y-4 max-w-md">
+                  <ListCard
+                    type="space"
+                    avatar={{
+                      type: 'space-initials',
+                      initials: 'WK',
+                    }}
+                    name="Weekly Kickoff"
+                    connectionCount={3}
+                    timestamp="15 min ago"
+                    chips={[
+                      { status: 'sent', label: 'Agenda items' },
+                      { status: 'scheduled', label: 'Next meeting' },
+                    ]}
+                  />
+                  <ListCard
+                    type="space"
+                    avatar={{
+                      type: 'space-initials',
+                      initials: 'PT',
+                    }}
+                    name="Product Team"
+                    connectionCount={8}
+                    timestamp="2 hours ago"
+                    chips={[
+                      { status: 'responded', label: 'Q4 Goals' },
+                      { status: 'sent', label: 'Feature specs' },
+                      { status: 'no-nudge', label: 'Research' },
+                    ]}
+                  />
+                  <ListCard
+                    type="space"
+                    avatar={{
+                      type: 'space-initials',
+                      initials: 'SF',
+                    }}
+                    name="Sunday Funday"
+                    connectionCount={5}
+                    timestamp="Yesterday"
+                    chips={[
+                      { status: 'closed', label: 'Last event' },
+                    ]}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </details>
