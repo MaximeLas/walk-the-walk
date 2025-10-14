@@ -12,8 +12,20 @@
 import { Avatar } from '@/components/ui/Avatar'
 import { EntryChip } from '@/components/ui/EntryChip'
 import { ListCard } from '@/components/ui/ListCard'
+import TopNav from '@/components/ui/TopNav'
+import MiddleNav from '@/components/ui/MiddleNav'
+import ScreenModeSwitcher from '@/components/ui/ScreenModeSwitcher'
+import AddButton from '@/components/ui/AddButton'
+import AddOptions from '@/components/ui/AddOptions'
+import ModalCallToAction from '@/components/ui/ModalCallToAction'
+import { useState } from 'react'
 
 export default function ComponentDemo() {
+  // State for interactive demos
+  const [viewMode, setViewMode] = useState<'all' | 'contacts' | 'spaces'>('all')
+  const [screenMode, setScreenMode] = useState<'list' | 'nudges'>('list')
+  const [showAddOptions, setShowAddOptions] = useState(false)
+
   return (
     <div className="min-h-screen bg-bg-app">
       {/* Header */}
@@ -774,25 +786,298 @@ export default function ComponentDemo() {
         </details>
 
         {/* Step 4: Navigation Components */}
-        <details className="group">
+        <details open className="group">
           <summary className="cursor-pointer list-none">
             <div className="flex items-center gap-3 mb-6">
               <span className="text-2xl group-open:rotate-90 transition-transform">▶</span>
               <h2 className="text-xl font-semibold text-text-primary">
-                Step 4: Navigation & Action Components ⏳
+                Step 4: Navigation & Action Components ✅
               </h2>
             </div>
           </summary>
 
-          <div className="ml-9">
+          <div className="ml-9 space-y-8">
+            {/* Review Notes for Michelle */}
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-r p-6 mb-8">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">👩‍🎨</span>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-3">
+                    Review Notes for Michelle
+                  </h3>
+                  <div className="space-y-3 text-sm text-gray-700">
+                    <p>
+                      <strong className="text-purple-900">What to review:</strong> This step implements 6 navigation
+                      and action components: TopNav, MiddleNav, ScreenModeSwitcher, AddButton, AddOptions, and
+                      ModalCallToAction. These are the interactive UI elements that let users navigate and take actions.
+                    </p>
+                    <p>
+                      <strong className="text-purple-900 text-base">🚨 CRITICAL FIX:</strong> The initial implementation
+                      had wrong colors and modes due to an outdated extraction document. This has been corrected by
+                      verifying directly against your Figma designs:
+                    </p>
+                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 my-3">
+                      <ul className="list-disc list-inside space-y-1 text-xs">
+                        <li><strong>FIXED:</strong> Active tab color is now <span className="font-mono bg-[#505BFF] text-white px-1 rounded">#505BFF (PURPLE)</span> — not gray!</li>
+                        <li><strong>FIXED:</strong> Screen modes are now "List" and "Nudges" — not "List/Grid/Chat"</li>
+                        <li><strong>FIXED:</strong> Add Options shows 4 buttons: Contact, Space, Promise, Nudge</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-purple-900">TopNav — Key elements to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Background:</strong> Dark (#181818) with rounded bottom corners (36px)</li>
+                        <li><strong>Search Bar:</strong> White pill shape with search icon and placeholder text</li>
+                        <li><strong>Profile Avatar:</strong> Circular (44px) on the right</li>
+                        <li><strong>Shadow & Blur:</strong> Glassmorphism effect visible?</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-purple-900">MiddleNav — Key elements to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Active Tab Color:</strong> Is purple (#505BFF) used for "All" when active?</li>
+                        <li><strong>Inactive Tabs:</strong> White bg with black 2px border for "Contacts" and "Spaces"</li>
+                        <li><strong>Filter/Sort Icons:</strong> Visible and correctly positioned?</li>
+                        <li><strong>Typography:</strong> Bold text for tabs, regular for filter/sort labels</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-purple-900">ScreenModeSwitcher — Key elements to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Two Modes Only:</strong> "List" and "Nudges" (calendar icon)</li>
+                        <li><strong>Active State:</strong> White background for selected mode</li>
+                        <li><strong>Icons:</strong> List icon (hamburger lines) and Calendar icon</li>
+                        <li><strong>Shape:</strong> Pill-shaped container (60px border-radius)</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-purple-900">AddButton & AddOptions — Key elements to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>AddButton:</strong> Circular white button with + icon</li>
+                        <li><strong>AddOptions Menu:</strong> 4 white pill buttons (Contact, Space, Promise, Nudge)</li>
+                        <li><strong>Close Button:</strong> Dark with X icon</li>
+                        <li><strong>Layout:</strong> Vertical stack with gap between menu and close button</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-purple-900">ModalCallToAction — Key elements to check:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
+                        <li><strong>Background:</strong> Dark (#181818) with rounded top corners (36px)</li>
+                        <li><strong>Import Button:</strong> White bg, black border, with download icon</li>
+                        <li><strong>Save Button:</strong> Gray bg (#DEDEDE) for disabled state</li>
+                        <li><strong>Button Icons:</strong> Import (down arrow) and Save (floppy disk)</li>
+                      </ul>
+                    </div>
+                    <p>
+                      <strong className="text-purple-900">How to check:</strong> Open your Figma Navigation section
+                      (Node ID: 177:32892) side-by-side with this demo. Compare each component carefully, especially
+                      verifying the purple active tab color (#505BFF) vs the old incorrect gray.
+                    </p>
+                    <p>
+                      <strong className="text-purple-900">Interactive Testing:</strong> Try clicking the tabs and buttons
+                      below to see the interactive states. The purple color should stand out clearly when tabs are active.
+                    </p>
+                    <p className="text-xs text-gray-600 italic mt-4">
+                      ✨ Tip: The purple active state is a key part of your design language — make sure it pops and
+                      feels cohesive with your overall color palette!
+                    </p>
+
+                    {/* Collapsible Detailed Verification Guide */}
+                    <details className="mt-4 border-t border-purple-200 pt-4">
+                      <summary className="cursor-pointer text-sm font-semibold text-purple-900 hover:text-purple-700">
+                        🔍 Detailed Verification Guide (click to expand)
+                      </summary>
+                      <div className="mt-4 space-y-3 text-sm text-gray-700 bg-white/50 p-4 rounded">
+                        <div>
+                          <strong className="text-purple-900">Exact Color Values — VERIFY THESE:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>TopNav Background:</strong> #181818 (very dark gray)</li>
+                            <li><strong>MiddleNav Active Tab (All):</strong> #505BFF (PURPLE) — WHITE TEXT</li>
+                            <li><strong>MiddleNav Inactive Tabs:</strong> WHITE bg, BLACK 2px border, BLACK text</li>
+                            <li><strong>Screen Switcher Active:</strong> WHITE bg</li>
+                            <li><strong>AddOptions Buttons:</strong> WHITE bg, BLACK text</li>
+                            <li><strong>Modal Background:</strong> #181818 (matches TopNav)</li>
+                            <li><strong>Save Button Disabled:</strong> #DEDEDE (light gray)</li>
+                          </ul>
+                          <p className="text-xs text-gray-600 mt-2">
+                            💡 Use Figma's color picker on the Navigation section to verify these exact hex values.
+                            The purple #505BFF is the most critical to verify!
+                          </p>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Component Specs:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>TopNav:</strong> 24px padding, 36px bottom corners, search bar 44px height, avatar 44px circular</li>
+                            <li><strong>MiddleNav:</strong> White semi-transparent bg, 10px gap between sections, tabs 20px border-radius</li>
+                            <li><strong>ScreenModeSwitcher:</strong> 60px pill shape, 8px vertical padding, icons 24px</li>
+                            <li><strong>AddButton:</strong> 68×68px total (8px padding + 42px button), circular</li>
+                            <li><strong>AddOptions:</strong> 64px height menu, 40px height buttons, 14px gap</li>
+                            <li><strong>ModalCallToAction:</strong> 24px padding, buttons 50px border-radius (pill)</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Step-by-Step Figma Comparison:</strong>
+                          <ol className="list-decimal list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li>Open Figma Navigation section (Node ID: 177:32892)</li>
+                            <li>Compare TopNav: dark bar with search + avatar</li>
+                            <li>Compare MiddleNav: VERIFY purple active tab (#505BFF)</li>
+                            <li>Compare ScreenModeSwitcher: TWO modes only (List, Nudges)</li>
+                            <li>Compare AddButton and expanded AddOptions state</li>
+                            <li>Compare ModalCallToAction: dark bar with two buttons</li>
+                            <li>Use color picker to verify purple is #505BFF, not gray!</li>
+                          </ol>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">What Was Wrong (for context):</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li>Old extraction had gray active tabs — now correctly purple #505BFF</li>
+                            <li>Old extraction had 3 modes (List/Grid/Chat) — now correctly 2 modes (List/Nudges)</li>
+                            <li>Old extraction was missing some components — now all 6 components implemented</li>
+                            <li>Root cause: Extraction document was outdated vs current Figma design</li>
+                            <li>Solution: Verified all specs directly from Figma using MCP tools</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Edge Cases to Test:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>MiddleNav:</strong> Click each tab — active state should be clearly purple</li>
+                            <li><strong>ScreenModeSwitcher:</strong> Toggle between List/Nudges — white bg on active</li>
+                            <li><strong>AddOptions:</strong> Click option buttons — what happens on click?</li>
+                            <li><strong>Search Bar:</strong> Type in search — placeholder disappears, cursor shows</li>
+                            <li><strong>Disabled State:</strong> Save button should look obviously disabled</li>
+                            <li><strong>Mobile:</strong> Do all buttons feel tappable (≥44px touch targets)?</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <strong className="text-purple-900">Usage Context:</strong>
+                          <ul className="list-disc list-inside mt-2 space-y-1 ml-4 text-xs">
+                            <li><strong>TopNav:</strong> Fixed at top of Home screen</li>
+                            <li><strong>MiddleNav:</strong> Below TopNav, controls what list content shows</li>
+                            <li><strong>ScreenModeSwitcher:</strong> Floating bottom-right, toggles view mode</li>
+                            <li><strong>AddButton:</strong> Floating bottom-right, tap to show AddOptions</li>
+                            <li><strong>AddOptions:</strong> Appears when AddButton tapped, offers quick actions</li>
+                            <li><strong>ModalCallToAction:</strong> Bottom of modals for primary/secondary actions</li>
+                          </ul>
+                          <p className="text-xs text-gray-600 mt-2">
+                            Next step: Combine these into Home Screen layout (Step 5)
+                          </p>
+                        </div>
+                      </div>
+                    </details>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-sm text-text-secondary mb-6">
+              Navigation, filtering, and action components that control the app experience.
+              All specs verified directly against Figma designs (Node: 177:32892).
+            </p>
+
+            {/* TopNav Component */}
             <div className="bg-bg-card rounded shadow-card p-6">
-              <p className="text-text-secondary text-center py-8">
-                Components will be added here in Step 4.
-                <br />
-                <span className="text-xs text-text-tertiary mt-2 block">
-                  TopNav, MiddleNav, ScreenModeSwitcher, AddButton
-                </span>
+              <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                TopNav Component
+              </h3>
+              <p className="text-sm text-text-secondary mb-6">
+                <code className="bg-gray-200 px-1 rounded">src/components/ui/TopNav.tsx</code> •
+                Dark background (#181818), search bar, profile avatar
               </p>
+
+              <div className="max-w-md">
+                <TopNav
+                  avatarSrc="https://i.pravatar.cc/150?img=8"
+                  placeholder="Where am I at with..."
+                />
+              </div>
+            </div>
+
+            {/* MiddleNav Component */}
+            <div className="bg-bg-card rounded shadow-card p-6">
+              <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                MiddleNav Component
+              </h3>
+              <p className="text-sm text-text-secondary mb-6">
+                <code className="bg-gray-200 px-1 rounded">src/components/ui/MiddleNav.tsx</code> •
+                View tabs with PURPLE active state (#505BFF), filter/sort controls
+              </p>
+
+              <div className="max-w-md">
+                <MiddleNav
+                  activeView={viewMode}
+                  onViewChange={setViewMode}
+                />
+                <p className="text-xs text-text-tertiary mt-2">
+                  Active view: <span className="font-semibold">{viewMode}</span> (Click tabs to change)
+                </p>
+              </div>
+            </div>
+
+            {/* ScreenModeSwitcher Component */}
+            <div className="bg-bg-card rounded shadow-card p-6">
+              <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                ScreenModeSwitcher Component
+              </h3>
+              <p className="text-sm text-text-secondary mb-6">
+                <code className="bg-gray-200 px-1 rounded">src/components/ui/ScreenModeSwitcher.tsx</code> •
+                Two modes: List and Nudges (NOT Grid/Chat!)
+              </p>
+
+              <div className="flex items-center gap-4">
+                <ScreenModeSwitcher
+                  activeMode={screenMode}
+                  onModeChange={setScreenMode}
+                />
+                <p className="text-xs text-text-tertiary">
+                  Active mode: <span className="font-semibold">{screenMode}</span>
+                </p>
+              </div>
+            </div>
+
+            {/* AddButton & AddOptions Components */}
+            <div className="bg-bg-card rounded shadow-card p-6">
+              <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                AddButton & AddOptions Components
+              </h3>
+              <p className="text-sm text-text-secondary mb-6">
+                <code className="bg-gray-200 px-1 rounded">src/components/ui/AddButton.tsx</code> •
+                <code className="bg-gray-200 px-1 rounded ml-1">src/components/ui/AddOptions.tsx</code>
+                <br />
+                Floating action button that expands to show 4 action options
+              </p>
+
+              <div className="flex items-start gap-8">
+                <div className="flex flex-col items-center gap-2">
+                  <AddButton onClick={() => setShowAddOptions(!showAddOptions)} />
+                  <span className="text-xs text-text-secondary">Collapsed</span>
+                </div>
+                <div className="flex flex-col items-end gap-2">
+                  <AddOptions
+                    onOptionClick={(option) => console.log('Selected:', option)}
+                    onClose={() => setShowAddOptions(false)}
+                  />
+                  <span className="text-xs text-text-secondary">Expanded (4 options + close)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ModalCallToAction Component */}
+            <div className="bg-bg-card rounded shadow-card p-6">
+              <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                ModalCallToAction Component
+              </h3>
+              <p className="text-sm text-text-secondary mb-6">
+                <code className="bg-gray-200 px-1 rounded">src/components/ui/ModalCallToAction.tsx</code> •
+                Bottom action bar with Import and Save buttons
+              </p>
+
+              <div className="max-w-md">
+                <ModalCallToAction
+                  onImportClick={() => console.log('Import clicked')}
+                  onSaveClick={() => console.log('Save clicked')}
+                  saveDisabled={true}
+                />
+              </div>
             </div>
           </div>
         </details>
