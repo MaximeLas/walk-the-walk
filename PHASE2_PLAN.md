@@ -206,17 +206,20 @@ npm run dev
 
 ## Core Workflow
 
-**Every step follows this four-stage workflow:**
+**Every step follows this workflow:**
 
-1. **Extract** - Get exact design values from Figma into COMPLETE_FIGMA_EXTRACTION.md
+1. **Verify** - Use Figma MCP to confirm extraction document matches current design (see Figma Verification Protocol below)
 2. **Reference** - Read extraction document to understand component specs
-3. **Build** - Implement components using values from extraction document
-4. **Verify** - Compare implementation to Figma visually and functionally
+3. **Build** - Implement components using verified values
+4. **Test** - Compare implementation to Figma visually and functionally
 
 **Key Resources:**
-- **Design Source:** `COMPLETE_FIGMA_EXTRACTION.md` - Systematic extraction of all Figma component specs
+- **Primary Source:** Figma designs (via MCP tools) - source of truth
+- **Secondary Reference:** `COMPLETE_FIGMA_EXTRACTION.md` - verify against Figma before use
 - **Figma Components:** Node ID 177:32228 (if you need to extract new components)
-- **Tools:** Figma MCP (extraction), Context7 MCP (library docs)
+- **Tools:** Figma MCP (verification), Context7 MCP (library docs)
+
+**Why verification matters:** Step 4 revealed extraction documents can become outdated. See `INCIDENT_REPORT_STEP4.md` for full context.
 
 ---
 
@@ -254,26 +257,66 @@ npm run dev
 
 ---
 
+## Figma Verification Protocol
+
+**Required for all steps.** Ensures extraction documents match current Figma designs. Added after Step 4 incident (see `INCIDENT_REPORT_STEP4.md`).
+
+### Before Implementation (15-20 min)
+
+1. **Get visual reference:**
+   ```bash
+   mcp__figma-desktop__get_screenshot(nodeId="SECTION_ID")  # e.g., "177:32892" for Navigation
+   ```
+
+2. **Get current specs:**
+   ```bash
+   mcp__figma-desktop__get_code(nodeId="COMPONENT_ID")  # Repeat for each component
+   ```
+
+3. **Compare against extraction document:**
+   - Check colors match (use hex codes from Figma code)
+   - Verify component count and variant counts
+   - Note discrepancies in a list
+
+4. **If conflicts exist:** Trust Figma. Update extraction doc or note in commit message.
+
+### After Implementation (10-15 min)
+
+1. **Visual comparison:**
+   - Take screenshot of your implementation
+   - Place side-by-side with Figma screenshot
+   - Use color picker to verify hex values match exactly
+
+2. **Completeness check:**
+   - List all components in Figma screenshot
+   - Verify each exists in your implementation
+   - Check variant counts match
+
+**Why this matters:** Prevents hours of rework from outdated documentation.
+
+---
+
 ## Component Implementation Process
 
 ### Before Coding
 
-1. Open `COMPLETE_FIGMA_EXTRACTION.md` and locate the component section
-2. Read the full specification (colors, sizing, typography, effects)
-3. **If component is missing:** Extract from Figma first, add to document, get user approval
-4. Note the section name for traceability
+1. Complete Figma Verification Protocol (above)
+2. Read `COMPLETE_FIGMA_EXTRACTION.md` for component details
+3. Note Figma section names and node IDs for traceability
+4. Create implementation checklist based on verified specs
 
 ### While Coding
 
-1. Use values directly from extraction document (not Figma directly)
-2. Reference section names in code comments for traceability
+1. Use verified Figma specs as primary source
+2. Reference Figma section names and node IDs in code comments
 3. Implement all documented variants (don't skip edge cases)
 4. Create TypeScript interfaces for all component props
 5. Use accessible HTML semantics
+6. Keep Figma screenshot open for visual reference
 
 ### After Coding
 
-**CRITICAL: Comprehensive testing is mandatory before reporting completion**
+**Testing is mandatory before reporting completion**
 
 #### 1. Add to Demo Page
 - Add component to `/demo` page with ALL variants
@@ -281,7 +324,12 @@ npm run dev
 - Ensure clear labeling and organization
 - **REQUIRED: Add "Review Notes for Michelle" section** (see template below)
 
-#### 2. Automated Testing (Chrome DevTools MCP)
+#### 2. Visual Verification
+- Complete "After Implementation" section of Figma Verification Protocol (above)
+- Use color picker to verify hex values match exactly
+- Check all components from Figma exist in implementation
+
+#### 3. Automated Testing (Chrome DevTools MCP)
 Use Chrome DevTools MCP tools to verify implementation:
 
 ```bash
@@ -521,15 +569,17 @@ This ensures Michelle can review everything directly from the Vercel preview wit
 
 ### Figma MCP Tools
 
-**When to use:**
-- Extraction document is missing a component you need to build
-- You need visual reference for comparison
-- You want to verify a specific value against Figma
+**Required for verification (see Figma Verification Protocol above).**
 
 **Key tools:**
-- `mcp__figma-desktop__get_code` - Extract component specs
-- `mcp__figma-desktop__get_screenshot` - Visual reference
-- `mcp__figma-desktop__get_metadata` - Component structure overview
+- `mcp__figma-desktop__get_screenshot` - Get visual reference
+- `mcp__figma-desktop__get_code` - Get component specs
+- `mcp__figma-desktop__get_metadata` - Get component structure overview
+
+**When to use:**
+- At start of every step (verification protocol)
+- When extraction document is missing a component
+- To verify specific values during implementation
 
 ### Context7 MCP Tools
 
@@ -740,12 +790,14 @@ interface EntryChipProps {
 
 ### Step 4: Navigation & Action Components (~12-15 hours)
 
-**Source:** COMPLETE_FIGMA_EXTRACTION.md sections "Navigation Components", "Screen Mode Components", "Add Button"
+**Note:** Initial implementation (2025-10-14) was incorrect due to outdated extraction document. See `INCIDENT_REPORT_STEP4.md` for details. This led to adding the Figma Verification Protocol to prevent similar issues.
 
-- **TopNav:** Search bar + profile avatar (2 states: Active=No, Active=Yes)
-- **MiddleNav:** Filter/sort controls + view tabs (3 variants: All, Contacts, Spaces)
-- **ScreenModeSwitcher:** List/Grid/Chat tabs (3 states)
-- **AddButton:** Floating action button (2 states: Add, Close with menu)
+**Source:** Figma Navigation section (Node ID: 177:32892) - verify with MCP tools first
+
+**Components to implement:**
+- TopNav, MiddleNav, ScreenModeSwitcher, AddButton, Add Options, Modal Call to Action
+
+**Before implementing:** Complete Figma Verification Protocol to confirm component list, colors, and variants match current Figma design.
 
 ---
 

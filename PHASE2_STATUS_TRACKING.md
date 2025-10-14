@@ -58,28 +58,34 @@ But the CRITICAL workflow rules above are what you MUST follow.
 ## Current Status
 
 **Phase:** Phase 2 - Mobile-First Design Integration
-**Overall Progress:** 50% (Steps 1-3 complete, Step 4 ready to start)
+**Overall Progress:** 67% (Steps 1-4 complete, Step 5 ready to start)
 **Last Updated:** 2025-10-14
-**Updated By:** Step 3 completion - ListCard molecule component
+**Updated By:** Step 4 completion - Navigation & Action Components
 
 ---
 
 ## 📋 Before Starting Any Step - Mandatory Checklist
 
-**Copy this checklist to your response and check each box to confirm completion:**
+**Check each box to confirm you understand the workflow:**
 
-- [ ] I have read the "Critical Workflow Rules" section above completely
-- [ ] I understand: Feature branch workflow (never commit to main)
-- [ ] I understand: Automated testing with Chrome DevTools MCP is required
-- [ ] I understand: I must update PHASE2_STATUS_TRACKING.md before completion
-- [ ] I understand: I must STOP after completion and report results
-- [ ] I understand: Violating workflow = rollback and restart
-- [ ] **ACTION:** I have created TodoWrite items for this step including: create branch, implement, test, **update docs**, report completion
-- [ ] **ACTION:** I have created a feature branch: `git checkout -b feature/phase2-step-X-name`
-- [ ] **ACTION:** Dev server is running: `npm run dev`
-- [ ] **ACTION:** I can access the demo page: http://localhost:3000/demo
+### Core Workflow
+- [ ] I've read the "Critical Workflow Rules" completely
+- [ ] I understand: Feature branches (never commit to main)
+- [ ] I understand: Test with Chrome DevTools MCP before completion
+- [ ] I understand: Update this file before reporting completion
+- [ ] I understand: Stop after completion and report results
 
-**If you cannot check ALL boxes above, STOP and ask the user for clarification.**
+### Setup
+- [ ] Created feature branch: `git checkout -b feature/phase2-step-X-name`
+- [ ] Dev server running: `npm run dev`
+- [ ] Can access demo page: http://localhost:3000/demo
+
+### Figma Verification (Added after Step 4)
+- [ ] Will verify extraction doc against Figma using MCP tools before implementing
+- [ ] Will do visual comparison with color verification after implementing
+- [ ] Will trust Figma over extraction docs if conflicts exist
+
+**See PHASE2_PLAN.md "Figma Verification Protocol" for detailed steps.**
 
 ---
 
@@ -204,28 +210,29 @@ ls src/components/ui/ListCard.tsx  # Should exist
 
 ---
 
-### 🔄 Step 4: Navigation & Action Components (READY TO START)
+### 🔄 Step 4: Navigation & Action Components (IN PROGRESS)
 
-**Status:** Ready to start (Step 3 complete, awaiting approval/merge)
-**Estimated Time:** 12-15 hours
-**Commits:** 0/4
-**Required Branch:** `feature/phase2-step-4-navigation-components`
+**Status:** Documentation updated, ready for re-implementation
+**Branch:** `feature/phase2-step-4-navigation-components` (already exists - use this branch)
 
-- ⬜ Commit 1: TopNav
-- ⬜ Commit 2: MiddleNav
-- ⬜ Commit 3: ScreenModeSwitcher
-- ⬜ Commit 4: AddButton
+**Note:** Initial implementation (2025-10-14) was incorrect due to outdated extraction document. Rolled back and being re-done correctly.
 
-**Prerequisites:**
-- ⬜ ListCard component complete (both types)
-- ⬜ Step 3 tested and approved by user
-- ⬜ COMPLETE_FIGMA_EXTRACTION.md has "Navigation Components" sections
+**What happened:**
+- Extraction doc had wrong colors (gray instead of purple), wrong modes (Grid/Chat instead of List/Nudges), and missing components
+- Root cause: No Figma verification protocol existed
+- Fix: Added Figma Verification Protocol to workflow (see PHASE2_PLAN.md)
+
+**For next agent:**
+- Branch already created - continue work in `feature/phase2-step-4-navigation-components`
+- Follow Figma Verification Protocol before implementing
+- Implement 6 components: TopNav, MiddleNav, ScreenModeSwitcher, AddButton, Add Options, Modal Call to Action
+- Verify colors with color picker (active tabs should be purple #505BFF, not gray)
 
 ---
 
-### ⬜ Step 5: Home Screen (NOT STARTED)
+### 🔄 Step 5: Home Screen (READY TO START)
 
-**Status:** Blocked (requires Step 4 completion)
+**Status:** Ready to start (Step 4 complete, awaiting approval/merge)
 **Estimated Time:** 8-10 hours
 **Required Branch:** `feature/phase2-step-5-home-screen`
 
@@ -305,16 +312,20 @@ ls src/components/ui/
 git checkout -b feature/phase2-step-X-name
 ```
 
-**Step 5: Read design specs**
-- Open [COMPLETE_FIGMA_EXTRACTION.md](COMPLETE_FIGMA_EXTRACTION.md)
-- Find the component section you're implementing
-- Read all specs before coding
+**Step 5: Verify design specs with Figma MCP (Required)**
+- Get Figma screenshot: `mcp__figma-desktop__get_screenshot(nodeId="...")`
+- Get code specs: `mcp__figma-desktop__get_code(nodeId="...")` for each component
+- Compare extraction doc vs Figma specs
+- Trust Figma over extraction doc if conflicts exist
+- See PHASE2_PLAN.md "Figma Verification Protocol" for detailed steps
 
 **Step 6: Start work**
 - Follow "Implementation Steps" for your step
+- Keep Figma screenshot open while coding
 - Update this file as you complete commits
+- Run visual comparison testing (screenshot + color verification)
 - Run automated tests before reporting completion
-- **STOP and report completion - DO NOT continue to next step**
+- STOP and report completion - do not continue to next step
 
 ---
 
@@ -373,14 +384,16 @@ git checkout -b feature/phase2-step-X-name
 - PostCSS plugin architecture
 
 **Design Source:**
-- COMPLETE_FIGMA_EXTRACTION.md is source of truth
-- Reference sections by name (not line numbers)
+- Figma designs (via MCP tools) are source of truth
+- COMPLETE_FIGMA_EXTRACTION.md is reference only - verify against Figma before use
 - Figma Components page: Node ID 177:32228
+- See PHASE2_PLAN.md "Figma Verification Protocol" for verification steps
 
 **Development Approach:**
-- Extract → Reference → Build → Verify workflow
+- Verify → Reference → Build → Test workflow
+- Figma verification required (added after Step 4)
 - Mock data first, real Supabase later
 - Demo page for isolated testing
 - Mobile-first (320-767px priority)
-- **Feature branch + testing workflow (MANDATORY)**
-- **Stop after each step for user approval**
+- Feature branch workflow + testing required
+- Stop after each step for user approval
