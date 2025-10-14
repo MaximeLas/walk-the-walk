@@ -64,19 +64,29 @@ git checkout -b feature/phase2-step-X-description
 
 #### After Step Completion, Agent MUST:
 
-1. **Report completion** with:
+1. **Update PHASE2_STATUS_TRACKING.md** (MANDATORY):
+   - Mark step as "COMPLETE ✅" with date, commits, files, test results
+   - Update overall progress percentage at top
+   - Update next step from "NOT STARTED" to "READY TO START"
+   - Commit and push documentation updates to feature branch
+   - *See detailed instructions in "Component Implementation Process" section below*
+
+2. **Report completion** with:
    - Summary of what was implemented
    - List of files created/modified
    - Link to demo page to test (`http://localhost:3000/demo`)
+   - Screenshot proof (desktop + mobile viewports)
+   - Test results (console clean, all variants working)
+   - **Confirmation that PHASE2_STATUS_TRACKING.md was updated**
    - Any issues or notes encountered
 
-2. **Wait for user testing** - User will:
+3. **Wait for user testing** - User will:
    - Test implementation manually
    - Run automated tests (if applicable)
-   - Review code
+   - Review code and documentation updates
    - Provide feedback or approval
 
-3. **Only after approval**, user will:
+4. **Only after approval**, user will:
    - Merge feature branch to main
    - Tell agent to continue with next step
 
@@ -182,6 +192,12 @@ npm run dev
 ✅ Mobile viewport (375px) tested
 
 **Screenshots attached:** [links to screenshots]
+
+**Documentation Updated:**
+✅ PHASE2_STATUS_TRACKING.md updated with Step 2 completion details
+✅ Progress updated: 10% → 30%
+✅ Step 3 status changed to "READY TO START"
+✅ Documentation commit: abc1234
 
 **Ready for:** Manual testing and approval before Step 3
 ```
@@ -313,7 +329,40 @@ mcp__chrome-devtools__hover(uid="...")
 - [ ] Interactions work (hover, click, focus if applicable)
 - [ ] Accessibility basics (alt text, aria labels, semantic HTML)
 
-#### 5. Report Completion
+#### 5. Update Documentation (MANDATORY - DO BEFORE REPORTING)
+**CRITICAL: This step is NOT optional. Must be done before step 6.**
+
+Update `PHASE2_STATUS_TRACKING.md`:
+1. **Update "Current Status" section at top:**
+   - Change progress percentage (e.g., 30% → 50%)
+   - Update "Last Updated" date
+   - Update "Updated By" description
+
+2. **Update your step's section:**
+   - Change status from "READY TO START" to "COMPLETE ✅"
+   - Add completion date and time spent
+   - List commits (with ✅ checkmarks)
+   - Document branch name and PR link (if created)
+   - Add "Key Files Created/Modified" section
+   - Add "Important Notes" with architectural decisions and specs
+   - Add "Testing Completed" section with all test results
+   - Add "Demo Page" link
+   - Add "Verification" bash commands
+
+3. **Update next step's section:**
+   - Change from "NOT STARTED" to "READY TO START"
+   - Update status description
+
+4. **Commit the documentation update:**
+   ```bash
+   git add PHASE2_STATUS_TRACKING.md
+   git commit -m "docs: Update PHASE2_STATUS_TRACKING.md to reflect Step X completion"
+   git push
+   ```
+
+**See Step 3 completion section in PHASE2_STATUS_TRACKING.md as a reference template.**
+
+#### 6. Report Completion
 Create comprehensive completion report including:
 - Summary of what was implemented
 - Screenshot proof (desktop + mobile)
@@ -321,11 +370,7 @@ Create comprehensive completion report including:
 - Any UX issues discovered and fixed
 - Any deviations from Figma with justification
 - Demo page URL for manual testing
-
-#### 6. Update Documentation
-- Update PHASE2_STATUS_TRACKING.md to mark commit as complete
-- Add any important notes or learnings
-- Flag any concerns or questions for user review
+- **Confirmation that PHASE2_STATUS_TRACKING.md was updated**
 
 ---
 
