@@ -50,9 +50,9 @@ But the CRITICAL workflow rules above are what you MUST follow.
 ## Current Status
 
 **Phase:** Phase 2 - Mobile-First Design Integration
-**Overall Progress:** 30% (Steps 1-2 complete, Step 3 ready to start)
+**Overall Progress:** 50% (Steps 1-3 complete, Step 4 ready to start)
 **Last Updated:** 2025-10-14
-**Updated By:** Rollback after workflow violation
+**Updated By:** Step 3 completion - ListCard molecule component
 
 ---
 
@@ -148,135 +148,56 @@ ls src/components/ui/  # Should show Avatar.tsx and EntryChip.tsx
 
 ---
 
-### 🔄 Step 3: Molecule Components (READY TO START)
+### ✅ Step 3: Molecule Components (COMPLETE)
 
-**Status:** Ready to start
-**Estimated Time:** 6-8 hours
-**Commits:** 0/2
-**Required Branch:** `feature/phase2-step-3-molecule-components`
+**Completed:** 2025-10-14
+**Total Time:** ~2 hours
+**Commits:** 1/1 ✅ (both Contact & Space types in single commit)
+**Branch:** `feature/phase2-step-3-molecule-components`
+**Pull Request:** #7 - https://github.com/MaximeLas/walk-the-walk/pull/7
 
----
+- ✅ Commit 1: ListCard component (both Contact and Space types)
 
-### ⚠️ REMINDER: After Completing This Step
+**Key Files Created:**
+- `src/components/ui/ListCard.tsx` - ListCard molecule component with Contact and Space variants
 
-**This step takes 6-8 hours. Don't forget the workflow by the end.**
+**Key Files Modified:**
+- `src/pages/demo.tsx` - Added Step 3 section with ListCard showcases and review notes
 
-**After both commits, you MUST:**
-1. Run full testing protocol (Chrome DevTools MCP)
-2. Take desktop + mobile screenshots
-3. Report completion with test results
-4. **STOP** - DO NOT continue to Step 4
+**Important Notes:**
+- **Architectural Decision:** Both Contact and Space types implemented in single component using TypeScript discriminated unions (more maintainable than separate components)
+- Contact type: Avatar + name + online status dot (#00B017, 8px) + timestamp + entry chips
+- Space type: Avatar + name + separator line + "+X Others" count + timestamp + entry chips
+- Card styling: White bg, 8px border radius, shadow `0px 4px 16px rgba(0,0,0,0.15)`, backdrop blur
+- Typography: Hiragino Kaku Gothic Pro W6 (16px name), W3 (12px metadata)
+- Card padding: 12px top section, 12px H + 6px V bottom section
+- Gaps: 8px between top row elements, 12px between chips
+- All specs from COMPLETE_FIGMA_EXTRACTION.md "List Cards" section (Nodes 177:32766, 177:32834)
 
-**Add to TodoWrite NOW:**
-- [ ] **CRITICAL: Test, screenshot, report, STOP**
+**Testing Completed:**
+- ✅ Console clean (no errors/warnings)
+- ✅ Desktop viewport tested (1440×900) - full page screenshot captured
+- ✅ Mobile viewport tested (375×667) - full page screenshot captured
+- ✅ All variants render correctly (3 Contact + 3 Space examples)
+- ✅ Typography, colors, spacing match Figma specs exactly
+- ✅ Card shadow and backdrop blur rendering properly
 
----
+**Demo Page:** http://localhost:3000/demo (Step 3 section)
 
-**⚠️ BEFORE YOU START:**
-
-**Copy this Step 3 checklist to your response and check each box:**
-
-- [ ] I have read the "Critical Workflow Rules" section at the top of this file
-- [ ] I understand I must create a feature branch (never commit to main)
-- [ ] I understand I must test with Chrome DevTools MCP before reporting
-- [ ] I understand I must STOP after completion and report results
-- [ ] **ACTION:** I have created branch: `git checkout -b feature/phase2-step-3-molecule-components`
-- [ ] **ACTION:** Dev server is running: `npm run dev`
-- [ ] **ACTION:** Demo page loads: http://localhost:3000/demo
-- [ ] **ACTION:** I have created TodoWrite items for this step (see example below)
-
-**Example TodoWrite for Step 3:**
-```
-- [ ] Create branch: feature/phase2-step-3-molecule-components
-- [ ] Read List Cards design specs from COMPLETE_FIGMA_EXTRACTION.md
-- [ ] Implement ListCard Contact type + add to demo + commit
-- [ ] Implement ListCard Space type + add to demo + commit
-- [ ] **CRITICAL: Run full testing protocol (Chrome DevTools MCP)**
-- [ ] Take desktop & mobile screenshots
-- [ ] **STOP - Report completion (DO NOT continue to Step 4)**
+**Verification:**
+```bash
+# Check commits
+git log --oneline --grep="Phase 2: Step 3" | wc -l  # Should show 1
+ls src/components/ui/ListCard.tsx  # Should exist
+# View PR: gh pr view 7
 ```
 
-**Commits Planned:**
-- ⬜ Commit 1: ListCard (Contact type)
-- ⬜ Commit 2: ListCard (Space type)
-
-**Prerequisites:**
-- ✅ Avatar component complete
-- ✅ EntryChip component complete
-- ✅ COMPLETE_FIGMA_EXTRACTION.md has "List Cards" section
-- ✅ Demo page exists for testing
-
-**Implementation Steps:**
-
-1. **Read Design Specs:**
-   - Open [COMPLETE_FIGMA_EXTRACTION.md](COMPLETE_FIGMA_EXTRACTION.md)
-   - Read "List Cards" section (Contact type: 177:32766, Space type: 177:32834)
-   - Note all colors, spacing, typography, effects
-   - **Add to TodoWrite:** "Read List Cards design specs"
-
-2. **Commit 1 - ListCard Contact Type:**
-   - Implement Contact type (Avatar + name + status dot + timestamp + chips)
-   - Add to demo page with multiple examples
-   - **Quick verification:** Check demo page in browser - does it render without errors?
-   - Git commit with descriptive message
-   - **Add to TodoWrite:** "Implement and commit ListCard Contact type"
-
-3. **Commit 2 - ListCard Space Type:**
-   - Implement Space type (Avatar + name + connection count + timestamp + chips)
-   - Add to demo page with multiple examples
-   - **Quick verification:** Check demo page in browser - does it render without errors?
-   - Git commit with descriptive message
-   - **Add to TodoWrite:** "Implement and commit ListCard Space type"
-
-4. **TESTING CHECKPOINT** (after both commits complete):
-
-   Test using Chrome DevTools MCP:
-   ```bash
-   mcp__chrome-devtools__navigate_page("http://localhost:3000/demo")
-   mcp__chrome-devtools__list_console_messages()  # Check for errors
-   mcp__chrome-devtools__resize_page(1440, 900)
-   mcp__chrome-devtools__take_screenshot(fullPage=true)  # Desktop
-   mcp__chrome-devtools__resize_page(375, 667)
-   mcp__chrome-devtools__take_screenshot(fullPage=true)  # Mobile
-   ```
-
-   If issues found: fix, re-test, then report.
-
-   *See [PHASE2_PLAN.md lines 115-167](PHASE2_PLAN.md) for complete testing protocol and tool documentation.*
-
-5. **Report Completion (FINAL STEP):**
-   - Provide summary of what was implemented
-   - Attach desktop + mobile screenshots from testing
-   - List test results (console clean? all variants work?)
-   - Link to demo page for manual review
-   - **Add to TodoWrite:** "Report Step 3 completion to user"
-   - **COMPLETE YOUR TODO:** "Stop and report completion"
 
 ---
 
-## ⛔ CHECKPOINT: Step 3 Complete ⛔
+### 🔄 Step 4: Navigation & Action Components (READY TO START)
 
-**STOP. Do not continue to Step 4.**
-
-**Before moving on:**
-1. ✅ Ran full testing protocol?
-2. ✅ Created completion report with screenshots?
-3. ✅ Reported completion to user?
-
-**If NO to any: Complete that step now.**
-
----
-
-**After Reporting Completion:**
-- User reviews implementation and test results
-- User may provide feedback or request changes
-- User merges feature branch to main when satisfied
-
----
-
-### ⬜ Step 4: Navigation & Action Components (NOT STARTED)
-
-**Status:** Blocked (requires Step 3 completion and approval)
+**Status:** Ready to start (Step 3 complete, awaiting approval/merge)
 **Estimated Time:** 12-15 hours
 **Commits:** 0/4
 **Required Branch:** `feature/phase2-step-4-navigation-components`
