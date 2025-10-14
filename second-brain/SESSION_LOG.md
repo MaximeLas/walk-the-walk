@@ -6,6 +6,34 @@ Quick-reference index of all recorded sessions with summaries and keywords.
 
 ---
 
+## 2025-10-14-III: Step 4 Incident Analysis and Documentation Improvement
+
+**File:** [sessions/2025-10-14-III-step4-incident-documentation-improvement.md](sessions/2025-10-14-III-step4-incident-documentation-improvement.md)
+
+**Summary:** Step 4 implementation failed due to outdated extraction document - implemented wrong colors (gray instead of purple), wrong modes (Grid/Chat instead of List/Nudges), and missing components. User requested ultrathink analysis. Agent used Figma MCP tools to discover extraction doc (COMPLETE_FIGMA_EXTRACTION.md) had drifted from actual Figma designs as they evolved. Created comprehensive 899-line incident report (kept local only) analyzing root causes, developed 6 hypotheses for why extraction was outdated, identified systemic documentation drift problem. Initially over-corrected with excessive warnings and repetition (20+ ⚠️ symbols, instructions in 4 places, 21-item checklist). User pushed back on over-emphasis. Subagent assessment revealed bloat defeated purpose - "when everything is critical, nothing is critical." Streamlined to single authoritative Figma Verification Protocol section, simplified checklist (21→11 items), reduced Step 4 guidance (53→15 lines), removed 80% of warnings while preserving essential information. Key insight: test documentation quality with minimal handoff prompt - if agent needs detailed explanation, documentation hasn't solved problem. Final handoff: 3-line prompt trusting improved docs. Decision to keep INCIDENT_REPORT local (too large for remote, valuable reference). Committed streamlined workflow improvements. Next agent will validate if documentation sufficient.
+
+**Keywords:** Step 4 incident, documentation drift, extraction document outdated, Figma MCP tools, verification protocol, over-emphasis backfire, warning fatigue, subagent assessment, documentation quality testing, minimal handoff prompt, incident report, root cause analysis, wrong colors purple vs gray, wrong modes List/Nudges vs Grid/Chat, missing components, COMPLETE_FIGMA_EXTRACTION.md, PHASE2_PLAN.md, PHASE2_STATUS_TRACKING.md, visual comparison testing, color picker verification, Trust But Verify workflow, Documentation Emphasis Spectrum, streamlined from bloat, 899-line analysis kept local, systemic issues, source of truth vs reference, design evolution
+
+**Topics:** Incident analysis, documentation quality, workflow improvement, over-correction pitfalls, verification protocols, agent reliability, documentation drift
+
+**Key Decisions:**
+- Add mandatory Figma Verification Protocol (before and after implementation)
+- Keep INCIDENT_REPORT_STEP4.md local only (too large for remote)
+- Use minimal handoff prompt to test if documentation improvements work
+- Single authoritative protocol section instead of scattered instructions
+- Instructional tone instead of panic tone
+
+**Key Frameworks:**
+- Documentation Emphasis Spectrum (too brief → just right → too verbose)
+- Trust But Verify Workflow (Reference → Source of Truth → Implementation → Verification)
+- Subagent for Unbiased Assessment (fresh context catches what author misses)
+
+**Unresolved:**
+- Will improved documentation be sufficient for next agent? (minimal prompt test)
+- Should extraction documents be used at all vs. Figma MCP directly?
+
+---
+
 ## 2025-10-14-II: Phase 2 Step 3 Completion & Documentation Workflow Requirements
 
 **File:** [sessions/2025-10-14-II-phase2-step3-completion-documentation-workflow.md](sessions/2025-10-14-II-phase2-step3-completion-documentation-workflow.md)
