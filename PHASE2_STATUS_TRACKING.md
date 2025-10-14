@@ -31,9 +31,17 @@
 - **DO NOT continue to next step** automatically
 - *Why: Allows review before building on this step; prevents cascading errors*
 
-#### 4. TodoWrite Tool Usage
+#### 4. Update Documentation Before Completing Step
+- **MANDATORY:** Before reporting completion, update PHASE2_STATUS_TRACKING.md
+- Mark your step as "COMPLETE ✅" with completion date, commits, files, and test results
+- Update "Current Status" progress percentage at the top
+- Update next step status from "NOT STARTED" to "READY TO START"
+- Commit documentation updates to your feature branch
+- *Why: Keeps tracking document accurate; helps next agent know what's done and what's next*
+
+#### 5. TodoWrite Tool Usage
 - Use TodoWrite to track progress throughout each step
-- Add critical workflow steps: create branch, test, report completion
+- Add critical workflow steps: create branch, implement, test, **update docs**, report completion
 - Helps remember important steps during long sessions (6-8 hours)
 - *Why: Easy to forget "stop and report" by the end; TodoWrite acts as checklist*
 
@@ -63,9 +71,10 @@ But the CRITICAL workflow rules above are what you MUST follow.
 - [ ] I have read the "Critical Workflow Rules" section above completely
 - [ ] I understand: Feature branch workflow (never commit to main)
 - [ ] I understand: Automated testing with Chrome DevTools MCP is required
+- [ ] I understand: I must update PHASE2_STATUS_TRACKING.md before completion
 - [ ] I understand: I must STOP after completion and report results
 - [ ] I understand: Violating workflow = rollback and restart
-- [ ] **ACTION:** I have created TodoWrite items for this step including: create branch, implement, test, report completion
+- [ ] **ACTION:** I have created TodoWrite items for this step including: create branch, implement, test, **update docs**, report completion
 - [ ] **ACTION:** I have created a feature branch: `git checkout -b feature/phase2-step-X-name`
 - [ ] **ACTION:** Dev server is running: `npm run dev`
 - [ ] **ACTION:** I can access the demo page: http://localhost:3000/demo
