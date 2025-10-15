@@ -96,7 +96,7 @@ export default function MiddleNav({
         {/* All Tab */}
         <button
           onClick={() => onViewChange?.('all')}
-          className={`min-w-[100px] px-6 py-3 rounded-[48px] flex items-center justify-center ${
+          className={`min-w-[100px] px-6 py-3 rounded-[48px] flex items-center justify-center transition-colors ${
             activeView === 'all'
               ? 'bg-[#505BFF] text-white'
               : 'bg-transparent text-black'
@@ -111,13 +111,14 @@ export default function MiddleNav({
         {/* Contacts Tab */}
         <button
           onClick={() => onViewChange?.('contacts')}
-          className={`min-w-[100px] px-6 py-3 rounded-[20px] flex items-center justify-center ${
+          className={`min-w-[100px] px-6 py-3 rounded-[48px] flex items-center justify-center transition-colors ${
             activeView === 'contacts'
-              ? 'bg-white border-2 border-black'
-              : 'bg-transparent'
+              ? 'bg-[#505BFF] text-white'
+              : 'bg-transparent text-black'
           }`}
+          style={{ backdropFilter: activeView === 'contacts' ? 'blur(6px)' : 'none' }}
         >
-          <span className="text-[14px] font-['Arial',sans-serif] font-bold leading-none text-black">
+          <span className="text-[18px] font-['Arial',sans-serif] font-bold leading-none">
             Contacts
           </span>
         </button>
@@ -125,13 +126,14 @@ export default function MiddleNav({
         {/* Spaces Tab */}
         <button
           onClick={() => onViewChange?.('spaces')}
-          className={`min-w-[100px] px-6 py-3 rounded-[20px] flex items-center justify-center ${
+          className={`min-w-[100px] px-6 py-3 rounded-[48px] flex items-center justify-center transition-colors ${
             activeView === 'spaces'
-              ? 'bg-white border-2 border-black'
-              : 'bg-transparent'
+              ? 'bg-[#505BFF] text-white'
+              : 'bg-transparent text-black'
           }`}
+          style={{ backdropFilter: activeView === 'spaces' ? 'blur(6px)' : 'none' }}
         >
-          <span className="text-[14px] font-['Arial',sans-serif] font-bold leading-none text-black">
+          <span className="text-[18px] font-['Arial',sans-serif] font-bold leading-none">
             Spaces
           </span>
         </button>
