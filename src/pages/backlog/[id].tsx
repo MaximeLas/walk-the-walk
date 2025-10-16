@@ -94,7 +94,7 @@ export default function BacklogDetail() {
       const response = await fetch(`/api/backlogs/${id}/promises`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: newPromiseText }),
+        body: JSON.stringify({ description: newPromiseText }),
       });
 
       if (!response.ok) {
