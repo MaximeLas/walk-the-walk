@@ -1,14 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-chrome-devtools-mcp/
 Claude Code docs - CLI tool and automation features/
-PLAN_FEEDBACK*.md
-PHASE2_PLAN.md
-AGENT_PROMPT_DESIGN_INTEGRATION.md
-DESIGN_DEVELOPER_GUIDE.md
-VISUAL_TESTING_AGENT_SPEC.md
-FIGMA_*.md
-INCIDENT_ANALYSIS_STEP4_PART2.md
-view-report.html
 
 .env.local
 

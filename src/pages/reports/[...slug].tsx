@@ -12,9 +12,10 @@ interface ReportPageProps {
   content: string;
   title: string;
   filename: string;
+  slugPath: string[];
 }
 
-export default function ReportPage({ content, title, filename }: ReportPageProps) {
+export default function ReportPage({ content, title, filename, slugPath }: ReportPageProps) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
 
@@ -214,26 +215,38 @@ export default function ReportPage({ content, title, filename }: ReportPageProps
           }
         `}</style>
         <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mb-6 flex justify-between items-center">
-            <Link
-              href="/reports"
-              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <div className="mb-6 flex justify-between items-start">
+            {/* Breadcrumb Navigation */}
+            <nav className="flex items-center space-x-2 text-sm flex-wrap">
+              <Link
+                href="/reports"
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              Back to Reports
-            </Link>
+                Reports
+              </Link>
+              {slugPath.map((segment, index) => {
+                const isLast = index === slugPath.length - 1;
+                const href = `/reports/${slugPath.slice(0, index + 1).join('/')}`;
+
+                return (
+                  <div key={index} className="flex items-center space-x-2">
+                    <span className="text-gray-400 dark:text-gray-500">/</span>
+                    {isLast ? (
+                      <span className="text-gray-700 dark:text-gray-300 font-medium">
+                        {segment}
+                      </span>
+                    ) : (
+                      <Link
+                        href={href}
+                        className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+                      >
+                        {segment}
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+            </nav>
 
             {mounted && (
               <button
@@ -384,6 +397,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         content,
         title,
         filename,
+        slugPath: slugArray,
       },
     };
   } catch (error) {
