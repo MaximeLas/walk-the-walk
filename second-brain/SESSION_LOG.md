@@ -2,7 +2,36 @@
 
 Quick-reference index of all recorded sessions with summaries and keywords.
 
-**Last Updated:** 2025-10-14
+**Last Updated:** 2025-10-17
+
+---
+
+## 2025-10-17: Chrome DevTools MCP Testing System - Building Self-Improving Agent Infrastructure
+
+**File:** [sessions/2025-10-17-chrome-devtools-mcp-testing-system.md](sessions/2025-10-17-chrome-devtools-mcp-testing-system.md)
+
+**Summary:** Built comprehensive testing infrastructure for AI agents to use Chrome DevTools MCP reliably after discovering previous agents repeatedly failed with timeouts and false assumptions. Created three-part system: `/test-chrome` slash command for sub-agent invocation (fresh context), AGENT_GUIDE.md (~10k tokens with initialization patterns, troubleshooting real issues like hung dev servers and stale Chrome processes), and AGENT_LOG.md self-improving logging system (log immediately → bounded resolution → optional update workflow). Key insight: comprehensive documentation with proper structure beats simplified reminders—early "Key Reminders" were misleading because they oversimplified reality. Spent 6 hours investigating why "localhost doesn't work" (false assumption—connection state issue, not localhost restriction), documented mistakes prominently in CRITICAL_LESSONS_LEARNED.md to build trust through transparency. Sub-agent architecture prevents context bloat (testing consumes ~37k tokens). Acknowledge-before-execute pattern ensures agents commit to workflow upfront. System validated through successful sub-agent testing of reports page. Created PR #10 with all artifacts. Critical lesson learned: when fixing issues autonomously, must update documentation immediately without being reminded—autonomous thinking gap exposed by user feedback.
+
+**Keywords:** Chrome DevTools MCP, testing infrastructure, sub-agent architecture, AGENT_GUIDE.md, AGENT_LOG.md, self-improving systems, localhost navigation, Puppeteer, browser initialization, comprehensive documentation, troubleshooting workflows, dev server hung, stale Chrome processes, log-immediately workflow, bounded resolution, fresh context, slash command, acknowledge-before-execute pattern, false assumptions, connection state, documentation philosophy, structure over brevity, transparent failure documentation, CRITICAL_LESSONS_LEARNED.md, autonomous debugging, system design patterns, feedback loops, token consumption, context management, /test-chrome, PR #10, empirical validation, trust through transparency, mental models, documentation architecture, comprehensive over simplified
+
+**Topics:** MCP testing, agent infrastructure, documentation systems, self-improving workflows, autonomous debugging, sub-agent patterns, Chrome automation, troubleshooting methodology
+
+**Key Decisions:**
+- Use sub-agent architecture for all Chrome DevTools MCP testing (fresh context)
+- Implement log-immediately-then-resolve workflow to prevent knowledge loss
+- Comprehensive guide over simplified reminders (structure enables comprehension)
+- Add acknowledge-before-execute pattern to ensure workflow commitment
+- Document failures prominently for trust building through transparency
+
+**Key Frameworks:**
+- Log Immediately → Bounded Resolution → Optional Update (self-improvement workflow)
+- Comprehensive + Well-Structured > Brief + Oversimplified (documentation philosophy)
+- Fresh Context Architecture (main agent vs sub-agent purposes)
+- Feedback Loops in Documentation (real usage → failures logged → guide updated)
+
+**Unresolved:**
+- Should periodic synthesis agent review AGENT_LOG.md and propose guide updates?
+- Is quick reference card needed for agents who've read guide before?
 
 ---
 
