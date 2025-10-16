@@ -59,6 +59,26 @@ export default function ReportsIndex({ reports = [] }: ReportsIndexProps) {
     });
   };
 
+  const getAllFolderPaths = (items: ReportItem[]): string[] => {
+    const paths: string[] = [];
+    items.forEach((item) => {
+      if (item.type === 'folder') {
+        paths.push(item.path);
+        paths.push(...getAllFolderPaths(item.children));
+      }
+    });
+    return paths;
+  };
+
+  const expandAll = () => {
+    const allPaths = getAllFolderPaths(reports);
+    setExpandedFolders(new Set(allPaths));
+  };
+
+  const collapseAll = () => {
+    setExpandedFolders(new Set());
+  };
+
   const renderReportItem = (item: ReportItem, depth: number) => {
     const indent = depth * 24; // 24px per level
 
@@ -148,6 +168,24 @@ export default function ReportsIndex({ reports = [] }: ReportsIndexProps) {
                   </button>
                 )}
               </div>
+
+              {/* Expand/Collapse All Buttons */}
+              {mounted && reports.some((item) => item.type === 'folder') && (
+                <div className="mb-4 flex gap-2">
+                  <button
+                    onClick={expandAll}
+                    className="px-3 py-1.5 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-md transition-colors"
+                  >
+                    Expand All
+                  </button>
+                  <button
+                    onClick={collapseAll}
+                    className="px-3 py-1.5 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-md transition-colors"
+                  >
+                    Collapse All
+                  </button>
+                </div>
+              )}
 
               <div className="space-y-3">
                 {reports.map((item) => renderReportItem(item, 0))}
