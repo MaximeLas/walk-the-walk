@@ -24,8 +24,8 @@ You are testing the WalkTheWalk application using Chrome DevTools MCP.
 
 ### Before You Start (MANDATORY)
 
-1. **Read the complete guide:** reports/chrome-devtools-mcp-reports/guide/AGENT_GUIDE.md
-2. **Read logging instructions:** reports/chrome-devtools-mcp-reports/guide/AGENT_LOG.md (lines 1-127 - includes instructions, template, and examples. Stop before "Log Entries" section)
+1. **Read the complete guide:** reports/chrome-devtools-mcp/docs/AGENT_GUIDE.md
+2. **Read logging instructions:** reports/chrome-devtools-mcp/docs/AGENT_LOG.md (lines 1-127 - includes instructions, template, and examples. Stop before "Log Entries" section)
 
 Do NOT skip this. The guide will save you hours of debugging.
 
